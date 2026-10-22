@@ -1,0 +1,142 @@
+[
+  {
+    "id": "S01",
+    "text": "Hi Ma, it's Wei Jie. I lost my phone so this is my new number, please save it. Can you help me transfer $2,800 to my friend's bank account today? I'll pay you back next week.",
+    "language": "en",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Family impersonation: lost phone / new number, then a loan to a third-party bank account",
+    "source_url": "https://www.police.gov.sg/media-hub/news/2022/20220829_police_advisory_on_the_trend_of_scams_involving_scammers_pretending_to_be_friends"
+  },
+  {
+    "id": "S02",
+    "text": "Eh Auntie, guess who? I changed number already lah. My supplier chasing me, need to borrow 3k urgently. Can PayNow me or not? Tomorrow I return you.",
+    "language": "en-SG",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Fake friend 'guess who' call: changed number, loan to pay a supplier via PayNow",
+    "source_url": "https://www.scamshield.gov.sg/learn-about-scams/learn-to-recognise-scams/fake-friend-call-scams/"
+  },
+  {
+    "id": "S03",
+    "text": "Hello Uncle, guess who? I changed my number, please save this one and delete the old one ok. Next time contact me here.",
+    "language": "en-SG",
+    "kind": "scam",
+    "expected_level": "Check with family",
+    "pattern": "Fake friend, first stage only: 'guess who' and update contact details; the money request comes days later",
+    "source_url": "https://www.police.gov.sg/media-hub/news/2023/20230830_police_advisory_on_persistent_scam_variant_involving_fake_friends"
+  },
+  {
+    "id": "S04",
+    "text": "Ah Ma, my phone spoil, can't talk now, only can send voice note. Very urgent, I need $1,500 for hospital deposit tonight. PayNow to this number ok? Don't tell anyone first.",
+    "language": "en-SG",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Impersonated contact claims an emergency and asks for an urgent PayNow loan",
+    "source_url": "https://www.police.gov.sg/media-hub/news/2026/05/20260508_police_advisory_on_social_media_impersonation_scams"
+  },
+  {
+    "id": "S05",
+    "text": "We have your son. If you want him to come home safe, send $20,000 within 2 hours. Do not call the police and do not tell anybody.",
+    "language": "en",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Message claiming a loved one has been kidnapped, demanding ransom",
+    "source_url": "https://www.police.gov.sg/Media-Room/News/20200601_OTHERS_POLICE_ADVISORY_ON_MESSAGES_CLAIMING_KIDNAP_OF_LOVED_ONES"
+  },
+  {
+    "id": "S06",
+    "text": "This is Officer Tan from your bank's fraud team. We detected an unauthorised transaction of $5,000 on your account. To protect your savings you must transfer the balance to a safety account now. Please keep this confidential while we investigate.",
+    "language": "en",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Bank officer impersonation leading to a transfer to a 'safety account'",
+    "source_url": "https://www.police.gov.sg/Media-Hub/News/2024/20240727_joint_advisory_on_uptick_in_government_official_impersonation_scam_variant"
+  },
+  {
+    "id": "S07",
+    "text": "Singapore Police Force here. Your bank account is linked to a money laundering case and a warrant will be issued for your arrest. Move your money to the government safe account for investigation. Do not discuss this case with your family.",
+    "language": "en",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Government official (police) impersonation: accused of crime, told to move money to a 'safe account'",
+    "source_url": "https://scamshield.gov.sg/i-want-protection-from-scams/learn-to-recognise-scams/government-officials-impersonation-scams/"
+  },
+  {
+    "id": "S08",
+    "text": "妈，我是伟杰，我换了新号码，旧的那个不要再打了。我现在急需用钱，你可以先帮我转账五千块吗？明天就还你。",
+    "gloss": "Mum, it's Wei Jie. I changed to a new number, don't call the old one again. I urgently need money now, can you transfer 5,000 dollars for me first? I'll return it tomorrow.",
+    "language": "zh",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Family impersonation: new number, then an urgent transfer",
+    "source_url": "https://www.police.gov.sg/media-hub/news/2022/20220829_police_advisory_on_the_trend_of_scams_involving_scammers_pretending_to_be_friends"
+  },
+  {
+    "id": "S09",
+    "text": "奶奶，我出事了，现在在警察局。他们说要马上汇款三千元才能保释我。千万别告诉爸爸妈妈，求求你。",
+    "gloss": "Grandma, something happened to me, I'm at the police station now. They say you must remit 3,000 dollars immediately to bail me out. Whatever you do, don't tell Dad and Mum, I'm begging you.",
+    "language": "zh",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Impersonated relative in 'trouble with the law' asks for money",
+    "source_url": "https://www.police.gov.sg/media-hub/news/2022/20220829_police_advisory_on_the_trend_of_scams_involving_scammers_pretending_to_be_friends"
+  },
+  {
+    "id": "S10",
+    "text": "Mak, ini nombor baru saya, telefon lama hilang. Kawan saya kemalangan dan saya perlu bayar hospital segera. Tolong hantar duit $1,800 melalui PayNow ke nombor ini. Jangan beritahu ayah dulu ya.",
+    "gloss": "Mum, this is my new number, my old phone is lost. My friend had an accident and I need to pay the hospital urgently. Please send $1,800 by PayNow to this number. Don't tell Dad yet, ok.",
+    "language": "ms",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Lost phone / new number, then urgent money via PayNow",
+    "source_url": "https://www.scamshield.gov.sg/learn-about-scams/learn-to-recognise-scams/fake-friend-call-scams/"
+  },
+  {
+    "id": "G01",
+    "text": "Mak, ayah terjatuh di rumah pagi tadi. Kami di hospital sekarang, doktor kata tangan dia terseliuh sahaja. Nanti petang saya telefon Mak.",
+    "gloss": "Mum, Dad fell at home this morning. We're at the hospital now, the doctor says his wrist is only sprained. I'll call you this afternoon.",
+    "language": "ms",
+    "kind": "genuine",
+    "expected_level": "No warning signs found",
+    "pattern": "Genuine emergency (hospital), no money or secrecy",
+    "source_url": null
+  },
+  {
+    "id": "G02",
+    "text": "Ah Ma, I kena small accident on the PIE just now, only the bumper scratched, nobody hurt. Police came to take statement already. Going home now, tonight I call you ok?",
+    "language": "en-SG",
+    "kind": "genuine",
+    "expected_level": "No warning signs found",
+    "pattern": "Genuine emergency (road accident, police present), no money or secrecy",
+    "source_url": null
+  },
+  {
+    "id": "G03",
+    "text": "Hi Mum, thanks for dinner on Sunday! I've paid back the $50 you lent me through PayNow, you can check your bank app later.",
+    "language": "en",
+    "kind": "genuine",
+    "expected_level": "Check with family",
+    "pattern": "Innocent money mention (repaying a small loan); the rules count any money cue, so 'Check with family' is the honest expectation",
+    "source_url": null
+  },
+  {
+    "id": "G04",
+    "text": "妈，爸爸今天在医院做检查，医生说没什么大问题。我们下午就回家，你不用担心。",
+    "gloss": "Mum, Dad is having a check-up at the hospital today, the doctor says it's nothing serious. We'll be home this afternoon, don't worry.",
+    "language": "zh",
+    "kind": "genuine",
+    "expected_level": "No warning signs found",
+    "pattern": "Genuine hospital update, no money or secrecy",
+    "source_url": null
+  },
+  {
+    "id": "G05",
+    "text": "Hi Ma, it's Mei Ling. My company gave me a work phone, so this is my new number for office hours. My old number still works, you can call it anytime to check it's me.",
+    "language": "en",
+    "kind": "genuine",
+    "expected_level": "Check with family",
+    "pattern": "Genuine new number (work phone), no money; one High cue alone gives 'Check with family'",
+    "source_url": null
+  }
+]
