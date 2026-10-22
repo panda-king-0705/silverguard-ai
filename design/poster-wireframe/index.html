@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SilverGuard Poster Wireframe</title>
+<meta name="description" content="Draft A3 portrait wireframe for the SilverGuard AI poster: zones in reading order, word budgets, type scale and diagram reuse. Works offline as one file.">
+<link rel="icon" href="data:,">
+<style>
+/* Draft prepared with AI assistance for the Designer; to be reviewed and edited by the team. */
+:root {
+  --page-bg: #F2F0EC;
+  --ink: #1C1E21;
+  --muted: #4B5058;
+  --zone: #D9D9D9;
+  --zone-ink: #1C1E21;
+  --zone-line: #6E6E6E;
+  --badge: #1C1E21;
+  --badge-ink: #FFFFFF;
+  --flag: #8E1B13;
+  --flag-bg: #FBE9E7;
+  --focus: #0B4FD6;
+  --body-pt: 20pt;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--page-bg); color: var(--ink); font-family: var(--font); font-size: 18px; line-height: 1.45; }
+:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 16px; }
+.draft-note { display: inline-block; margin: 0 0 8px; padding: 4px 10px; font-size: 16px; border: 2px dashed var(--muted); border-radius: 8px; color: var(--muted); background: #FFFFFF; }
+h1 { font-size: 28px; margin: 4px 0; line-height: 1.2; }
+.sub { margin: 0 0 12px; color: var(--muted); }
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 10px 14px; background: #FFFFFF; border: 2px solid var(--zone-line); border-radius: 12px; margin-bottom: 14px; }
+.toolbar fieldset { border: 0; padding: 0; margin: 0; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.toolbar legend { float: left; margin-right: 6px; font-weight: 700; }
+.toolbar label { display: inline-flex; gap: 6px; align-items: center; min-height: 40px; }
+.toolbar input { width: 20px; height: 20px; }
+.toolbar select { font: inherit; min-height: 40px; }
+.status { font-size: 16px; color: var(--muted); }
+
+/* ---------- the poster, at true A3 size in mm; scaled on screen ---------- */
+.scaler { position: relative; margin: 0 auto; }
+.poster {
+  position: absolute; top: 0; left: 0; transform-origin: top left;
+  width: 297mm; height: 420mm; background: #FFFFFF; box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  padding: 10mm; display: grid; gap: 6mm;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 50mm 64mm 86mm 30mm 54mm 52mm 28mm;
+  grid-template-areas:
+    "z1 z1 z1 z1 z1 z1"
+    "z2 z2 z2 z2 z3 z3"
+    "z4 z4 z4 z4 z5 z5"
+    "z6 z6 z6 z6 z6 z6"
+    "z7 z7 z7 z8 z8 z8"
+    "z9 z9 z9 z10 z10 z10"
+    "z11 z11 z11 z11 z11 z11";
+  font-size: 10pt; line-height: 1.28;
+}
+.zone { background: var(--zone); color: var(--zone-ink); border: 0.4mm solid var(--zone-line); border-radius: 2.5mm; padding: 2.5mm 3mm; overflow: hidden; display: flex; flex-direction: column; gap: 1.5mm; min-width: 0; }
+.zone header { display: flex; gap: 2mm; align-items: center; }
+.zn { flex: none; display: inline-grid; place-items: center; width: 7mm; height: 7mm; border-radius: 50%; background: var(--badge); color: var(--badge-ink); font-weight: 800; font-size: 11pt; }
+.zone h2 { margin: 0; font-size: 12.5pt; line-height: 1.15; flex: 1; }
+.wb { flex: none; font-size: 9.5pt; font-weight: 700; background: #FFFFFF; border: 0.3mm solid var(--zone-line); border-radius: 1.5mm; padding: 0.3mm 1.5mm; }
+.notes { margin: 0; padding-left: 4mm; }
+.notes li { margin: 0 0 0.6mm; }
+.meta { margin: 0; font-size: 9pt; color: var(--muted); }
+.meta b { color: var(--ink); }
+.flag { color: var(--flag); background: var(--flag-bg); font-weight: 700; padding: 0 1mm; border-radius: 1mm; }
+.ph { border: 0.4mm dashed var(--zone-line); background: #EEEEEE; border-radius: 1.5mm; display: grid; place-items: center; text-align: center; font-size: 9.5pt; color: var(--muted); padding: 1mm; }
+.row { display: flex; gap: 2mm; flex: 1; min-height: 0; }
+.row > * { flex: 1; min-width: 0; }
+.z1 { grid-area: z1; } .z2 { grid-area: z2; } .z3 { grid-area: z3; } .z4 { grid-area: z4; } .z5 { grid-area: z5; } .z6 { grid-area: z6; }
+.z7 { grid-area: z7; } .z8 { grid-area: z8; } .z9 { grid-area: z9; } .z10 { grid-area: z10; } .z11 { grid-area: z11; }
+.z1 { background: #C4C4C4; }
+.z11 { position: relative; padding-right: 28mm; }
+.z11 .qr { position: absolute; right: 3mm; top: 2.5mm; width: 22mm; height: 22mm; font-size: 8pt; line-height: 1.15; }
+.z4 { background: #CFCFCF; }
+
+/* density test: budgeted words at the suggested sizes */
+.fill, .fill-row { display: none; }
+.density .fill-row { display: flex; }
+.density .notes, .density .meta, .density .note-only { display: none; }
+.density .fill { display: block; font-size: var(--body-pt); line-height: 1.25; margin: 0; color: #3A3A3A; }
+.density .fill.title { font-size: 72pt; font-weight: 800; line-height: 1; }
+.density .fill.hook { font-size: 32pt; font-weight: 600; line-height: 1.1; }
+.density .fill.stat { font-size: 48pt; font-weight: 800; line-height: 1; }
+.density .fill.privacy { font-size: 32pt; font-weight: 700; line-height: 1.1; }
+.density .fill.small { font-size: 12pt; }
+.ph-head { display: none; }
+.density .wf, .density .wb { display: none; }
+.density .ph-head { display: inline; }
+.density .zone h2 { font-size: 32pt; line-height: 1.1; }
+.density .z1 header, .density .z6 header { display: none; }
+.density .z11 h2 { font-size: 14pt; }
+.density .z11 .zn { width: 7mm; height: 7mm; font-size: 11pt; }
+.density .zn { width: 12mm; height: 12mm; font-size: 20pt; }
+.density .stats { display: flex; gap: 3mm; }
+.density .stats > div { flex: 1; }
+.over { outline: 1.2mm solid var(--flag); outline-offset: -1.2mm; }
+
+/* ---------- reference tables below the poster ---------- */
+.below { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+@media (max-width: 860px) { .below { grid-template-columns: 1fr; } }
+.card { background: #FFFFFF; border: 2px solid var(--zone-line); border-radius: 12px; padding: 14px; }
+.card h2 { font-size: 20px; margin: 0 0 8px; }
+table { border-collapse: collapse; width: 100%; font-size: 16px; }
+th, td { text-align: left; border-bottom: 1px solid #B8B8B8; padding: 5px 6px; vertical-align: top; }
+th { font-weight: 700; }
+td.n { text-align: right; font-variant-numeric: tabular-nums; }
+.card p { font-size: 16px; margin: 8px 0 0; }
+
+@page { size: A3 portrait; margin: 0; }
+@media print {
+  body { background: #FFFFFF; }
+  .wrap > :not(.scaler) { display: none !important; }
+  .wrap { padding: 0; max-width: none; }
+  .scaler { width: auto !important; height: auto !important; }
+  .poster { position: static; transform: none !important; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="draft-note">Draft prepared with AI assistance for the Designer; to be reviewed and edited by the team.</p>
+  <h1>SilverGuard AI: A3 poster wireframe</h1>
+  <p class="sub">Sprint 1 · backlog item P3 · A3 portrait (297 × 420 mm). Grey zones in reading order 1 → 11; each shows its job, word budget, type and which diagram to reuse.</p>
+
+  <div class="toolbar" role="group" aria-label="View options">
+    <fieldset>
+      <legend>View</legend>
+      <label><input type="radio" name="mode" value="notes" checked> Content notes</label>
+      <label><input type="radio" name="mode" value="density"> Density test (budgeted words at real size)</label>
+    </fieldset>
+    <label>Body size <select id="body-pt" aria-label="Body text size for the density test">
+      <option value="16">16 pt</option><option value="18">18 pt</option><option value="20" selected>20 pt</option><option value="24">24 pt</option><option value="28">28 pt</option>
+    </select></label>
+    <label><input type="checkbox" id="fit" checked> Fit to window width</label>
+    <span class="status" id="status" aria-live="polite"></span>
+  </div>
+
+  <div class="scaler" id="scaler">
+  <article class="poster" id="poster" aria-label="A3 poster wireframe">
+
+    <section class="zone z1" data-words="11" aria-labelledby="z1h">
+      <header><span class="zn">1</span><h2 id="z1h"><span class="wf">Title + one-line hook</span><span class="ph-head" aria-hidden="true"></span></h2><span class="wb">11 words</span></header>
+      <ul class="notes">
+        <li><b>SilverGuard AI</b> + a hook that names the person and the moment, e.g. draft: “When a cloned voice says ‘Ma, it’s me’, family hears first.” (team to choose final wording)</li>
+        <li>Team name, course (CC0007, Cluster D-23). No third-party logos.</li>
+      </ul>
+      <p class="meta"><b>Type:</b> title 72 pt (readable to ~3.8 m), hook 32 pt (~1.7 m). <b>Visual:</b> none, or our own shield mark.</p>
+      <p class="fill title">SilverGuard AI</p>
+      <p class="fill hook" data-n="9"></p>
+    </section>
+
+    <section class="zone z2" data-words="30" aria-labelledby="z2h">
+      <header><span class="zn">2</span><h2 id="z2h"><span class="wf">The problem: three numbers</span><span class="ph-head" aria-hidden="true">The problem</span></h2><span class="wb">30 words</span></header>
+      <div class="row note-only">
+        <div class="ph note-only"><b>S$913.1M</b><br>lost to scams in Singapore in 2025 (all scam types)<br>[SPF 2025 brief, via Malay Mail 26 Feb 2026]</div>
+        <div class="ph note-only"><b>Highest average loss</b><br>per victim was in the elderly group in 2024, though only 8.4% of victims were 65+<br><span class="flag">65+ cut-off and 8.4%: verify against SPF brief</span></div>
+        <div class="ph note-only"><b>20.7%</b><br>of citizens were 65+ in June 2025<br>[Population in Brief 2025]</div>
+      </div>
+      <p class="meta"><b>Sources strip</b> under the stats, 12 pt: short cites [1]–[3]. <b>Honesty:</b> S$913.1M covers all scams, not only voice clones; 85.2% of 2025 victims were under 65, so the hook is “seniors lose most per case”, not “seniors are most victims”. <b>Type:</b> numbers 48 pt, labels 20 pt.</p>
+      <div class="fill stats"><div><p class="fill stat">S$913M</p><p class="fill" data-n="5"></p></div><div><p class="fill stat">65+</p><p class="fill" data-n="5"></p></div><div><p class="fill stat">20.7%</p><p class="fill" data-n="5"></p></div></div>
+      <p class="fill small" data-n="10"></p>
+    </section>
+
+    <section class="zone z3" data-words="22" aria-labelledby="z3h">
+      <header><span class="zn">3</span><h2 id="z3h"><span class="wf">Why today’s defences miss it</span><span class="ph-head" aria-hidden="true">Blind spots</span></h2><span class="wb">22 words</span></header>
+      <ul class="notes">
+        <li><b>Ears can’t tell:</b> people cannot reliably spot cloned speech [Mai et al. 2023; Barrington et al. 2024].</li>
+        <li><b>Detectors are weak</b> on phone audio and new clones [Yi et al. 2023; <span class="flag">quote exact finding</span>].</li>
+        <li><b>ScamShield can’t see app calls:</b> it cannot block WhatsApp/Telegram calls [ask.gov.sg].</li>
+      </ul>
+      <p class="meta"><b>Visual:</b> three small icons.</p>
+      <p class="fill" data-n="20"></p>
+    </section>
+
+    <section class="zone z4" data-words="30" aria-labelledby="z4h">
+      <header><span class="zn">4</span><h2 id="z4h"><span class="wf">The solution: three layers of protection</span><span class="ph-head" aria-hidden="true">Three layers</span></h2><span class="wb">30 words</span></header>
+      <div class="row note-only">
+        <div class="ph note-only"><b>1 · Before answering</b><br>Guardian Alert: unknown calls silenced, never blocked; Wei Jie alerted in seconds. <i>Later: telco transfers the call.</i></div>
+        <div class="ph note-only"><b>2 · During the scam</b><br>Pause &amp; Verify button · Scam Check (voice note, screenshot, chat) · Family Drill practice calls</div>
+        <div class="ph note-only"><b>3 · Before money moves</b><br>Bank cooling-off check with a partner bank. <i>Later.</i></div>
+        <div class="ph"><b>Reuse:</b> docs/diagrams/guardian-alert-flow.png (simplified to the 4 bottom boxes) + 3 phone shots from design/clickable-screens (home, High risk, Practice call)</div>
+      </div>
+      <p class="meta"><b>Label honestly:</b> “in our demo” vs “later, with partners”. <b>Type:</b> layer names 28 pt, body 20 pt.</p>
+      <div class="row fill-row"><p class="fill" data-n="28"></p><div class="ph fill-ph" style="flex:0 0 95mm">guardian-alert-flow + 3 phone shots</div></div>
+    </section>
+
+    <section class="zone z5" data-words="28" aria-labelledby="z5h">
+      <header><span class="zn">5</span><h2 id="z5h"><span class="wf">How the AI decides</span><span class="ph-head" aria-hidden="true">How it decides</span></h2><span class="wb">28 words</span></header>
+      <ul class="notes">
+        <li>Reads the <b>scam script</b>, not the voice: money request, secrecy, new number, urgency, authority, emotional pressure.</li>
+        <li>Three levels: <b>High risk · Check with family · No warning signs found</b>. There is no “safe”.</li>
+        <li>Required line: the demo uses a simplified rules engine; the product runs a trained model on the phone.</li>
+      </ul>
+      <p class="meta"><b>Visual:</b> 6 cue chips → 3 level chips (words + icon + colour). <b>Reuse:</b> cue table from docs/prototype-design.md.</p>
+      <p class="fill" data-n="25"></p>
+    </section>
+
+    <section class="zone z6" data-words="13" aria-labelledby="z6h">
+      <header><span class="zn">6</span><h2 id="z6h"><span class="wf">The privacy line</span><span class="ph-head" aria-hidden="true"></span></h2><span class="wb">13 words</span></header>
+      <ul class="notes"><li>One sentence, large: “Audio, screenshots and chat text never leave the phone. Only the alert does.”</li></ul>
+      <p class="meta"><b>Reuse:</b> docs/diagrams/architecture.png, cropped to phone → <i>Privacy line</i> → cloud (drop the cloud detail boxes). <b>Type:</b> 32 pt, full-width band.</p>
+      <div class="row fill-row"><p class="fill privacy" data-n="13"></p><div class="ph fill-ph" style="flex:0 0 45mm">architecture crop</div></div>
+    </section>
+
+    <section class="zone z7" data-words="22" aria-labelledby="z7h">
+      <header><span class="zn">7</span><h2 id="z7h"><span class="wf">Business case</span><span class="ph-head" aria-hidden="true">Business case</span></h2><span class="wb">22 words</span></header>
+      <ul class="notes">
+        <li><b>Who uses:</b> seniors and adult-child guardians.</li>
+        <li><b>Who pays:</b> <span class="flag">from B1 Budget v2 (PO)</span>, e.g. family plan vs. telco/bank-funded.</li>
+        <li><b>Who partners:</b> telco (Tier 2 call transfer), bank (Tier 3 cooling-off).</li>
+        <li><b>Seed ask:</b> <span class="flag">S$ amount from B1</span> → 16-week MVP and 200-household pilot.</li>
+      </ul>
+      <p class="meta"><b>Reuse:</b> docs/diagrams/mvp-timeline.png as a strip (“what the seed buys”). Answers A1 feedback on the business lens.</p>
+      <div class="row fill-row"><p class="fill" data-n="20"></p><div class="ph fill-ph" style="flex:0 0 40mm">mvp-timeline strip</div></div>
+    </section>
+
+    <section class="zone z8" data-words="24" aria-labelledby="z8h">
+      <header><span class="zn">8</span><h2 id="z8h"><span class="wf">How our thinking evolved</span><span class="ph-head" aria-hidden="true">How we changed</span></h2><span class="wb">24 words</span></header>
+      <ul class="notes">
+        <li><b>Assignment 1:</b> <span class="flag">team to state A1 position in one line</span></li>
+        <li><b>Feedback:</b> add a business lens; prefer peer-reviewed over vendor sources; add local context (dialect, filial piety, household).</li>
+        <li><b>Now:</b> detect the script, not the voice; family in the loop; partners pay for later tiers.</li>
+      </ul>
+      <p class="meta"><b>Visual:</b> three-step arrow A1 → feedback → now.</p>
+      <p class="fill" data-n="21"></p>
+    </section>
+
+    <section class="zone z9" data-words="24" aria-labelledby="z9h">
+      <header><span class="zn">9</span><h2 id="z9h"><span class="wf">What grandparents told us</span><span class="ph-head" aria-hidden="true">Grandparents said</span></h2><span class="wb">24 words</span></header>
+      <ul class="notes">
+        <li>2–3 short quotes from V2 sessions, with consent, anonymised (e.g. “Mdm L., 70s”). <span class="flag">needs quote</span></li>
+        <li>Optional: one observed result, e.g. “x of y found the Pause button unaided”. <span class="flag">needs data</span></li>
+      </ul>
+      <p class="meta"><b>Type:</b> quotes 20 pt italic. Do not invent or paraphrase quotes into quote marks.</p>
+      <p class="fill" data-n="22"></p>
+    </section>
+
+    <section class="zone z10" data-words="24" aria-labelledby="z10h">
+      <header><span class="zn">10</span><h2 id="z10h"><span class="wf">Risks and how we limit them</span><span class="ph-head" aria-hidden="true">Risks and limits</span></h2><span class="wb">24 words</span></header>
+      <ul class="notes">
+        <li>False alarms → no “safe” verdict; thresholds set on a test set.</li>
+        <li>Family misuse → senior chooses and removes the guardian; content never shared.</li>
+        <li>App calls and iPhone limits → Pause &amp; Verify and Scam Check still work.</li>
+        <li>Dialects → “Couldn’t check; ask family”.</li>
+      </ul>
+      <p class="meta"><b>Visual:</b> two-column risk → mitigation list.</p>
+      <p class="fill" data-n="21"></p>
+    </section>
+
+    <section class="zone z11" data-words="48" aria-labelledby="z11h">
+      <header><span class="zn">11</span><h2 id="z11h"><span class="wf">Sources · AI-usage note · demo QR</span><span class="ph-head" aria-hidden="true">Sources</span></h2><span class="wb">48 words</span></header>
+      <ul class="notes">
+        <li>Numbered short sources [1]–[8], 12 pt; full list in repo.</li>
+        <li>AI-usage note (1–2 lines) <span class="flag">wording from V4 log (SM)</span>.</li>
+      </ul>
+      <div class="ph qr">QR 22 mm → demo <span class="flag">URL: team decides</span></div>
+      <p class="fill small" data-n="47"></p>
+    </section>
+
+  </article>
+  </div>
+
+  <div class="below">
+    <section class="card" aria-labelledby="budget-h">
+      <h2 id="budget-h">Word budget (poster total ≤ 450)</h2>
+      <table id="budget">
+        <thead><tr><th>Zone</th><th>Job</th><th class="n">Words</th></tr></thead>
+        <tbody></tbody>
+        <tfoot><tr><th></th><th>Total</th><th class="n" id="total"></th></tr></tfoot>
+      </table>
+      <p>Budgets include headings, diagram labels and the short sources strip (everything printed except the QR code). They are set to what <b>measurably fits at 20 pt body</b> with the planned diagrams (density test). The 450-word ceiling would need about 15 pt body, readable only from about 0.8 m; 16 pt fits about 420 words. Team decision: see README.</p>
+    </section>
+    <section class="card" aria-labelledby="type-h">
+      <h2 id="type-h">Type scale for A3 read at 1–2 m</h2>
+      <table>
+        <thead><tr><th>Role</th><th class="n">Size</th><th class="n">Readable to*</th></tr></thead>
+        <tbody>
+          <tr><td>Title</td><td class="n">72 pt</td><td class="n">3.8 m</td></tr>
+          <tr><td>Stat numbers</td><td class="n">48 pt</td><td class="n">2.5 m</td></tr>
+          <tr><td>Hook, zone headings, privacy line</td><td class="n">32 pt</td><td class="n">1.7 m</td></tr>
+          <tr><td>Layer names, diagram labels</td><td class="n">28 pt</td><td class="n">1.5 m</td></tr>
+          <tr><td>Body, quotes</td><td class="n">20 pt</td><td class="n">1.05 m</td></tr>
+          <tr><td>Sources strip, AI note</td><td class="n">12 pt</td><td class="n">0.6 m</td></tr>
+        </tbody>
+      </table>
+      <p>*Distance at which the x-height reaches 0.2° of visual angle, the typical critical print size for normally sighted readers (Legge &amp; Bigelow 2011, <i>Journal of Vision</i> 11(5):8). Assumes x-height ≈ 0.52 of the font size (system sans fonts), so treat as a guide. Rule of thumb: 2 m needs about 38 pt, 1 m about 19 pt. On A3 only the title and the three numbers carry past 2 m; headings work at about 1.7 m and body text at 1 m.</p>
+    </section>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var FILLER = "a caller asked for money and told her to keep it secret because it was urgent so she pressed the button and called her son first before any transfer".split(" ");
+  var poster = document.getElementById("poster");
+  var zones = Array.prototype.slice.call(poster.querySelectorAll(".zone"));
+
+  // Fill density-test paragraphs with the budgeted number of words.
+  poster.querySelectorAll(".fill[data-n]").forEach(function (p, j) {
+    var n = parseInt(p.getAttribute("data-n"), 10), out = [];
+    for (var i = 0; i < n; i++) out.push(FILLER[(i + j * 7) % FILLER.length]);
+    p.textContent = out.join(" ");
+  });
+
+  // Budget table from the zones themselves, so the two cannot drift apart.
+  var tbody = document.querySelector("#budget tbody"), total = 0;
+  zones.forEach(function (z) {
+    var w = parseInt(z.getAttribute("data-words"), 10); total += w;
+    var tr = document.createElement("tr");
+    tr.innerHTML = "<td></td><td></td><td class='n'></td>";
+    tr.children[0].textContent = z.querySelector(".zn").textContent;
+    tr.children[1].textContent = z.querySelector("h2 .wf").textContent;
+    tr.children[2].textContent = w;
+    tbody.appendChild(tr);
+  });
+  document.getElementById("total").textContent = total + (total <= 450 ? " ✓" : " (over 450)");
+
+  function checkOverflow() {
+    var over = [];
+    zones.forEach(function (z) {
+      var o = z.scrollHeight > z.clientHeight + 1;
+      z.classList.toggle("over", o && poster.classList.contains("density"));
+      if (o) over.push(z.querySelector(".zn").textContent);
+    });
+    var st = document.getElementById("status");
+    if (poster.classList.contains("density")) {
+      st.textContent = over.length ? "Overflowing zones (red outline): " + over.join(", ") : "All zones fit at this body size.";
+    } else { st.textContent = ""; }
+    return over;
+  }
+
+  function fit() {
+    var sc = document.getElementById("scaler"), W = poster.offsetWidth, H = poster.offsetHeight, s = 1;
+    if (document.getElementById("fit").checked) s = Math.min(1, sc.parentElement.clientWidth / W);
+    poster.style.transform = s === 1 ? "none" : "scale(" + s + ")";
+    sc.style.width = (W * s) + "px"; sc.style.height = (H * s) + "px";
+  }
+
+  function setMode(m) { poster.classList.toggle("density", m === "density"); checkOverflow(); }
+  document.querySelectorAll("input[name=mode]").forEach(function (r) { r.addEventListener("change", function () { setMode(r.value); }); });
+  document.getElementById("body-pt").addEventListener("change", function (e) {
+    document.documentElement.style.setProperty("--body-pt", e.target.value + "pt"); checkOverflow();
+  });
+  document.getElementById("fit").addEventListener("change", fit);
+  window.addEventListener("resize", fit);
+  window.posterCheck = checkOverflow; // used by the headless check
+  fit();
+})();
+</script>
+</body>
+</html>
