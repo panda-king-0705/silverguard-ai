@@ -1,0 +1,40 @@
+> Draft prepared with AI assistance for the scrum master; to be reviewed and edited by the team.
+
+# Decision and AI-usage log
+
+This file is backlog item V4 ([#17](https://github.com/panda-king-0705/silverguard-ai/issues/17)). It records what the team decided, why, who decided, and what part AI played, so the poster's AI-usage section and each person's reflection rest on real evidence.
+
+The AI seeded the entries below from the team's design doc and project notes. Each is marked **AI-proposed; team to confirm** unless it says otherwise. To confirm an entry, a teammate replaces the status with "Confirmed by <role>, <date>", or writes down what the team changed. If the team overrides an entry, keep the old text, strike it through (`~~like this~~`), and add the reason.
+
+Dates: the design doc that records most of these is dated 22 Oct 2026. Where the actual decision date is unknown, the entry says "date to confirm".
+
+## How to add an entry
+
+Copy this row and fill in every column. Leave none blank: write "none" or "not known" instead.
+
+| # | Date | Decision | Options considered | Why | Decided by | AI's role | Evidence link | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| n | dd Mon 2026 | What we chose, in one line | Every option, including the ones we rejected | The reason, with a source if factual | Role(s) or "whole team" | None / drafted options / researched / proposed; plus what humans changed | Link to file, issue, or screenshot in `docs/process/evidence/` | AI-proposed; team to confirm / Confirmed by … |
+
+## Entries
+
+| # | Date | Decision | Options considered | Why | Decided by | AI's role | Evidence link | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 22 Oct 2026 | The pitch audience is investors. | Government; adult children; investors | The professor settled it at the consult. Investors want to know who uses it, who pays and who partners. | The professor, at the consult | None in the decision; AI then reshaped the pitch plan around it | Consult notes (team's private board, not in this repo) | Decided by the professor; team to confirm the record |
+| 2 | 22 Oct 2026 or earlier (date to confirm) | The core product is education plus verification; live call monitoring is a later by-product. | Live call monitoring as the core; education plus verification as the core | The professor asked the team to pick one. Ordinary apps cannot hear calls, so the verification-first order can be defended today; live monitoring needs a telco or phone-maker partner. | Team to record | Proposed this ordering | [prototype-design.md, Summary and Partner integrations](../prototype-design.md) | AI-proposed; team to confirm |
+| 3 | 22 Oct 2026 or earlier (date to confirm) | The verdict comes from scam-script cues (money request, secrecy, identity switch, urgency, authority, emotional pressure), not from voice-clone detection. | An acoustic deepfake score; script cues; both | Research shows people cannot reliably tell cloned voices by ear, and detectors generalise poorly to new cloning tools and phone-quality audio: [Mai et al. 2023, PLOS ONE](https://doi.org/10.1371/journal.pone.0285333); [Barrington, Cooper & Farid 2024, arXiv](https://arxiv.org/abs/2410.03791), since published in [Scientific Reports 15, 11004 (2025)](https://doi.org/10.1038/s41598-025-94170-3); [Yi et al. 2023, arXiv survey](https://arxiv.org/abs/2308.14970) | Team to record | Proposed it and linked the sources | [prototype-design.md, Scam Check engine](../prototype-design.md#scam-check-engine) | AI-proposed; team to confirm |
+| 4 | Date to confirm | Unknown calls are silenced and a guardian is alerted, never blocked; the senior can always answer. | Block unknown calls; silence plus alert; do nothing | Keeps the senior in control and never stops a real emergency call | Whole team (team idea, refined with AI) | Refined the idea: fail-open rules, the "Wei Jie has been told" notice | [prototype-design.md, Guardian Alert](../prototype-design.md#guardian-alert) | Team idea; team to confirm the record |
+| 5 | Date to confirm | A true call transfer needs a telco partner (Tier 2), because Android apps cannot forward calls. | Transfer from the app; transfer through a telco | Android's call-screening API can block, reject or silence a call, not forward it ([Android Developers](https://developer.android.com/develop/connectivity/telecom/dialer-app/screen-calls)). | Whole team, based on AI research | Researched the platform limits | [prototype-design.md, Telco guardian transfer](../prototype-design.md#telco-guardian-transfer-tier-2) | Team decision; team to confirm the record |
+| 6 | 22 Oct 2026 or earlier (date to confirm) | All AI runs on the phone; audio, screenshots and chat text never leave it. | Cloud AI; on-device AI | Answers the professor's privacy concern. On-device scam analysis already exists: Google's Pixel Scam Detection stores and sends no audio or transcript ([Google help](https://support.google.com/phoneapp/answer/15654065?hl=en)). | Team to record | Proposed it | [prototype-design.md, Data and privacy](../prototype-design.md#data-and-privacy) | AI-proposed; team to confirm |
+| 7 | Date to confirm | Scam Check covers screenshots and pasted chats (and voice notes in the product). | Check single messages or links only; whole chats and screenshots | Seniors can share what worried them without the app reading their chat history | Whole team (team idea) | Designed the engine and the pitch-demo version | [prototype-design.md, Scam Check](../prototype-design.md#scam-check) | Team idea; team to confirm the record |
+| 8 | 22 Oct 2026 or earlier (date to confirm) | Drills use stock voices in v1; cloned family voices come only after a consent study. | Stock voices; cloned family voices with consent | Avoids real distress and voice-consent problems in the prototype | Team to record | Proposed it | [prototype-design.md, Trade-offs](../prototype-design.md#trade-offs) | AI-proposed; team to confirm |
+| 9 | Date to confirm | The repo is public. The working board with instructor feedback stays out of it. | Public now; private until grading | Team choice. Instructor feedback and consult notes are not ours to publish. | Whole team (team choice) | None in the choice | This repo; issue [#27](https://github.com/panda-king-0705/silverguard-ai/issues/27) | Team choice. **Check:** C4 (#27) is still open; close it with this entry, or reverse it |
+| 10 | 22 Oct 2026 onwards | The design doc, the delivery plan and the Sprint 1 drafts (this log, the sprint plan, the GitHub backlog) were prepared with Claude. Team review and overrides are recorded here. | Write everything by hand; AI drafts with human review | Faster first drafts; the course grades a documented human-AI process | Team to record | Drafted the documents and created the GitHub labels, milestones and issues #1–#27 | [prototype-design.md](../prototype-design.md); [sprint-1-plan.md](sprint-1-plan.md); [issues](https://github.com/panda-king-0705/silverguard-ai/issues) | AI-proposed; team to confirm, and add an override row for each change |
+
+## Overrides and changes to AI drafts
+
+Add a row whenever the team rejects or changes something the AI proposed. These rows are the strongest evidence of human judgement.
+
+| Date | What the AI proposed | What the team did instead | Why | Who | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| | | | | | |
