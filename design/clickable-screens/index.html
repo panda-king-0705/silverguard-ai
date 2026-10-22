@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SilverGuard Clickable Screens</title>
+<meta name="description" content="Draft click-through prototype of six SilverGuard AI screens (senior app and guardian alert), works offline as one file.">
+<link rel="icon" href="data:,">
+<style>
+/* Draft prepared with AI assistance for the Designer; to be reviewed and edited by the team. */
+:root {
+  /* Colour tokens. Every text pair is checked to at least 4.5:1 (see README). */
+  --page-bg: #EFE8DC;      /* warm sand, presenter page */
+  --screen-bg: #FFFBF4;    /* warm white, senior screens */
+  --ink: #1C1E21;
+  --muted: #4B5058;
+  --line: #8C857A;         /* borders on light surfaces (3:1 non-text) */
+  --teal: #0E4F54;         /* Pause & Verify */
+  --indigo: #2F3B73;       /* Scam Check */
+  --green: #17643A;        /* call buttons */
+  --red: #B3261E;          /* hang up, risk border */
+  --risk-bg: #FBE9E7;
+  --risk-ink: #8E1B13;
+  --ok-bg: #E7F3EA;
+  --ok-ink: #1D5E33;
+  --amber: #F2C14E;        /* "Practice call" label */
+  --dark: #14232B;         /* practice call background */
+  --pale: #C9D3D9;         /* secondary text on dark */
+  --slate: #2E3A46;        /* generic messaging header */
+  --chat-bg: #E9ECEF;
+  --white: #FFFFFF;
+  --focus: #0B4FD6;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial,
+          "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC",
+          "Noto Sans Tamil", "Tamil Sangam MN", "Nirmala UI", "Latha", sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body {
+  background: var(--page-bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 18px;
+  line-height: 1.45;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+[tabindex="-1"]:focus { outline: none; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- presenter page ---------- */
+.top { max-width: 1100px; margin: 0 auto; padding: 16px 16px 0; }
+.draft-note {
+  display: inline-block; margin: 0 0 8px; padding: 4px 10px; font-size: 16px;
+  border: 2px dashed var(--muted); border-radius: 8px; color: var(--muted); background: var(--screen-bg);
+}
+.top h1 { margin: 4px 0 2px; font-size: 28px; line-height: 1.2; }
+.top p.sub { margin: 0; color: var(--muted); }
+.layout {
+  max-width: 1100px; margin: 0 auto; padding: 16px;
+  display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 24px; align-items: start;
+}
+@media (max-width: 760px) { .layout { grid-template-columns: 1fr; } }
+.controls h2 { font-size: 18px; margin: 0 0 8px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.panel { background: var(--screen-bg); border: 2px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 16px; }
+.picker { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.picker button {
+  width: 100%; min-height: 48px; text-align: left; display: flex; gap: 10px; align-items: center;
+  padding: 8px 12px; border-radius: 10px; border: 2px solid transparent; background: transparent;
+}
+.picker button:hover { border-color: var(--line); }
+.picker button[aria-current="true"] { background: var(--ink); color: var(--white); }
+.picker .num {
+  display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid currentColor; font-weight: 700; font-size: 16px; flex: none;
+}
+.langs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.langs button {
+  min-height: 48px; border-radius: 10px; border: 2px solid var(--ink); background: var(--white); font-weight: 600;
+}
+.langs button[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+.note { font-size: 16px; color: var(--muted); margin: 10px 0 0; }
+.note.warn { color: var(--ink); background: #FFF1C9; border-left: 6px solid #8A5A00; padding: 8px 10px; border-radius: 6px; }
+.tips { font-size: 16px; color: var(--muted); margin: 0; padding-left: 20px; }
+.fit { display: flex; gap: 8px; align-items: center; font-size: 16px; margin-top: 8px; min-height: 32px; }
+.fit input { width: 22px; height: 22px; }
+
+.stage { display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0; }
+.caption { margin: 0; font-size: 18px; text-align: center; max-width: 420px; }
+.caption strong { display: block; }
+.phone-scaler { position: relative; }
+.phone {
+  position: absolute; top: 0; left: 0; transform-origin: top left;
+  width: 414px; height: 868px; /* 390 x 844 screen + 12px bezel */
+  border: 12px solid #101214; border-radius: 52px; background: #101214;
+  box-shadow: 0 18px 40px rgba(28, 30, 33, .25); overflow: hidden;
+}
+.statusbar {
+  height: 40px; padding: 0 26px; display: flex; align-items: center; justify-content: space-between;
+  font-size: 16px; font-weight: 600; background: var(--screen-bg); color: var(--ink);
+}
+.statusbar .bars { display: flex; gap: 6px; align-items: center; }
+.statusbar .bars i { display: inline-block; width: 22px; height: 11px; border: 2px solid currentColor; border-radius: 3px; position: relative; }
+.statusbar .bars i::after { content: ""; position: absolute; inset: 1px 5px 1px 1px; background: currentColor; border-radius: 1px; }
+.statusbar.dark { background: var(--dark); color: var(--white); }
+.statusbar.slate { background: var(--slate); color: var(--white); }
+.screen-area { position: relative; height: 804px; background: var(--screen-bg); }
+
+/* ---------- phone screens ---------- */
+.screen {
+  position: absolute; inset: 0; overflow-y: auto; padding: 18px 20px 24px;
+  font-size: 22px; line-height: 1.4; background: var(--screen-bg); color: var(--ink);
+  display: flex; flex-direction: column; gap: 14px;
+  animation: enter .22s ease-out;
+}
+.screen[hidden] { display: none; }
+@keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.screen h2 { margin: 0; font-size: 30px; line-height: 1.2; }
+.screen p { margin: 0; }
+.small { font-size: 20px; color: var(--muted); }
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 22px; color: var(--teal); }
+.brand svg { font-size: 30px; }
+.back {
+  align-self: flex-start; min-height: 64px; padding: 0 16px 0 8px; display: inline-flex; align-items: center; gap: 6px;
+  border: 2px solid var(--line); border-radius: 14px; background: var(--white); font-size: 20px; font-weight: 600;
+}
+.back svg { font-size: 26px; }
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%;
+  min-height: 64px; padding: 10px 18px; border-radius: 18px; border: 3px solid transparent;
+  font-size: 22px; font-weight: 700; line-height: 1.25; text-align: center;
+}
+.btn svg { font-size: 30px; }
+.btn.primary { background: var(--teal); color: var(--white); }
+.btn.call { background: var(--green); color: var(--white); }
+.btn.outline { background: var(--white); color: var(--ink); border-color: var(--ink); }
+.btn.dark { background: var(--ink); color: var(--white); }
+.btn.hangup { background: var(--red); color: var(--white); }
+.btn.pause { background: var(--amber); color: var(--ink); }
+
+/* 1 home */
+.home-buttons { display: flex; flex-direction: column; gap: 18px; flex: 1; }
+.big {
+  flex: 1; min-height: 220px; border: 0; border-radius: 26px; color: var(--white); padding: 20px;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 6px; text-align: left;
+}
+.big svg { font-size: 54px; margin-bottom: auto; }
+.big .main { font-size: 32px; font-weight: 800; line-height: 1.15; }
+.big .sub { font-size: 22px; font-weight: 600; opacity: .95; }
+.big.pv { background: var(--teal); }
+.big.sc { background: var(--indigo); }
+.guardian-line { display: flex; align-items: center; gap: 10px; font-size: 20px; color: var(--muted); }
+.guardian-line svg { font-size: 26px; }
+
+/* 2 pause & verify */
+.progress { display: flex; align-items: center; gap: 10px; font-size: 20px; color: var(--muted); }
+.dots { display: flex; gap: 6px; }
+.dots span { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--muted); }
+.dots span.on { background: var(--teal); border-color: var(--teal); }
+.question { font-size: 32px; font-weight: 800; line-height: 1.2; }
+.yesno { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: auto; }
+.yesno .btn { min-height: 110px; font-size: 30px; flex-direction: column; gap: 4px; }
+.speak-status { font-size: 20px; color: var(--muted); min-height: 28px; }
+.stop-card { background: var(--risk-bg); color: var(--risk-ink); border: 3px solid var(--red); border-radius: 18px; padding: 16px; }
+.stop-card h2 { color: var(--risk-ink); display: flex; gap: 10px; align-items: flex-start; }
+.stop-card h2 svg { font-size: 34px; margin-top: 2px; }
+.callbig { min-height: 140px; flex-direction: column; font-size: 30px; border-radius: 24px; }
+.callbig svg { font-size: 44px; }
+.callbig .num { font-size: 22px; font-weight: 600; letter-spacing: .02em; }
+.ok-card { background: var(--ok-bg); color: var(--ok-ink); border-radius: 18px; padding: 16px; border: 3px solid var(--ok-ink); }
+.ok-card h2 { color: var(--ok-ink); }
+.nowrap { white-space: nowrap; }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.topbar { display: flex; align-items: center; gap: 12px; }
+.topbar h2 { flex: 1; min-width: 0; }
+/* Action bar stays visible when longer translations make a screen scroll. */
+.actions-sticky { position: sticky; bottom: -24px; margin: auto -20px -24px; padding: 12px 20px 24px; background: var(--screen-bg); box-shadow: 0 -10px 12px -10px rgba(28, 30, 33, .35); }
+.push { margin-top: auto; }
+
+/* 3 scam check */
+.checked { display: flex; gap: 10px; align-items: center; font-size: 20px; color: var(--muted); }
+.risk {
+  border: 4px solid var(--red); background: var(--risk-bg); color: var(--risk-ink); border-radius: 20px; padding: 16px;
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: center;
+}
+.risk svg { font-size: 56px; grid-row: span 2; }
+.risk .level { font-size: 34px; font-weight: 800; line-height: 1.1; }
+.risk .what { font-size: 21px; font-weight: 600; }
+.reasons { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.reasons li { display: flex; gap: 12px; align-items: flex-start; font-size: 22px; font-weight: 600; }
+.reasons svg { font-size: 26px; color: var(--risk-ink); margin-top: 3px; }
+.stayed { display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 20px; color: var(--ok-ink); font-weight: 600; }
+.stayed svg { font-size: 24px; }
+.sheet { border-top: 3px solid var(--ink); display: grid; gap: 12px; }
+
+/* 4 drill */
+.screen.drill { background: var(--dark); color: var(--white); --focus: #FFD24A; }
+.practice-label {
+  align-self: center; display: inline-flex; gap: 10px; align-items: center; padding: 8px 18px; border-radius: 999px;
+  background: var(--amber); color: var(--ink); font-weight: 800; font-size: 26px;
+}
+.drill .not-real { text-align: center; color: var(--pale); font-size: 20px; }
+.caller { text-align: center; display: grid; gap: 4px; justify-items: center; }
+.avatar { width: 96px; height: 96px; border-radius: 50%; background: #2C3E48; display: grid; place-items: center; font-size: 48px; font-weight: 800; color: var(--white); }
+.caller .name { font-size: 30px; font-weight: 800; }
+.caller .numtxt { font-size: 22px; color: var(--pale); }
+.hear { border: 2px solid var(--pale); border-radius: 16px; padding: 12px 14px; font-size: 21px; }
+.hear .lbl { color: var(--pale); font-size: 20px; display: block; }
+.drill-actions { display: grid; gap: 12px; margin-top: auto; }
+
+/* 5 debrief */
+.well { display: flex; gap: 12px; align-items: center; }
+.tick { width: 64px; height: 64px; border-radius: 50%; background: var(--ok-ink); color: var(--white); display: grid; place-items: center; font-size: 38px; flex: none; }
+.flags { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.flags li { display: flex; gap: 12px; align-items: flex-start; font-size: 22px; padding: 10px 12px; border-radius: 12px; background: var(--risk-bg); color: var(--risk-ink); font-weight: 600; }
+.flags svg { font-size: 24px; margin-top: 3px; }
+.progress-card { border: 2px solid var(--line); border-radius: 16px; padding: 12px 14px; display: grid; gap: 6px; }
+.progress-card .count { font-size: 26px; font-weight: 800; }
+.pips { display: flex; gap: 8px; }
+.pips span { width: 28px; height: 28px; border-radius: 8px; background: var(--ok-ink); color: var(--white); display: grid; place-items: center; font-size: 18px; }
+
+/* 6 guardian phone: generic messaging UI, not modelled on any real app */
+.screen.guardian { padding: 0; gap: 0; background: var(--chat-bg); }
+.notif {
+  margin: 10px 12px 0; background: var(--white); border-radius: 18px; padding: 12px 14px; border: 2px solid var(--line);
+  display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: center;
+}
+.notif .appicon { grid-row: span 3; width: 44px; height: 44px; border-radius: 12px; background: var(--teal); color: var(--white); display: grid; place-items: center; font-size: 26px; }
+.notif .meta { font-size: 20px; color: var(--muted); }
+.notif .ttl { font-size: 20px; font-weight: 700; }
+.notif .body { font-size: 20px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-head { margin-top: 12px; background: var(--slate); color: var(--white); display: flex; align-items: center; gap: 12px; padding: 10px 14px; }
+.chat-head .av { width: 44px; height: 44px; border-radius: 50%; background: var(--teal); display: grid; place-items: center; font-size: 26px; }
+.chat-head .who { font-weight: 700; font-size: 21px; line-height: 1.2; }
+.chat-head .who span { display: block; font-weight: 400; font-size: 20px; color: #DCE3E8; }
+.chat { padding: 16px 14px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.daychip { align-self: center; background: var(--white); border-radius: 999px; padding: 2px 14px; font-size: 20px; color: var(--muted); }
+.bubble { align-self: flex-start; max-width: 92%; background: var(--white); border-radius: 4px 18px 18px 18px; padding: 12px 14px; font-size: 22px; border: 2px solid #C8CDD2; }
+.bubble .time { display: block; text-align: right; font-size: 20px; color: var(--muted); margin-top: 4px; }
+.guardian-actions { padding: 0 14px 18px; display: grid; gap: 10px; }
+
+/* calling overlay */
+.screen.calling { background: var(--dark); color: var(--white); text-align: center; justify-content: center; align-items: center; --focus: #FFD24A; }
+.ring { width: 140px; height: 140px; border-radius: 50%; background: var(--green); display: grid; place-items: center; font-size: 64px; animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(23,100,58,.6); } 50% { box-shadow: 0 0 0 22px rgba(23,100,58,0); } }
+.calling .proto { color: var(--pale); font-size: 20px; }
+.calling .btn { max-width: 300px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5v7M14 8.5v7"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-hangup" viewBox="0 0 24 24"><g transform="rotate(135 12 12)"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></g></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5L2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.2v.3"/></symbol>
+  <symbol id="i-speaker" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 9a4 4 0 0 1 0 6M19 6.5a8 8 0 0 1 0 11"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2.5 4 2.5 4H5"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></symbol>
+  <symbol id="i-practice" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+</svg>
+
+<header class="top">
+  <p class="draft-note">Draft prepared with AI assistance for the Designer; to be reviewed and edited by the team.</p>
+  <h1>SilverGuard AI: clickable screens</h1>
+  <p class="sub">Sprint 1 · backlog item D5 · click the buttons inside the phone, or pick a screen.</p>
+</header>
+
+<main class="layout">
+  <aside class="controls" aria-label="Prototype controls">
+    <nav class="panel" aria-labelledby="picker-h">
+      <h2 id="picker-h">Screens</h2>
+      <ol class="picker">
+        <li><button type="button" data-go="s-home" aria-controls="screen-area"><span class="num">1</span>Senior home</button></li>
+        <li><button type="button" data-go="s-pv" aria-controls="screen-area"><span class="num">2</span>Pause &amp; Verify</button></li>
+        <li><button type="button" data-go="s-check" aria-controls="screen-area"><span class="num">3</span>Scam Check result</button></li>
+        <li><button type="button" data-go="s-drill" aria-controls="screen-area"><span class="num">4</span>Family Drill: practice call</button></li>
+        <li><button type="button" data-go="s-debrief" aria-controls="screen-area"><span class="num">5</span>Drill debrief</button></li>
+        <li><button type="button" data-go="s-guardian" aria-controls="screen-area"><span class="num">6</span>Guardian's phone</button></li>
+      </ol>
+    </nav>
+    <div class="panel" role="group" aria-labelledby="lang-h">
+      <h2 id="lang-h">Language, screens 1–5</h2>
+      <div class="langs">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false" lang="zh-Hans">中文</button>
+        <button type="button" data-lang="ms" aria-pressed="false" lang="ms">Melayu</button>
+        <button type="button" data-lang="ta" aria-pressed="false" lang="ta">தமிழ்</button>
+      </div>
+      <p class="note warn"><strong>Translation check needed:</strong> the Chinese, Malay and Tamil strings are AI drafts and must be checked by a native speaker before the pitch.</p>
+      <p class="note">Screen 6 is the guardian's phone and stays in English.</p>
+    </div>
+    <div class="panel">
+      <h2>Presenting</h2>
+      <ul class="tips">
+        <li>Keys 1–6 jump to a screen.</li>
+        <li>Tab moves through buttons; Enter or Space presses.</li>
+        <li>Names, numbers and the drill count are sample data.</li>
+      </ul>
+      <label class="fit"><input type="checkbox" id="fit" checked> Fit phone to window</label>
+    </div>
+  </aside>
+
+  <div class="stage">
+    <div class="phone-scaler" id="scaler">
+      <div class="phone" id="phone" role="region" aria-label="Phone screen (prototype)">
+        <div class="statusbar" id="statusbar"><span>10:42</span><span class="bars" aria-hidden="true"><i></i></span><span class="visually-hidden">Battery</span></div>
+        <div class="screen-area" id="screen-area">
+
+<!-- 1 SENIOR HOME -->
+<section class="screen senior" id="s-home" data-n="1" aria-labelledby="h-home">
+  <div class="brand"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg>SilverGuard</div>
+  <h2 id="h-home" tabindex="-1" data-i18n="greeting">Good morning</h2>
+  <div class="home-buttons">
+    <button type="button" class="big pv" data-go="s-pv">
+      <svg class="i" aria-hidden="true"><use href="#i-pause"/></svg>
+      <span class="main" data-i18n="pvMain">Is this really them?</span>
+      <span class="sub" data-i18n="pvSub">Pause &amp; Verify</span>
+    </button>
+    <button type="button" class="big sc" data-go="s-check">
+      <svg class="i" aria-hidden="true"><use href="#i-msg"/></svg>
+      <span class="main" data-i18n="scMain">Check a message</span>
+      <span class="sub" data-i18n="scSub">Scam Check</span>
+    </button>
+  </div>
+  <p class="guardian-line"><svg class="i" aria-hidden="true"><use href="#i-person"/></svg><span data-i18n="guardianLine">Guardian: Wei Jie</span></p>
+</section>
+
+<!-- 2 PAUSE & VERIFY -->
+<section class="screen senior" id="s-pv" data-n="2" aria-labelledby="h-pv" hidden>
+  <div class="topbar">
+    <button type="button" class="back" data-go="s-home"><svg class="i" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="home">Home</span></button>
+    <h2 id="h-pv" tabindex="-1" data-i18n="pvMain">Is this really them?</h2>
+  </div>
+
+  <div id="pv-question" class="stack" style="flex:1">
+    <p class="small" data-i18n="pvIntro">Answer three questions. Each one is read aloud.</p>
+    <div class="progress"><span id="pv-count"></span><span class="dots" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    <p class="question" id="pv-q" aria-live="polite"></p>
+    <button type="button" class="btn outline" data-action="speak"><svg class="i" aria-hidden="true"><use href="#i-speaker"/></svg><span data-i18n="readAloud">Read aloud</span></button>
+    <p class="speak-status" id="speak-status" aria-live="polite"></p>
+    <div class="yesno">
+      <button type="button" class="btn dark" data-action="pv-yes"><span data-i18n="yes">Yes</span></button>
+      <button type="button" class="btn outline" data-action="pv-no"><span data-i18n="no">No</span></button>
+    </div>
+  </div>
+
+  <div id="pv-call" class="stack" style="flex:1" hidden>
+    <div class="stop-card">
+      <h2 id="h-pv-call" tabindex="-1"><svg class="i" aria-hidden="true"><use href="#i-warn"/></svg><span data-i18n="stopTitle">Stop. Call Wei Jie first.</span></h2>
+      <p data-i18n="stopBody">Do not send money. Wei Jie will help check if it is really them.</p>
+    </div>
+    <button type="button" class="btn call callbig push" data-action="call" data-call="weijie" data-return="s-home">
+      <svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>
+      <span data-i18n="callNow">Call Wei Jie now</span>
+      <span class="num"><span data-i18n="savedNumber">Saved number</span> <span class="nowrap">+65 •••• 4821</span></span>
+    </button>
+    <p class="small" data-i18n="savedNote">This calls his saved number, never the caller's.</p>
+  </div>
+
+  <div id="pv-clear" class="stack" style="flex:1" hidden>
+    <div class="ok-card">
+      <h2 id="h-pv-clear" tabindex="-1" data-i18n="noSigns">No warning signs found</h2>
+      <p data-i18n="noSignsBody">If they ask for money later, press this button again and call family first.</p>
+    </div>
+    <div class="stack push">
+      <button type="button" class="btn call" data-action="call" data-call="weijie" data-return="s-home"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="callWJ">Call Wei Jie</span></button>
+      <button type="button" class="btn outline" data-action="pv-restart"><span data-i18n="startAgain">Start again</span></button>
+      <button type="button" class="btn outline" data-go="s-home"><span data-i18n="backHome">Back to home</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- 3 SCAM CHECK RESULT -->
+<section class="screen senior" id="s-check" data-n="3" aria-labelledby="h-check" hidden>
+  <div class="topbar">
+    <button type="button" class="back" data-go="s-home"><svg class="i" aria-hidden="true"><use href="#i-back"/></svg><span data-i18n="home">Home</span></button>
+    <h2 id="h-check" tabindex="-1" data-i18n="scSub">Scam Check</h2>
+  </div>
+  <p class="checked"><svg class="i" aria-hidden="true"><use href="#i-msg"/></svg><span data-i18n="checkedWhat">Checked: a voice note</span></p>
+  <div class="risk" role="status">
+    <svg class="i" aria-hidden="true"><use href="#i-warn"/></svg>
+    <span class="level" data-i18n="highRisk">High risk</span>
+    <span class="what" data-i18n="highRiskBody">This looks like a scam. Do not send money.</span>
+  </div>
+  <p class="small" data-i18n="why">Why:</p>
+  <ul class="reasons">
+    <li><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg><span data-i18n="r1">They asked you to send money</span></li>
+    <li><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg><span data-i18n="r2">They asked you to keep it secret</span></li>
+    <li><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg><span data-i18n="r3">They said they have a new number</span></li>
+  </ul>
+  <p class="stayed"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="stayed">This stayed on your phone</span></p>
+  <div class="stack actions-sticky" id="check-actions">
+    <button type="button" class="btn call" data-action="call" data-call="weijie" data-return="s-check"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="callWJ">Call Wei Jie</span></button>
+    <button type="button" class="btn outline" data-action="report-open"><svg class="i" aria-hidden="true"><use href="#i-report"/></svg><span data-i18n="report">Report to ScamShield</span></button>
+  </div>
+  <div class="sheet actions-sticky" id="report-sheet" hidden>
+    <p id="report-text" tabindex="-1" data-i18n="reportNote">In the real app, this opens ScamShield to report (if it is installed). Not linked in this prototype.</p>
+    <button type="button" class="btn dark" data-action="report-close"><span data-i18n="ok">OK</span></button>
+  </div>
+</section>
+
+<!-- 4 FAMILY DRILL -->
+<section class="screen senior drill" id="s-drill" data-n="4" aria-labelledby="h-drill" hidden>
+  <h2 class="practice-label" id="h-drill" tabindex="-1"><svg class="i" aria-hidden="true"><use href="#i-practice"/></svg><span data-i18n="practiceCall">Practice call</span></h2>
+  <p class="not-real" data-i18n="notReal">This is not a real call</p>
+  <div class="caller">
+    <div class="avatar" aria-hidden="true">?</div>
+    <p class="name" data-i18n="unknownNumber">Unknown number</p>
+    <p class="numtxt">+65 •••• 3307</p>
+  </div>
+  <p class="hear"><span class="lbl" data-i18n="youHear">You hear:</span><span data-i18n="script">“Ma, it's me. I lost my phone, this is my new number. I need money now. Don't tell anyone.”</span></p>
+  <div class="drill-actions">
+    <button type="button" class="btn pause" data-action="drill-pause"><svg class="i" aria-hidden="true"><use href="#i-pause"/></svg><span data-i18n="pvMain">Is this really them?</span></button>
+    <button type="button" class="btn hangup" data-action="drill-hangup"><svg class="i" aria-hidden="true"><use href="#i-hangup"/></svg><span data-i18n="hangUp">Hang up</span></button>
+  </div>
+</section>
+
+<!-- 5 DRILL DEBRIEF -->
+<section class="screen senior" id="s-debrief" data-n="5" aria-labelledby="h-debrief" hidden>
+  <div class="well"><span class="tick" aria-hidden="true"><svg class="i"><use href="#i-check"/></svg></span><h2 id="h-debrief" tabindex="-1" data-i18n="wellDone">Well done for pausing</h2></div>
+  <p id="debrief-choice" data-i18n="choicePaused">You pressed “Is this really them?”</p>
+  <p class="small" data-i18n="flagsIntro">This was a practice call. The red flags were:</p>
+  <ul class="flags">
+    <li><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg><span data-i18n="f1">A new number</span></li>
+    <li><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg><span data-i18n="f2">Asking for money</span></li>
+    <li><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg><span data-i18n="f3">Rushing you: “now”</span></li>
+    <li><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg><span data-i18n="f4">Keep it secret: “don't tell anyone”</span></li>
+  </ul>
+  <div class="progress-card">
+    <p class="count" data-i18n="drillsMonth">3 drills this month</p>
+    <div class="pips" aria-hidden="true"><span><svg class="i"><use href="#i-check"/></svg></span><span><svg class="i"><use href="#i-check"/></svg></span><span><svg class="i"><use href="#i-check"/></svg></span></div>
+    <p class="small" data-i18n="seesProgress">Wei Jie sees your progress, never the call audio.</p>
+  </div>
+  <div class="stack actions-sticky">
+    <button type="button" class="btn primary" data-go="s-home"><span data-i18n="done">Done</span></button>
+    <button type="button" class="btn outline" data-go="s-drill"><span data-i18n="again">Practise again</span></button>
+  </div>
+</section>
+
+<!-- 6 GUARDIAN'S PHONE (English; generic messaging UI) -->
+<section class="screen guardian" id="s-guardian" data-n="6" lang="en" aria-labelledby="h-guardian" hidden>
+  <h2 class="visually-hidden" id="h-guardian" tabindex="-1">Guardian's phone: message from SilverGuard</h2>
+  <div class="notif" role="note" aria-label="Notification">
+    <span class="appicon" aria-hidden="true"><svg class="i"><use href="#i-shield"/></svg></span>
+    <span class="meta">Messages · now</span>
+    <span class="ttl">SilverGuard</span>
+    <span class="body">Unknown number rang Mum at 10:42…</span>
+  </div>
+  <div class="chat-head">
+    <span class="av" aria-hidden="true"><svg class="i"><use href="#i-shield"/></svg></span>
+    <p class="who">SilverGuard alerts<span>Linked to Mum's phone</span></p>
+  </div>
+  <div class="chat">
+    <span class="daychip">Today</span>
+    <p class="bubble">Unknown number rang Mum at 10:42. She can still answer. Please call her before any money moves.<span class="time">10:42</span></p>
+  </div>
+  <div class="guardian-actions">
+    <button type="button" class="btn call" data-action="call" data-call="mum" data-return="s-guardian"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>Call Mum</button>
+    <button type="button" class="btn outline" data-go="s-home">See Mum's screen</button>
+  </div>
+</section>
+
+<!-- CALLING (shared state, not one of the six screens) -->
+<section class="screen calling" id="s-calling" aria-labelledby="h-calling" hidden>
+  <div class="ring" aria-hidden="true"><svg class="i"><use href="#i-phone"/></svg></div>
+  <h2 id="h-calling" tabindex="-1"></h2>
+  <p class="proto" id="calling-proto"></p>
+  <button type="button" class="btn hangup" data-action="end-call"><svg class="i" aria-hidden="true"><use href="#i-hangup"/></svg><span id="end-call-txt"></span></button>
+</section>
+
+        </div>
+      </div>
+    </div>
+    <p class="caption" id="caption" aria-live="polite"></p>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // AI-drafted translations. zh, ms and ta MUST be checked by a native speaker before the pitch.
+  // Names (Wei Jie) are shown as saved in the senior's contacts, so they are not translated.
+  var I18N = {
+    en: {
+      greeting: "Good morning",
+      pvMain: "Is this really them?", pvSub: "Pause & Verify",
+      scMain: "Check a message", scSub: "Scam Check",
+      guardianLine: "Guardian: Wei Jie", home: "Home",
+      pvIntro: "Answer three questions. Each one is read aloud.",
+      qCount: "Question {n} of 3",
+      q1: "Did they ask for money?",
+      q2: "Did they say it's urgent or secret?",
+      q3: "Are they calling from a new number?",
+      readAloud: "Read aloud", noVoice: "No voice for this language on this device.",
+      yes: "Yes", no: "No",
+      stopTitle: "Stop. Call Wei Jie first.",
+      stopBody: "Do not send money. Wei Jie will help check if it is really them.",
+      callNow: "Call Wei Jie now", savedNumber: "Saved number",
+      savedNote: "This calls his saved number, never the caller's.",
+      noSigns: "No warning signs found",
+      noSignsBody: "If they ask for money later, press this button again and call family first.",
+      callWJ: "Call Wei Jie", startAgain: "Start again", backHome: "Back to home",
+      checkedWhat: "Checked: a voice note",
+      highRisk: "High risk", highRiskBody: "This looks like a scam. Do not send money.",
+      why: "Why:",
+      r1: "They asked you to send money", r2: "They asked you to keep it secret", r3: "They said they have a new number",
+      report: "Report to ScamShield",
+      reportNote: "In the real app, this opens ScamShield to report (if it is installed). Not linked in this prototype.",
+      ok: "OK", stayed: "This stayed on your phone",
+      practiceCall: "Practice call", notReal: "This is not a real call", unknownNumber: "Unknown number",
+      youHear: "You hear:",
+      script: "“Ma, it's me. I lost my phone, this is my new number. I need money now. Don't tell anyone.”",
+      hangUp: "Hang up",
+      wellDone: "Well done for pausing",
+      choicePaused: "You pressed “Is this really them?”", choiceHung: "You hung up.",
+      flagsIntro: "This was a practice call. The red flags were:",
+      f1: "A new number", f2: "Asking for money", f3: "Rushing you: “now”", f4: "Keep it secret: “don't tell anyone”",
+      drillsMonth: "3 drills this month", seesProgress: "Wei Jie sees your progress, never the call audio.",
+      done: "Done", again: "Practise again",
+      callingWJ: "Calling Wei Jie…", proto: "Prototype: no real call is made.", endCall: "End call"
+    },
+    zh: {
+      greeting: "早上好",
+      pvMain: "真的是本人吗？", pvSub: "暂停核实",
+      scMain: "检查信息", scSub: "诈骗检查",
+      guardianLine: "守护人：Wei Jie", home: "主页",
+      pvIntro: "请回答三个问题。每个问题都会读给您听。",
+      qCount: "第 {n} 题，共 3 题",
+      q1: "对方有没有向您要钱？",
+      q2: "对方有没有说事情很紧急，或者要您保密？",
+      q3: "对方是不是用新号码打来的？",
+      readAloud: "朗读", noVoice: "这部手机没有这种语言的语音。",
+      yes: "有 / 是", no: "没有 / 不是",
+      stopTitle: "先停一下，打给 Wei Jie。",
+      stopBody: "不要转账。Wei Jie 会帮您确认是不是本人。",
+      callNow: "现在打给 Wei Jie", savedNumber: "已保存的号码",
+      savedNote: "拨打的是他已保存的号码，不会回拨来电号码。",
+      noSigns: "未发现警告迹象",
+      noSignsBody: "如果对方之后向您要钱，请再按这个按钮，先打给家人。",
+      callWJ: "打给 Wei Jie", startAgain: "重新开始", backHome: "返回主页",
+      checkedWhat: "已检查：一条语音信息",
+      highRisk: "高风险", highRiskBody: "这看起来像诈骗。请不要转账。",
+      why: "原因：",
+      r1: "对方要您转账", r2: "对方要您保密", r3: "对方说换了新号码",
+      report: "向 ScamShield 举报",
+      reportNote: "在正式版里，这会打开 ScamShield 进行举报（如已安装）。此原型没有连接。",
+      ok: "好", stayed: "内容只留在您的手机上",
+      practiceCall: "练习电话", notReal: "这不是真的电话", unknownNumber: "未知号码",
+      youHear: "您听到：",
+      script: "“妈，是我。我手机丢了，这是我的新号码。我现在急需用钱，不要告诉别人。”",
+      hangUp: "挂断",
+      wellDone: "停下来核实，做得好",
+      choicePaused: "您按了“真的是本人吗？”", choiceHung: "您挂断了电话。",
+      flagsIntro: "这是练习电话。其中的危险信号有：",
+      f1: "新号码", f2: "向您要钱", f3: "催促您：“现在”", f4: "要您保密：“不要告诉别人”",
+      drillsMonth: "本月已练习 3 次", seesProgress: "Wei Jie 只看到您的进度，听不到通话录音。",
+      done: "完成", again: "再练习一次",
+      callingWJ: "正在打给 Wei Jie…", proto: "原型演示：不会真的拨出电话。", endCall: "结束通话"
+    },
+    ms: {
+      greeting: "Selamat pagi",
+      pvMain: "Betulkah ini mereka?", pvSub: "Berhenti & Sahkan",
+      scMain: "Semak mesej", scSub: "Semakan Penipuan",
+      guardianLine: "Penjaga: Wei Jie", home: "Utama",
+      pvIntro: "Jawab tiga soalan. Setiap soalan akan dibacakan.",
+      qCount: "Soalan {n} daripada 3",
+      q1: "Adakah mereka meminta wang?",
+      q2: "Adakah mereka kata ia segera atau rahsia?",
+      q3: "Adakah mereka menelefon dari nombor baharu?",
+      readAloud: "Bacakan", noVoice: "Tiada suara untuk bahasa ini pada peranti ini.",
+      yes: "Ya", no: "Tidak",
+      stopTitle: "Berhenti. Telefon Wei Jie dahulu.",
+      stopBody: "Jangan hantar wang. Wei Jie akan bantu semak sama ada ini benar-benar mereka.",
+      callNow: "Telefon Wei Jie sekarang", savedNumber: "Nombor disimpan",
+      savedNote: "Ini menelefon nombornya yang disimpan, bukan nombor pemanggil.",
+      noSigns: "Tiada tanda amaran ditemui",
+      noSignsBody: "Jika mereka meminta wang nanti, tekan butang ini sekali lagi dan telefon keluarga dahulu.",
+      callWJ: "Telefon Wei Jie", startAgain: "Mula semula", backHome: "Kembali ke utama",
+      checkedWhat: "Disemak: satu nota suara",
+      highRisk: "Risiko tinggi", highRiskBody: "Ini kelihatan seperti penipuan. Jangan hantar wang.",
+      why: "Sebabnya:",
+      r1: "Mereka minta anda hantar wang", r2: "Mereka minta anda rahsiakannya", r3: "Mereka kata mereka ada nombor baharu",
+      report: "Lapor kepada ScamShield",
+      reportNote: "Dalam aplikasi sebenar, ini membuka ScamShield untuk membuat laporan (jika dipasang). Tidak dipautkan dalam prototaip ini.",
+      ok: "OK", stayed: "Ini kekal dalam telefon anda",
+      practiceCall: "Panggilan latihan", notReal: "Ini bukan panggilan sebenar", unknownNumber: "Nombor tidak dikenali",
+      youHear: "Anda dengar:",
+      script: "“Mak, ini saya. Telefon saya hilang, ini nombor baharu saya. Saya perlukan wang sekarang. Jangan beritahu sesiapa.”",
+      hangUp: "Letak telefon",
+      wellDone: "Syabas kerana berhenti seketika",
+      choicePaused: "Anda tekan “Betulkah ini mereka?”", choiceHung: "Anda meletakkan telefon.",
+      flagsIntro: "Ini panggilan latihan. Tanda bahayanya ialah:",
+      f1: "Nombor baharu", f2: "Meminta wang", f3: "Mendesak anda: “sekarang”", f4: "Suruh rahsiakan: “jangan beritahu sesiapa”",
+      drillsMonth: "3 latihan bulan ini", seesProgress: "Wei Jie hanya nampak kemajuan anda, bukan rakaman panggilan.",
+      done: "Selesai", again: "Berlatih lagi",
+      callingWJ: "Sedang menelefon Wei Jie…", proto: "Prototaip: tiada panggilan sebenar dibuat.", endCall: "Tamatkan panggilan"
+    },
+    ta: {
+      greeting: "காலை வணக்கம்",
+      pvMain: "இது உண்மையில் அவர்களா?", pvSub: "நிறுத்தி சரிபார்",
+      scMain: "செய்தியைச் சரிபார்", scSub: "மோசடிச் சோதனை",
+      guardianLine: "பாதுகாவலர்: Wei Jie", home: "முகப்பு",
+      pvIntro: "மூன்று கேள்விகளுக்குப் பதில் சொல்லுங்கள். ஒவ்வொன்றும் வாசித்துக் காட்டப்படும்.",
+      qCount: "கேள்வி {n} / 3",
+      q1: "அவர்கள் பணம் கேட்டார்களா?",
+      q2: "இது அவசரம் அல்லது ரகசியம் என்று சொன்னார்களா?",
+      q3: "அவர்கள் புதிய எண்ணிலிருந்து அழைக்கிறார்களா?",
+      readAloud: "உரக்கப் படி", noVoice: "இந்தச் சாதனத்தில் இந்த மொழிக்குக் குரல் இல்லை.",
+      yes: "ஆம்", no: "இல்லை",
+      stopTitle: "நிறுத்துங்கள். முதலில் Wei Jie-ஐ அழையுங்கள்.",
+      stopBody: "பணம் அனுப்ப வேண்டாம். இது உண்மையில் அவர்களா என்று சரிபார்க்க Wei Jie உதவுவார்.",
+      callNow: "இப்போதே Wei Jie-ஐ அழையுங்கள்", savedNumber: "சேமித்த எண்",
+      savedNote: "அழைத்தவரின் எண்ணை அல்ல, அவருடைய சேமித்த எண்ணையே அழைக்கும்.",
+      noSigns: "எச்சரிக்கை அறிகுறிகள் எதுவும் இல்லை",
+      noSignsBody: "பின்னர் அவர்கள் பணம் கேட்டால், இந்தப் பொத்தானை மீண்டும் அழுத்தி முதலில் குடும்பத்தினரை அழையுங்கள்.",
+      callWJ: "Wei Jie-ஐ அழை", startAgain: "மீண்டும் தொடங்கு", backHome: "முகப்புக்குத் திரும்பு",
+      checkedWhat: "சரிபார்த்தது: ஒரு குரல் செய்தி",
+      highRisk: "அதிக ஆபத்து", highRiskBody: "இது மோசடி போலத் தெரிகிறது. பணம் அனுப்ப வேண்டாம்.",
+      why: "காரணங்கள்:",
+      r1: "பணம் அனுப்பச் சொன்னார்கள்", r2: "இதை ரகசியமாக வைக்கச் சொன்னார்கள்", r3: "புதிய எண் இருப்பதாகச் சொன்னார்கள்",
+      report: "ScamShield-இல் புகார் செய்",
+      reportNote: "உண்மையான செயலியில், இது புகார் செய்ய ScamShield-ஐத் திறக்கும் (நிறுவியிருந்தால்). இந்த முன்மாதிரியில் இணைக்கப்படவில்லை.",
+      ok: "சரி", stayed: "இது உங்கள் தொலைபேசியிலேயே இருந்தது",
+      practiceCall: "பயிற்சி அழைப்பு", notReal: "இது உண்மையான அழைப்பு அல்ல", unknownNumber: "தெரியாத எண்",
+      youHear: "நீங்கள் கேட்பது:",
+      script: "“அம்மா, நான்தான். என் போன் தொலைந்துவிட்டது, இது என் புதிய எண். எனக்கு இப்போதே பணம் வேண்டும். யாரிடமும் சொல்லாதீர்கள்.”",
+      hangUp: "அழைப்பைத் துண்டி",
+      wellDone: "நிறுத்திச் சரிபார்த்ததற்குப் பாராட்டுகள்",
+      choicePaused: "நீங்கள் “இது உண்மையில் அவர்களா?” என்பதை அழுத்தினீர்கள்", choiceHung: "நீங்கள் அழைப்பைத் துண்டித்தீர்கள்.",
+      flagsIntro: "இது ஒரு பயிற்சி அழைப்பு. அபாய அறிகுறிகள்:",
+      f1: "புதிய எண்", f2: "பணம் கேட்டது", f3: "அவசரப்படுத்தியது: “இப்போதே”", f4: "ரகசியம்: “யாரிடமும் சொல்லாதீர்கள்”",
+      drillsMonth: "இந்த மாதம் 3 பயிற்சிகள்", seesProgress: "Wei Jie உங்கள் முன்னேற்றத்தை மட்டுமே பார்ப்பார், அழைப்பின் ஒலியை அல்ல.",
+      done: "முடிந்தது", again: "மீண்டும் பயிற்சி செய்",
+      callingWJ: "Wei Jie-ஐ அழைக்கிறது…", proto: "முன்மாதிரி: உண்மையான அழைப்பு செய்யப்படாது.", endCall: "அழைப்பை முடி"
+    }
+  };
+  var HTML_LANG = { en: "en", zh: "zh-Hans", ms: "ms", ta: "ta" };
+  var SPEECH_LANG = { en: "en", zh: "zh", ms: "ms", ta: "ta" };
+  var CAPTIONS = {
+    "s-home": ["1 · Senior home", "Two very large buttons; the guardian is named at the bottom."],
+    "s-pv": ["2 · Pause & Verify", "Three spoken questions; any Yes turns into one big call button."],
+    "s-check": ["3 · Scam Check result", "Level in words, icon and colour, with three reasons."],
+    "s-drill": ["4 · Family Drill", "A practice call, clearly labelled, with two ways to respond."],
+    "s-debrief": ["5 · Drill debrief", "Praise for pausing, the red flags, and progress."],
+    "s-guardian": ["6 · Guardian's phone", "Generic messaging app: the alert Wei Jie receives."],
+    "s-calling": ["Calling", "Prototype only: no call is made."]
+  };
+  var SIX = ["s-home", "s-pv", "s-check", "s-drill", "s-debrief", "s-guardian"];
+
+  var lang = "en", current = "s-home", pvIndex = 0, callReturn = "s-home", callWho = "weijie";
+  var $ = function (id) { return document.getElementById(id); };
+
+  function t(key, vars) {
+    var s = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
+    if (vars) Object.keys(vars).forEach(function (k) { s = s.replace("{" + k + "}", vars[k]); });
+    return s;
+  }
+
+  function applyLang() {
+    document.querySelectorAll(".screen.senior").forEach(function (sec) {
+      sec.setAttribute("lang", HTML_LANG[lang]);
+      sec.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = t(el.getAttribute("data-i18n")); });
+    });
+    document.querySelectorAll("[data-lang]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
+    });
+    renderQuestion();
+    renderCalling();
+    if (!$("s-debrief").hidden) renderChoice();
+  }
+
+  var lastChoice = "choicePaused";
+  function renderChoice() { $("debrief-choice").textContent = t(lastChoice); }
+
+  function renderQuestion() {
+    $("pv-count").textContent = t("qCount", { n: pvIndex + 1 });
+    $("pv-q").textContent = t("q" + (pvIndex + 1));
+    document.querySelectorAll("#pv-question .dots span").forEach(function (d, i) { d.classList.toggle("on", i <= pvIndex); });
+    $("speak-status").textContent = "";
+  }
+
+  function resetPV() {
+    pvIndex = 0;
+    $("pv-question").hidden = false; $("pv-call").hidden = true; $("pv-clear").hidden = true;
+    renderQuestion();
+  }
+
+  function renderCalling() {
+    var sec = $("s-calling");
+    if (callWho === "mum") {
+      sec.setAttribute("lang", "en");
+      $("h-calling").textContent = "Calling Mum…";
+      $("calling-proto").textContent = "Prototype: no real call is made.";
+      $("end-call-txt").textContent = "End call";
+    } else {
+      sec.setAttribute("lang", HTML_LANG[lang]);
+      $("h-calling").textContent = t("callingWJ");
+      $("calling-proto").textContent = t("proto");
+      $("end-call-txt").textContent = t("endCall");
+    }
+  }
+
+  function setStatusbar(id) {
+    var sb = $("statusbar");
+    sb.classList.toggle("dark", id === "s-drill" || id === "s-calling");
+    sb.classList.toggle("slate", id === "s-guardian");
+  }
+
+  function go(id, focusHeading) {
+    if (!$(id)) return;
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    document.querySelectorAll(".screen").forEach(function (s) { s.hidden = s.id !== id; });
+    current = id;
+    if (id === "s-pv") resetPV();
+    if (id === "s-check") { $("report-sheet").hidden = true; $("check-actions").hidden = false; }
+    if (id === "s-calling") renderCalling();
+    if (id === "s-debrief") renderChoice();
+    $(id).scrollTop = 0;
+    setStatusbar(id);
+    var pick = SIX.indexOf(id) >= 0 ? id : null;
+    document.querySelectorAll(".picker [data-go]").forEach(function (b) {
+      b.setAttribute("aria-current", String(b.getAttribute("data-go") === pick));
+    });
+    var c = CAPTIONS[id];
+    $("caption").innerHTML = "<strong></strong><span></span>";
+    $("caption").firstChild.textContent = c[0];
+    $("caption").lastChild.textContent = c[1];
+    if (focusHeading) {
+      var h = $(id).querySelector("h2[tabindex='-1']");
+      if (h) h.focus({ preventScroll: true });
+    }
+  }
+
+  function speak(text) {
+    var st = $("speak-status");
+    if (!("speechSynthesis" in window)) { st.textContent = t("noVoice"); return; }
+    var want = SPEECH_LANG[lang];
+    var voices = window.speechSynthesis.getVoices() || [];
+    var v = voices.filter(function (x) { return (x.lang || "").toLowerCase().indexOf(want) === 0; })[0];
+    if (!v && lang !== "en") { st.textContent = t("noVoice"); return; }
+    var u = new SpeechSynthesisUtterance(text);
+    if (v) { u.voice = v; u.lang = v.lang; } else { u.lang = "en-SG"; }
+    u.rate = 0.85;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+    st.textContent = "";
+  }
+
+  document.addEventListener("click", function (e) {
+    var nav = e.target.closest("[data-go]");
+    if (nav) { go(nav.getAttribute("data-go"), !nav.closest(".picker")); return; }
+    var lb = e.target.closest("[data-lang]");
+    if (lb) {
+      lang = lb.getAttribute("data-lang");
+      try { localStorage.setItem("sg-proto-lang", lang); } catch (err) { /* storage unavailable */ }
+      applyLang();
+      return;
+    }
+    var a = e.target.closest("[data-action]");
+    if (!a) return;
+    switch (a.getAttribute("data-action")) {
+      case "speak": speak($("pv-q").textContent); break;
+      case "pv-yes":
+        $("pv-question").hidden = true; $("pv-call").hidden = false; $("h-pv-call").focus(); break;
+      case "pv-no":
+        if (pvIndex < 2) { pvIndex++; renderQuestion(); $("pv-question").querySelector("[data-action='pv-yes']").focus(); }
+        else { $("pv-question").hidden = true; $("pv-clear").hidden = false; $("h-pv-clear").focus(); }
+        break;
+      case "pv-restart": resetPV(); $("pv-question").querySelector("[data-action='pv-yes']").focus(); break;
+      case "call":
+        callWho = a.getAttribute("data-call"); callReturn = a.getAttribute("data-return") || "s-home";
+        go("s-calling", true); break;
+      case "end-call": go(callReturn, true); break;
+      case "report-open":
+        $("check-actions").hidden = true; $("report-sheet").hidden = false; $("report-text").focus(); break;
+      case "report-close":
+        $("report-sheet").hidden = true; $("check-actions").hidden = false;
+        $("check-actions").querySelector("[data-action='report-open']").focus(); break;
+      case "drill-pause": lastChoice = "choicePaused"; go("s-debrief", true); break;
+      case "drill-hangup": lastChoice = "choiceHung"; go("s-debrief", true); break;
+    }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    var tag = (e.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea" || tag === "select") return;
+    var n = parseInt(e.key, 10);
+    if (n >= 1 && n <= 6) { go(SIX[n - 1], true); }
+  });
+
+  // Scale the 390 x 844 phone to fit the window when presenting on small screens.
+  function fit() {
+    var phone = $("phone"), scaler = $("scaler"), W = 414, H = 868, s = 1;
+    if ($("fit").checked) {
+      var availW = scaler.parentElement.clientWidth;
+      if (window.matchMedia("(max-width: 760px)").matches) {
+        s = Math.min(1, availW / W); // stacked layout: fit the width, page scrolls
+      } else {
+        var top = scaler.getBoundingClientRect().top + window.scrollY;
+        var availH = window.innerHeight - top - 12;
+        s = Math.max(0.5, Math.min(1, availH / H, availW / W));
+      }
+    }
+    phone.style.transform = s === 1 ? "none" : "scale(" + s + ")";
+    scaler.style.width = (W * s) + "px";
+    scaler.style.height = (H * s) + "px";
+  }
+  $("fit").addEventListener("change", fit);
+  window.addEventListener("resize", fit);
+
+  try { var saved = localStorage.getItem("sg-proto-lang"); if (saved && I18N[saved]) lang = saved; } catch (err) { /* ignore */ }
+  applyLang();
+  go("s-home", false);
+  fit();
+})();
+</script>
+</body>
+</html>
