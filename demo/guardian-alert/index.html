@@ -1,0 +1,406 @@
+<!doctype html>
+<!-- Draft prepared with AI assistance for Dev 2; to be reviewed and edited by the team. -->
+<!-- Works offline: open this file directly. Only external file: ./alert.js in the same folder. No CDNs. -->
+<html lang="en-SG">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulate Unknown Call</title>
+<style>
+  :root {
+    --bg: #f4f1ec; --panel: #ffffff; --ink: #1d1b18; --muted: #5f5a52; --line: #ddd6cb;
+    --accent: #1f5f8b; --accent-ink: #ffffff; --ok: #1e6b3a; --ok-bg: #e3f2e7;
+    --bad: #a12a1f; --bad-bg: #fbe6e3; --warn-bg: #fff4d6; --warn-ink: #6b4b00;
+    --phone: #16181c; --phone-ink: #f3f4f6; --phone-muted: #a8adb6;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 18px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  header { padding: 24px 16px 8px; max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 6px; }
+  header p { margin: 0; color: var(--muted); }
+  main {
+    max-width: 1100px; margin: 0 auto; padding: 16px;
+    display: grid; grid-template-columns: minmax(280px, 360px) 1fr; gap: 28px; align-items: start;
+  }
+  @media (max-width: 760px) { main { grid-template-columns: 1fr; } }
+
+  /* Phone mock-up (generic, no app branding) */
+  .phone {
+    background: var(--phone); color: var(--phone-ink); border-radius: 36px; padding: 18px 18px 26px;
+    min-height: 560px; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    border: 6px solid #2b2e35;
+  }
+  .phone .statusbar { display: flex; justify-content: space-between; font-size: 14px; color: var(--phone-muted); padding: 0 8px 18px; }
+  .screen { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  [hidden] { display: none !important; }
+  #callUi { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; flex: 1; }
+  .idle-msg { margin-top: 160px; color: var(--phone-muted); }
+  .call-label { font-size: 16px; color: var(--phone-muted); margin-top: 24px; }
+  .avatar { width: 96px; height: 96px; border-radius: 50%; background: #2d3139; display: grid; place-items: center; margin: 8px 0; }
+  .avatar.ringing { animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,.25); } 50% { box-shadow: 0 0 0 16px rgba(255,255,255,0); } }
+  @media (prefers-reduced-motion: reduce) { .avatar.ringing { animation: none; } }
+  .caller { font-size: 26px; font-weight: 600; }
+  .number { font-size: 22px; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; background: #2d3139; border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+  .notice { margin-top: 8px; border-radius: 16px; padding: 12px 14px; font-size: 17px; width: 100%; }
+  .notice.ok { background: #1d3b2a; color: #d6f5e0; }
+  .notice.bad { background: #4a1f1b; color: #ffd9d4; }
+  .notice.wait { background: #2d3139; color: var(--phone-ink); }
+  .call-actions { display: flex; justify-content: space-around; width: 100%; margin-top: auto; padding-top: 24px; }
+  .round { width: 72px; height: 72px; border-radius: 50%; border: 0; display: grid; place-items: center; cursor: pointer; }
+  .round.decline { background: #c0392b; } .round.answer { background: #27ae60; }
+  .round:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .round-label { font-size: 14px; color: var(--phone-muted); margin-top: 6px; }
+
+  /* Controls */
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+  .panel h2 { font-size: 21px; margin: 0 0 12px; }
+  .big {
+    width: 100%; min-height: 72px; font-size: 24px; font-weight: 700; border: 0; border-radius: 16px;
+    background: var(--accent); color: var(--accent-ink); cursor: pointer;
+  }
+  .big:disabled { opacity: .6; cursor: wait; }
+  .big:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #f0a500; outline-offset: 2px; }
+  .mode-line { margin: 12px 0 0; font-size: 16px; color: var(--muted); }
+  .mode-pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-weight: 600; font-size: 15px; }
+  .mode-pill.mock { background: #e8eef4; color: var(--accent); }
+  .mode-pill.live { background: var(--warn-bg); color: var(--warn-ink); }
+  .result { margin-top: 16px; border-radius: 12px; padding: 14px 16px; font-size: 19px; display: none; }
+  .result.show { display: block; }
+  .result.ok { background: var(--ok-bg); color: var(--ok); }
+  .result.bad { background: var(--bad-bg); color: var(--bad); }
+  .result.wait { background: #eef1f4; color: var(--ink); }
+  .elapsed { font-variant-numeric: tabular-nums; font-weight: 700; }
+  .preview { background: #f7f5f1; border: 1px dashed var(--line); border-radius: 12px; padding: 12px 14px; font-size: 17px; }
+  table { width: 100%; border-collapse: collapse; font-size: 16px; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .summary { margin: 10px 0 0; font-size: 16px; color: var(--muted); }
+  label { display: block; font-weight: 600; margin: 14px 0 4px; font-size: 16px; }
+  input[type=text], input[type=password] {
+    width: 100%; font-size: 18px; padding: 10px 12px; border: 1px solid #b9b0a2; border-radius: 10px; background: #fff; color: var(--ink);
+  }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .toggle { display: flex; align-items: center; gap: 12px; font-weight: 600; margin: 4px 0 8px; }
+  .toggle input { width: 28px; height: 28px; }
+  .hint { font-size: 15px; color: var(--muted); margin: 4px 0 0; }
+  .warn { background: var(--warn-bg); color: var(--warn-ink); border-radius: 10px; padding: 10px 12px; font-size: 15px; margin-top: 12px; }
+  .small-btn { font-size: 16px; padding: 10px 14px; border-radius: 10px; border: 1px solid #b9b0a2; background: #fff; color: var(--ink); cursor: pointer; min-height: 44px; }
+  fieldset { border: 0; padding: 0; margin: 0; }
+  fieldset:disabled { opacity: .5; }
+  .chats { margin: 8px 0 0; padding-left: 20px; font-size: 16px; }
+  footer { max-width: 1100px; margin: 0 auto; padding: 0 16px 32px; color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Simulate unknown call</h1>
+  <p>SilverGuard pitch demo: an unknown number rings the senior, the ring is silenced (never blocked) and the guardian is alerted at once.</p>
+</header>
+
+<main>
+  <!-- Phone mock-up -->
+  <section aria-label="Senior's phone (simulation)">
+    <div class="phone">
+      <div class="statusbar"><span id="clock">--:--</span><span>Senior's phone</span></div>
+      <div class="screen" id="screen" aria-live="polite">
+        <p class="idle-msg" id="idleMsg">No calls. Press "Simulate unknown call".</p>
+        <div id="callUi" hidden>
+          <div class="call-label">Incoming call</div>
+          <div class="avatar" id="avatar" aria-hidden="true">
+            <svg width="52" height="52" viewBox="0 0 24 24" fill="#a8adb6"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-4.4 3.8-7.5 8.5-7.5s8.5 3.1 8.5 7.5z"/></svg>
+          </div>
+          <div class="caller">Unknown number</div>
+          <div class="number" id="callerNumberShown"></div>
+          <div class="badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+            Ring silenced. You can still answer.
+          </div>
+          <div class="notice wait" id="phoneNotice">Telling your guardian…</div>
+          <div class="call-actions">
+            <div><button class="round decline" id="declineBtn" aria-label="Decline (ends the simulation)">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 9c-1.6 0-3.2.3-4.6.8v3.1c0 .4-.2.7-.6.9-1 .5-1.9 1.1-2.6 1.8-.2.2-.4.3-.7.3s-.5-.1-.7-.3L.3 13.1c-.2-.2-.3-.4-.3-.7s.1-.5.3-.7C3.3 8.8 7.4 7 12 7s8.7 1.8 11.7 4.7c.2.2.3.4.3.7s-.1.5-.3.7l-2.5 2.5c-.2.2-.4.3-.7.3s-.5-.1-.7-.3c-.8-.7-1.7-1.3-2.6-1.8-.3-.2-.6-.5-.6-.9V9.8C15.2 9.3 13.6 9 12 9z"/></svg>
+            </button><div class="round-label">Decline</div></div>
+            <div><button class="round answer" id="answerBtn" aria-label="Answer (ends the simulation)">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
+            </button><div class="round-label">Answer</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Controls -->
+  <section>
+    <div class="panel">
+      <button class="big" id="simulateBtn" type="button">Simulate unknown call</button>
+      <p class="mode-line">Mode: <span class="mode-pill mock" id="modePill">Mock mode (no message is sent)</span></p>
+      <div class="result" id="result" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="panel">
+      <h2>What the guardian receives</h2>
+      <div class="preview" id="preview"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Tries this session</h2>
+      <table>
+        <thead><tr><th>#</th><th>Mode</th><th>Time</th><th>Under 10 s?</th><th>Result</th></tr></thead>
+        <tbody id="log"><tr><td colspan="5">No tries yet.</td></tr></tbody>
+      </table>
+      <p class="summary" id="summary">Live acceptance test: 5 live tries, all under 10 s. Times are kept on this page only and vanish on reload, so copy them into the test record.</p>
+    </div>
+
+    <div class="panel">
+      <h2>Settings</h2>
+      <form id="settings" autocomplete="off" onsubmit="return false">
+        <label class="toggle"><input type="checkbox" id="mockMode" checked> Mock mode (no network, about 600 ms)</label>
+        <p class="hint">Leave Mock mode on to rehearse without a bot. Turn it off only for the live test.</p>
+
+        <label for="seniorName">Senior's name in the alert</label>
+        <input type="text" id="seniorName" value="Mum" autocomplete="off" spellcheck="false">
+        <label for="guardianName">Guardian's name on the senior's phone</label>
+        <input type="text" id="guardianName" value="Wei Jie" autocomplete="off" spellcheck="false">
+        <label for="callerNumber">Caller's number (made-up demo number)</label>
+        <input type="text" id="callerNumber" value="+65 9123 4567" autocomplete="off" spellcheck="false" inputmode="tel">
+        <label class="toggle" style="font-weight:400"><input type="checkbox" id="maskNumber" checked> Hide the middle digits of the caller's number</label>
+
+        <fieldset id="liveFields" disabled>
+          <label for="token">Telegram bot token</label>
+          <div class="row">
+            <input type="password" id="token" autocomplete="off" spellcheck="false" style="flex:1;min-width:200px" aria-describedby="tokenHint">
+            <button type="button" class="small-btn" id="showToken" aria-pressed="false">Show</button>
+          </div>
+          <p class="hint" id="tokenHint">Kept in this page's memory only: never saved, never logged, cleared on reload.</p>
+          <label for="chatId">Guardian's chat ID</label>
+          <div class="row">
+            <input type="text" id="chatId" autocomplete="off" spellcheck="false" inputmode="numeric" style="flex:1;min-width:160px">
+            <button type="button" class="small-btn" id="findChat">Find chat ID</button>
+          </div>
+          <p class="hint">The guardian must open the bot and press Start first. "Find chat ID" lists chats that have messaged the bot.</p>
+          <ul class="chats" id="chatList" hidden></ul>
+          <div class="row" style="margin-top:12px"><button type="button" class="small-btn" id="clearCreds">Clear token and chat ID</button></div>
+          <div class="warn">Live mode sends a real message. Do not show the token on a shared screen, and never paste it into code, chat or slides.</div>
+        </fieldset>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Prototype for a class pitch. Mock mode only simulates the alert; it does not show real delivery times. Draft prepared with AI assistance for Dev 2; to be reviewed and edited by the team.
+</footer>
+
+<script src="alert.js"></script>
+<script>
+(function () {
+  'use strict';
+  var A = window.SilverGuardAlert;
+  var $ = function (id) { return document.getElementById(id); };
+  var TARGET_MS = 10000;
+  var tries = [];
+  var busy = false;
+  var tickHandle = null;
+
+  // --- Credentials live only in these input boxes (page memory). Clear them on every load,
+  // including when the browser restores the page from its back/forward cache. ---
+  function resetCredentials() {
+    $('token').value = '';
+    $('chatId').value = '';
+    $('token').type = 'password';
+    $('showToken').textContent = 'Show';
+    $('showToken').setAttribute('aria-pressed', 'false');
+    $('chatList').hidden = true;
+    $('chatList').innerHTML = '';
+  }
+  function resetOnLoad() {
+    resetCredentials();
+    $('mockMode').checked = true;
+    updateMode();
+  }
+  window.addEventListener('pageshow', resetOnLoad);
+
+  function sgTime() {
+    try {
+      return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Singapore' }).format(new Date());
+    } catch (e) { return ''; }
+  }
+  function tickClock() { $('clock').textContent = sgTime(); }
+  tickClock(); setInterval(tickClock, 15000);
+
+  function alertText() {
+    return A.buildAlertText({
+      seniorName: $('seniorName').value,
+      callerNumber: $('callerNumber').value,
+      maskNumber: $('maskNumber').checked,
+      time: new Date()
+    });
+  }
+  function shownNumber() {
+    var raw = $('callerNumber').value;
+    if (!raw.replace(/\D/g, '')) return 'Number hidden';
+    return $('maskNumber').checked ? A.maskPhoneNumber(raw) : raw.trim();
+  }
+  function updatePreview() { $('preview').textContent = alertText(); }
+
+  function updateMode() {
+    var mock = $('mockMode').checked;
+    $('liveFields').disabled = mock;
+    $('modePill').className = 'mode-pill ' + (mock ? 'mock' : 'live');
+    $('modePill').textContent = mock ? 'Mock mode (no message is sent)' : 'Live mode (sends a real message)';
+  }
+
+  function seconds(ms) { return (ms / 1000).toFixed(1) + ' s'; }
+
+  function showResult(kind, html) {
+    var r = $('result');
+    r.className = 'result show ' + kind;
+    r.innerHTML = html;
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function startRinging() {
+    $('idleMsg').hidden = true;
+    $('callUi').hidden = false;
+    $('avatar').classList.add('ringing');
+    $('callerNumberShown').textContent = shownNumber();
+    var n = $('phoneNotice');
+    n.className = 'notice wait';
+    n.textContent = 'Telling ' + guardianName() + '…';
+  }
+  function endCall() {
+    $('avatar').classList.remove('ringing');
+    $('callUi').hidden = true;
+    $('idleMsg').hidden = false;
+    $('idleMsg').textContent = 'Call ended. Press "Simulate unknown call" to run it again.';
+  }
+
+  function guardianName() { return $('guardianName').value.trim() || 'Your guardian'; }
+
+  function renderLog() {
+    var body = $('log');
+    if (tries.length === 0) { body.innerHTML = '<tr><td colspan="5">No tries yet.</td></tr>'; return; }
+    body.innerHTML = tries.map(function (t, i) {
+      return '<tr><td>' + (i + 1) + '</td><td>' + (t.mock ? 'Mock' : 'Live') + '</td><td>' + seconds(t.ms) +
+        '</td><td>' + (t.ok && t.ms < TARGET_MS ? 'Yes' : 'No') + '</td><td>' +
+        (t.ok ? 'Sent' : escapeHtml(t.error)) + '</td></tr>';
+    }).join('');
+    var live = tries.filter(function (t) { return !t.mock; });
+    var good = live.filter(function (t) { return t.ok && t.ms < TARGET_MS; }).length;
+    var s;
+    if (live.length === 0) {
+      s = 'No live tries yet. Mock tries do not count towards the live acceptance test.';
+    } else {
+      var last5 = live.slice(-5);
+      var passed = last5.length === 5 && last5.every(function (t) { return t.ok && t.ms < TARGET_MS; });
+      s = 'Live tries: ' + live.length + ', of which ' + good + ' sent in under 10 s. ' +
+        (last5.length < 5 ? 'Need ' + (5 - last5.length) + ' more for the 5-try test. ' :
+          'Last 5 live tries: ' + (passed ? 'all under 10 s (page timing). Confirm each arrived on the guardian\'s phone.' : 'NOT all under 10 s.') + ' ') +
+        'Copy these times into the test record before reloading.';
+    }
+    $('summary').textContent = s;
+  }
+
+  async function simulate() {
+    if (busy) return;
+    busy = true;
+    var btn = $('simulateBtn');
+    btn.disabled = true;
+    var mock = $('mockMode').checked;
+    var text = alertText();
+    updatePreview();
+    startRinging();
+
+    var started = performance.now();
+    showResult('wait', 'Alerting guardian… <span class="elapsed" id="live">0.0 s</span>');
+    tickHandle = setInterval(function () {
+      var el = $('live');
+      if (el) el.textContent = seconds(performance.now() - started);
+    }, 100);
+
+    var r;
+    try {
+      r = mock
+        ? await A.simulateGuardianAlert({ delayMs: 600 })
+        : await A.sendGuardianAlert({ token: $('token').value, chatId: $('chatId').value, text: text });
+    } catch (e) {
+      r = { ok: false, ms: Math.round(performance.now() - started), error: 'Something went wrong in the page. Reload and try again.' };
+    }
+    clearInterval(tickHandle);
+    tries.push({ mock: mock, ok: r.ok, ms: r.ms, error: r.error });
+    renderLog();
+
+    var n = $('phoneNotice');
+    if (r.ok) {
+      n.className = 'notice ok';
+      n.textContent = guardianName() + ' has been told.';
+      var under = r.ms < TARGET_MS ? 'within the 10 s target' : 'slower than the 10 s target';
+      showResult('ok', mock
+        ? 'Simulated alert done in <span class="elapsed">' + seconds(r.ms) + '</span>. Mock mode: no real message was sent.'
+        : 'Guardian alerted in <span class="elapsed">' + seconds(r.ms) + '</span> (' + under + '). Telegram accepted the message; check that it arrived on the guardian\'s phone.');
+    } else {
+      n.className = 'notice bad';
+      n.textContent = guardianName() + ' could not be reached. Call them now?';
+      showResult('bad', 'Alert not sent after <span class="elapsed">' + seconds(r.ms) + '</span>. ' + escapeHtml(r.error));
+    }
+    busy = false;
+    btn.disabled = false;
+  }
+
+  async function findChat() {
+    var list = $('chatList');
+    list.hidden = false;
+    list.innerHTML = '<li>Looking…</li>';
+    var r = await A.findChatIds({ token: $('token').value });
+    if (!r.ok || r.chats.length === 0) {
+      list.innerHTML = '<li>' + escapeHtml(r.error || 'No chats found.') + '</li>';
+      return;
+    }
+    list.innerHTML = '';
+    r.chats.forEach(function (c) {
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'small-btn';
+      b.textContent = 'Use ' + c.id + (c.name ? ' (' + c.name + ', ' + c.type + ')' : '');
+      b.addEventListener('click', function () { $('chatId').value = String(c.id); list.hidden = true; });
+      li.appendChild(b);
+      list.appendChild(li);
+    });
+  }
+
+  $('simulateBtn').addEventListener('click', simulate);
+  $('declineBtn').addEventListener('click', endCall);
+  $('answerBtn').addEventListener('click', endCall);
+  $('mockMode').addEventListener('change', updateMode);
+  ['seniorName', 'callerNumber', 'maskNumber'].forEach(function (id) {
+    $(id).addEventListener('input', updatePreview);
+    $(id).addEventListener('change', updatePreview);
+  });
+  $('showToken').addEventListener('click', function () {
+    var t = $('token');
+    var show = t.type === 'password';
+    t.type = show ? 'text' : 'password';
+    this.textContent = show ? 'Hide' : 'Show';
+    this.setAttribute('aria-pressed', String(show));
+  });
+  $('findChat').addEventListener('click', findChat);
+  $('clearCreds').addEventListener('click', resetCredentials);
+
+  resetOnLoad();
+  updatePreview();
+  renderLog();
+})();
+</script>
+</body>
+</html>
