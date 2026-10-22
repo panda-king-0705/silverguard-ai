@@ -1,0 +1,42 @@
+# Draft prepared with AI assistance for Dev 2; to be reviewed and edited by the team.
+# Runs the demo unit tests and the secrets check on every push and pull request.
+# No secrets are needed: the tests mock the network and never call Telegram.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests and secrets check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Node (current LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Run unit tests in demo folders that have *.test.js files
+        shell: bash
+        run: |
+          set -euo pipefail
+          for dir in demo/scam-check-web demo/guardian-alert; do
+            if [ -d "$dir" ] && [ -n "$(find "$dir" -name '*.test.js' -not -path '*/node_modules/*' -print -quit)" ]; then
+              echo "::group::node --test in $dir"
+              (cd "$dir" && node --test)
+              echo "::endgroup::"
+            else
+              echo "Skipping $dir: no *.test.js files yet."
+            fi
+          done
+
+      - name: Check for committed secrets (bot tokens, API keys)
+        run: node demo/guardian-alert/check-secrets.js

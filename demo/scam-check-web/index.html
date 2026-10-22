@@ -1,0 +1,491 @@
+<!doctype html>
+<!-- Draft prepared with AI assistance for the Dev 1 role; to be reviewed and edited by the team. -->
+<!-- SilverGuard AI Scam Check demo (backlog D2). Single file, works offline, no external resources.
+     The engine below is a copy of engine.js; run "node sync-page.js" after editing engine.js. -->
+<html lang="en-SG">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SilverGuard Scam Check</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --surface: #ffffff;
+    --text: #1c1b19;
+    --muted: #45423d;
+    --border: #8a857c;
+    --primary: #1f3a5f;
+    --primary-text: #ffffff;
+    --focus: #b35c00;
+    --high-bg: #fce8e6;  --high-edge: #a51c1c;  --high-text: #6e0f0f;
+    --check-bg: #fff3d1; --check-edge: #8a5a00; --check-text: #4f3300;
+    --none-bg: #e6edf5;  --none-edge: #1f3a5f;  --none-text: #16304f;
+    --disabled-bg: #e4e2dd; --disabled-text: #3f3d39;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161514; --surface: #22201e; --text: #f3f0ea; --muted: #d2cdc4; --border: #8f8a82;
+      --primary: #9cc2ef; --primary-text: #0d1b2c; --focus: #ffb35c;
+      --high-bg: #3a1513; --high-edge: #ff8a80; --high-text: #ffd9d5;
+      --check-bg: #362a0c; --check-edge: #ffc94d; --check-text: #ffe9b0;
+      --none-bg: #172434; --none-edge: #9cc2ef; --none-text: #dbe9fa;
+      --disabled-bg: #34312d; --disabled-text: #d8d3ca;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161514; --surface: #22201e; --text: #f3f0ea; --muted: #d2cdc4; --border: #8f8a82;
+    --primary: #9cc2ef; --primary-text: #0d1b2c; --focus: #ffb35c;
+    --high-bg: #3a1513; --high-edge: #ff8a80; --high-text: #ffd9d5;
+    --check-bg: #362a0c; --check-edge: #ffc94d; --check-text: #ffe9b0;
+    --none-bg: #172434; --none-edge: #9cc2ef; --none-text: #dbe9fa;
+    --disabled-bg: #34312d; --disabled-text: #d8d3ca;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 22px;
+    line-height: 1.5;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 20px 16px 40px; }
+  h1 { font-size: 32px; line-height: 1.2; margin: 8px 0 4px; }
+  h2 { font-size: 26px; margin: 0 0 8px; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--muted); }
+  label { display: block; font-weight: 700; margin: 20px 0 8px; }
+  textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 14px;
+    font: inherit;
+    color: var(--text);
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    resize: vertical;
+  }
+  button {
+    font: inherit;
+    font-weight: 700;
+    min-height: 64px;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 14px;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+  :focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+  .primary { background: var(--primary); color: var(--primary-text); margin-top: 16px; }
+  .secondary { background: var(--surface); color: var(--text); border-color: var(--border); }
+  .row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+  @media (min-width: 520px) { .row { grid-template-columns: 1fr 1fr; } }
+  .privacy { margin-top: 12px; color: var(--muted); }
+  #status { min-height: 1.5em; margin-top: 16px; font-weight: 700; }
+
+  .card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    border: 2px solid;
+    border-left-width: 12px;
+  }
+  .card[data-level="high"]  { background: var(--high-bg);  border-color: var(--high-edge);  color: var(--high-text); }
+  .card[data-level="check"] { background: var(--check-bg); border-color: var(--check-edge); color: var(--check-text); }
+  .card[data-level="none"]  { background: var(--none-bg);  border-color: var(--none-edge);  color: var(--none-text); }
+  .level { display: flex; align-items: center; gap: 14px; font-size: 30px; font-weight: 800; line-height: 1.2; margin: 0 0 12px; }
+  .level svg { width: 48px; height: 48px; flex: none; }
+  .reasons { margin: 0 0 12px; padding-left: 1.2em; }
+  .reasons li { margin-bottom: 8px; }
+  .seen { display: block; font-weight: 400; }
+  .reminder { font-weight: 700; margin: 12px 0 0; }
+  .guardian { margin-top: 20px; }
+  .guardian button[disabled] { background: var(--disabled-bg); color: var(--disabled-text); border-color: var(--border); cursor: not-allowed; }
+  .note { margin-top: 8px; color: var(--muted); }
+  footer { margin-top: 32px; color: var(--muted); border-top: 2px solid var(--border); padding-top: 16px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Scam Check</h1>
+  <p class="lead">Paste a message you are not sure about. We look for the signs scammers use, such as asking for money, a new number or keeping a secret.</p>
+
+  <label for="message">Paste the message here</label>
+  <textarea id="message" autocomplete="off" spellcheck="false" placeholder="For example: Hi Ma, this is my new number…"></textarea>
+
+  <button id="check" class="primary" type="button">Check this message</button>
+  <div class="row">
+    <button id="example-scam" class="secondary" type="button">Try a scam example</button>
+    <button id="example-family" class="secondary" type="button">Try a family example</button>
+  </div>
+  <div class="row">
+    <button id="clear" class="secondary" type="button">Clear</button>
+    <button id="speak" class="secondary" type="button" hidden>Read result aloud</button>
+  </div>
+  <p class="privacy">Checking happens in this page only. Nothing you paste is sent anywhere.</p>
+
+  <div id="status" role="status" aria-live="polite"></div>
+
+  <section id="result" class="card" hidden aria-labelledby="level-text" tabindex="-1">
+    <h2 class="level"><span id="level-icon" aria-hidden="true"></span><span id="level-text"></span></h2>
+    <p id="reasons-title"></p>
+    <ul id="reasons" class="reasons"></ul>
+    <p id="reminder" class="reminder"></p>
+  </section>
+
+  <div class="guardian">
+    <button type="button" disabled aria-describedby="guardian-note">Alert my guardian</button>
+    <p id="guardian-note" class="note">Coming in Sprint 2 (Dev 2's alert module)</p>
+  </div>
+
+  <footer>
+    <p>Demo only. It uses a simplified rules engine; the planned app adds a trained model on the phone. It never says a message is safe.</p>
+    <p>Draft prepared with AI assistance for the Dev 1 role; to be reviewed and edited by the team.</p>
+  </footer>
+</main>
+
+<script>
+/* ENGINE:START */
+/*
+ * Draft prepared with AI assistance for the Dev 1 role; to be reviewed and edited by the team.
+ *
+ * SilverGuard AI — rules-only Scam Check engine for the browser demo (backlog D2).
+ * Pure functions, no dependencies. Works in the browser (window.SilverGuardEngine)
+ * and in Node (require('./engine.js')).
+ *
+ *   detectCues(text) -> [{ family, label, weight, reason, matches: [phrases] }]
+ *   assess(text)     -> { level, reasons: [plain sentences], cues, reminder }
+ *
+ * It looks for the scam SCRIPT (money, secrecy, identity switch, urgency, authority,
+ * emotional pressure) in English, Singlish, Mandarin and Malay. It never says "safe".
+ * The product design adds a trained classifier on the phone; this demo does not.
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) {
+    module.exports = factory();
+  } else {
+    root.SilverGuardEngine = factory();
+  }
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  var LEVELS = {
+    HIGH: 'High risk',
+    CHECK: 'Check with family',
+    NONE: 'No warning signs found'
+  };
+
+  var REMINDER = 'Still verify any request for money by calling family on a number you saved.';
+
+  // Chinese numerals and digits followed by a currency word, e.g. 五千块, 3000元.
+  var ZH_AMOUNT = '[0-9零一二两三四五六七八九十百千万]+\\s*(?:块钱?|元|新币|新元)';
+
+  /*
+   * Each family has:
+   *   patterns: regexes run on lower-cased, NFKC-normalised text
+   *   casePatterns: regexes run on the original text (for acronyms such as MAS, ICA)
+   *   strip: phrases removed before matching this family (to avoid known false matches)
+   */
+  var CUE_FAMILIES = [
+    {
+      family: 'money',
+      label: 'Money request',
+      weight: 'High',
+      reason: 'They asked for money or talked about sending or paying it',
+      patterns: [
+        /\btransfer(?:s|red|ring)?\b/g,
+        /\bpay\s?now\b/g,
+        /\bbank\s+(?:account|acct|a\/c|transfer|details)\b/g,
+        /\baccount\s+(?:number|no\.?)\b/g,
+        /\bsafe(?:ty)?\s+account\b/g,
+        /\bgift\s?cards?\b/g,
+        /\b(?:itunes|google play|apple|steam)\s+cards?\b/g,
+        /\b(?:crypto(?:currency)?|bitcoin|btc|usdt|ethereum)\b/g,
+        /\b(?:money|cash|funds?)\b/g,
+        /\b(?:borrow|lend me|loan|remit|ransom|bail)\b/g,
+        /\bsend\s+(?:me|us|him|her)\b/g,
+        /(?:s\$|\$|\bsgd\s?|\brm\s?)\s?\d[\d,]*(?:\.\d+)?\s?k?\b/g,
+        /\b\d+(?:\.\d+)?\s?k\b/g,
+        /\b\d[\d,]*\s?(?:dollars|bucks|sgd)\b/g,
+        // Malay
+        /\b(?:hantar|pindah(?:kan)?|beri|bagi|pinjam(?:kan)?)\s+(?:duit|wang)\b/g,
+        /\b(?:duit|wang|akaun|pinjam|bayar)\b/g,
+        // Mandarin
+        /转账|转帐|汇款|汇钱|打钱|借钱|付款|银行户口|银行账户|户口|账户|钱/g,
+        new RegExp(ZH_AMOUNT, 'g')
+      ]
+    },
+    {
+      family: 'secrecy',
+      label: 'Secrecy',
+      weight: 'High',
+      reason: 'They asked you to keep it secret',
+      patterns: [
+        /\b(?:don'?t|do not|dont|dun|never)\s+(?:tell|inform|discuss|mention|share)\b/g,
+        /\b(?:don'?t|do not|dont|dun|never)\s+let\s+(?:\w+\s+){0,2}know\b/g,
+        /\b(?:don'?t|do not|dont|dun|never)\s+(?:call|contact|report to)\s+(?:the\s+)?police\b/g,
+        /\bkeep\s+(?:this|it|that)\s+(?:between us|(?:a\s+)?secret|confidential|quiet|to yourself)\b/g,
+        /\bbetween\s+(?:you and me|us)\b/g,
+        /\b(?:confidential|secret)\b/g,
+        // Malay
+        /\bjangan\s+(?:beritahu|bagitahu|bagi tahu|beri tahu|kasi tahu|cakap|lapor(?:kan)?)\b/g,
+        /\brahsia\b/g,
+        // Mandarin
+        /别告诉|不要告诉|不要跟.{0,6}说|别跟.{0,6}说|别让.{0,6}知道|不要让.{0,6}知道|保密|千万别说|不要报警|别报警/g
+      ]
+    },
+    {
+      family: 'identity',
+      label: 'Identity switch',
+      weight: 'High',
+      reason: 'They said they have a new number, lost their phone or cannot talk',
+      patterns: [
+        /\bnew\s+(?:phone\s+)?(?:number|no\.?|hp)\b/g,
+        /\bchanged?\s+(?:my\s+)?(?:phone\s+)?(?:number|no\.?)\b/g,
+        /\b(?:my\s+)?number\s+(?:changed|change already)\b/g,
+        /\b(?:lost|lose|spoilt|broke)\s+(?:my\s+)?phone\b/g,
+        /\bphone\s+(?:lost|spoil|spoilt|kena stolen|stolen|broke|broken|cannot use|can'?t use|died)\b/g,
+        /\b(?:can'?t|cannot|cant|can not|unable to)\s+(?:talk|speak|call|pick up|answer)\b/g,
+        /\bvoice\s+(?:note|message|msg)s?\s+only\b/g,
+        /\bonly\s+(?:can\s+)?(?:send\s+)?voice\s+(?:note|message|msg)s?\b/g,
+        /\bsave\s+(?:this|my new|my)\s+(?:number|no\.?|one)\b/g,
+        /\bdelete\s+(?:the|my)\s+old\s+(?:number|one)\b/g,
+        /\bguess\s+who\b/g,
+        // Malay
+        /\bnombor\s+baru\b|\btukar\s+nombor\b|\bsimpan\s+nombor\b|\bteka\s+siapa\b/g,
+        // "telefon hilang", "telefon lama hilang", "telefon saya rosak", "hp saya hilang"
+        /\b(?:telefon|handphone|hp)\s+(?:\w+\s+)?(?:hilang|rosak|dicuri)\b/g,
+        /\btak\s+(?:boleh|dapat)\s+(?:cakap|bercakap|telefon)\b/g,
+        // Mandarin
+        /新号码|新号|换了?号码|换号|手机(?:丢了|不见了|坏了|掉了|被偷)|不能(?:讲|说话|接电话|打电话)|没法(?:说话|接)|猜猜?我是谁|存(?:一下)?这个号码/g
+      ]
+    },
+    {
+      family: 'urgency',
+      label: 'Urgency',
+      weight: 'Medium',
+      reason: 'They are rushing you or describing an emergency',
+      // Singlish "just now" means "a moment ago", not "immediately".
+      strip: [/\bjust\s+now\b/g],
+      patterns: [
+        /\bnow\b/g,
+        /\b(?:urgent(?:ly)?|asap|immediately|right away|hurry|quick(?:ly)?|emergency|tonight|today)\b/g,
+        /\bwithin\s+\d+\s*(?:hours?|hrs?|minutes?|mins?)\b/g,
+        /\b(?:hospital|accident|arrested|arrest|police station|lock(?:ed)? up|jail|detained|kidnap(?:ped)?)\b/g,
+        // Malay
+        /\b(?:segera|sekarang|cepat|kecemasan|kemalangan|ditangkap|malam ini)\b/g,
+        // Mandarin
+        /马上|紧急|急需|立刻|立即|现在|今晚|赶快|快点|医院|车祸|出事|被抓|警察局|拘留/g
+      ]
+    },
+    {
+      family: 'authority',
+      label: 'Authority',
+      weight: 'Medium',
+      reason: 'They say they are the police, a bank, a court or the government',
+      patterns: [
+        /\b(?:police|polis|court|judge|magistrate|warrant|bank officer|bank staff|fraud team|officer|inspector|government|govt|ministry|money laundering)\b/g,
+        /\binvestigat(?:e|es|ed|ion|ions|ing)\b/g,
+        // Malay
+        /\b(?:mahkamah|kerajaan|pegawai|siasatan)\b/g,
+        // Mandarin
+        /警察|警方|警局|公安|法庭|法院|政府|银行职员|银行人员|调查|洗钱|官员/g
+      ],
+      casePatterns: [/\b(?:MAS|ICA|SPF|IRAS|MOM|MOH|AGC|IMDA)\b/g]
+    },
+    {
+      family: 'emotion',
+      label: 'Emotional pressure',
+      weight: 'Low',
+      reason: 'They are trying to make you scared or sorry for them',
+      patterns: [
+        /\b(?:crying|cry|cried|scared|afraid|frightened|terrified|please help|help me|beg you|begging)\b/g,
+        // Malay
+        /\b(?:menangis|takut|tolong saya|tolong bantu|bantu saya)\b/g,
+        // Mandarin
+        /哭|害怕|好怕|救我|求求你|帮帮我/g
+      ]
+    }
+  ];
+
+  function normalise(text) {
+    var t = String(text == null ? '' : text);
+    if (typeof t.normalize === 'function') t = t.normalize('NFKC');
+    return t.replace(/[‘’ʼ′]/g, "'").replace(/\s+/g, ' ');
+  }
+
+  function collect(re, text, out) {
+    re.lastIndex = 0;
+    var m;
+    while ((m = re.exec(text)) !== null) {
+      var phrase = m[0].trim();
+      if (phrase && out.indexOf(phrase) === -1) out.push(phrase);
+      if (m[0].length === 0) re.lastIndex++;
+    }
+  }
+
+  /** Returns the cue families found, each with the phrases that matched. */
+  function detectCues(text) {
+    var original = normalise(text);
+    var lower = original.toLowerCase();
+    var found = [];
+    CUE_FAMILIES.forEach(function (fam) {
+      var subject = lower;
+      (fam.strip || []).forEach(function (re) {
+        subject = subject.replace(re, ' ');
+      });
+      var matches = [];
+      fam.patterns.forEach(function (re) { collect(re, subject, matches); });
+      (fam.casePatterns || []).forEach(function (re) { collect(re, original, matches); });
+      if (matches.length) {
+        found.push({
+          family: fam.family,
+          label: fam.label,
+          weight: fam.weight,
+          reason: fam.reason,
+          matches: matches
+        });
+      }
+    });
+    return found;
+  }
+
+  /**
+   * Combines cues into one of three levels (never "safe"):
+   *   High risk          = money request + any other High or Medium cue
+   *   Check with family  = any High cue without that combination (money alone counts)
+   *   No warning signs   = everything else
+   */
+  function assess(text) {
+    var cues = detectCues(text);
+    var has = function (family) {
+      return cues.some(function (c) { return c.family === family; });
+    };
+    var money = has('money');
+    var otherStrong = cues.some(function (c) {
+      return c.family !== 'money' && (c.weight === 'High' || c.weight === 'Medium');
+    });
+    var anyHigh = cues.some(function (c) { return c.weight === 'High'; });
+
+    var level = LEVELS.NONE;
+    if (money && otherStrong) level = LEVELS.HIGH;
+    else if (anyHigh) level = LEVELS.CHECK;
+
+    return {
+      level: level,
+      reasons: cues.map(function (c) { return c.reason; }),
+      cues: cues,
+      reminder: REMINDER
+    };
+  }
+
+  return {
+    LEVELS: LEVELS,
+    REMINDER: REMINDER,
+    CUE_FAMILIES: CUE_FAMILIES,
+    detectCues: detectCues,
+    assess: assess
+  };
+});
+/* ENGINE:END */
+</script>
+<script>
+(function () {
+  'use strict';
+  var engine = window.SilverGuardEngine;
+  var $ = function (id) { return document.getElementById(id); };
+
+  var EXAMPLES = {
+    scam: 'Ma, my phone kena stolen, this is my new number. Need to pay the landlord today, can PayNow me $2,000? Don\'t tell Pa first ok.',
+    family: 'Hi Ma, reached the hospital with Pa for his check-up. Doctor says all fine, we will be home by 5. Call you later.'
+  };
+
+  var ICONS = {
+    high: '<svg viewBox="0 0 48 48" role="img" aria-hidden="true"><path d="M24 4 2 44h44L24 4z" fill="currentColor"/><rect x="21.5" y="17" width="5" height="15" rx="2" fill="var(--high-bg)"/><circle cx="24" cy="37.5" r="3" fill="var(--high-bg)"/></svg>',
+    check: '<svg viewBox="0 0 48 48" role="img" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="currentColor"/><path d="M17.5 18a6.5 6.5 0 1 1 9.4 5.8c-1.8.9-2.9 2.2-2.9 4.2v1.5" fill="none" stroke="var(--check-bg)" stroke-width="4.5" stroke-linecap="round"/><circle cx="24" cy="36.5" r="3" fill="var(--check-bg)"/></svg>',
+    none: '<svg viewBox="0 0 48 48" role="img" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="currentColor"/><circle cx="24" cy="13.5" r="3.2" fill="var(--none-bg)"/><rect x="21.5" y="20" width="5" height="17" rx="2" fill="var(--none-bg)"/></svg>'
+  };
+
+  var LEVEL_KEY = {};
+  LEVEL_KEY[engine.LEVELS.HIGH] = 'high';
+  LEVEL_KEY[engine.LEVELS.CHECK] = 'check';
+  LEVEL_KEY[engine.LEVELS.NONE] = 'none';
+
+  var LEVEL_INTRO = {
+    high: 'This looks like a scam script. Do not send money. Call your family on a number you saved.',
+    check: 'Something here needs checking. Call your family on a number you saved before you reply.',
+    none: 'We did not find the usual scam signs. That does not mean it is safe.'
+  };
+
+  var lastSpoken = '';
+
+  function render(result) {
+    var key = LEVEL_KEY[result.level];
+    var card = $('result');
+    card.setAttribute('data-level', key);
+    $('level-icon').innerHTML = ICONS[key];
+    $('level-text').textContent = result.level;
+    $('reasons-title').textContent = LEVEL_INTRO[key];
+
+    var list = $('reasons');
+    list.innerHTML = '';
+    result.cues.forEach(function (cue) {
+      var li = document.createElement('li');
+      li.textContent = cue.reason;
+      var seen = document.createElement('span');
+      seen.className = 'seen';
+      seen.textContent = 'We noticed: ' + cue.matches.map(function (m) { return '“' + m + '”'; }).join(', ');
+      li.appendChild(seen);
+      list.appendChild(li);
+    });
+    list.hidden = result.cues.length === 0;
+
+    $('reminder').textContent = result.reminder;
+    card.hidden = false;
+    $('status').textContent = 'Result: ' + result.level + '.';
+    lastSpoken = [result.level, LEVEL_INTRO[key]].concat(result.reasons, [result.reminder]).join('. ');
+    card.focus();
+  }
+
+  function check() {
+    var text = $('message').value.trim();
+    if (!text) {
+      $('result').hidden = true;
+      $('status').textContent = 'Please paste a message first.';
+      $('message').focus();
+      return;
+    }
+    $('status').textContent = 'Checking. This stays on your phone.';
+    render(engine.assess(text));
+  }
+
+  $('check').addEventListener('click', check);
+  $('clear').addEventListener('click', function () {
+    $('message').value = '';
+    $('result').hidden = true;
+    $('status').textContent = '';
+    lastSpoken = '';
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    $('message').focus();
+  });
+  $('example-scam').addEventListener('click', function () { $('message').value = EXAMPLES.scam; check(); });
+  $('example-family').addEventListener('click', function () { $('message').value = EXAMPLES.family; check(); });
+
+  if ('speechSynthesis' in window && 'SpeechSynthesisUtterance' in window) {
+    $('speak').hidden = false;
+    $('speak').addEventListener('click', function () {
+      if (!lastSpoken) { $('status').textContent = 'Check a message first.'; return; }
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(lastSpoken);
+      u.lang = 'en-SG';
+      u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    });
+  }
+})();
+</script>
+</body>
+</html>
