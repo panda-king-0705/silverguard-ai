@@ -32,11 +32,11 @@ Six people at about 8 h a week gives 48 h. We plan to about 80% (about 38 h). Th
 | --- | --- | --- | --- | --- |
 | PO | 8 | 6.4 | 5 | B1 (4), V2 helper (1) |
 | SM | 8 | 6.4 | 2 | V4 (1), V2 helper (1), plus running ceremonies |
-| Dev 1 | 8 | 6.4 | 10 | D2 (8), D1 (2) |
+| Dev 1 | 8 | 6.4 | 6 | D2 (4: review and wire-up), D1 (2) |
 | Dev 2 | 8 | 6.4 | 4 | D4 (4) |
-| Designer | 8 | 6.4 | 10 | D5 (8), P3 (2) |
-| Researcher | 8 | 6.4 | 8 | P2 (4), D1 (2), V2 (2) |
-| **Team** | **48** | **38.4** | **39** | |
+| Designer | 8 | 6.4 | 6 | D5 (6: review and fixes before the sessions) |
+| Researcher | 8 | 6.4 | 4 | D1 (2), V2 (2) |
+| **Team** | **48** | **38.4** | **29** | |
 
 **For the team to decide at planning:** the team total fits, but Dev 1, the Designer and the Researcher are over 6.4 h while Dev 2, the PO and the SM have room. Options the AI suggests:
 
@@ -45,6 +45,17 @@ Six people at about 8 h a week gives 48 h. We plan to about 80% (about 38 h). Th
 - The two V2 helpers are the PO and the SM. The brief says "any 2 members", so the team picks.
 
 Real availability this week is not known yet; each person should say theirs at planning.
+
+**Decided 23 Oct 2026 (Yaoyun, for the team): overflow moves to Sprint 2.** Roles are not assigned yet, so instead of rebalancing between people, the extra load moves out of Sprint 1:
+
+| Moved to Sprint 2 | From | Hours | Why it can wait |
+| --- | --- | --- | --- |
+| P2 Source library v2 review ([#2](https://github.com/panda-king-0705/silverguard-ai/issues/2)) | Researcher | 4 | AI draft exists; the poster (P4) only needs it in Sprint 2 |
+| P3 Poster wireframe review ([#3](https://github.com/panda-king-0705/silverguard-ai/issues/3)) | Designer | 2 | AI draft exists; it feeds Poster v1 (P4) in Sprint 2 |
+| D2 fixes for unseen messages (typos, "acc", negation) | Dev 1 | 4 | Folded into D7 demo hardening ([#13](https://github.com/panda-king-0705/silverguard-ai/issues/13)) |
+| D5 non-English string fixes after the native-speaker check | Designer | 2 | Sessions can run in English first |
+
+Sprint 1 keeps every P0 item. The load is now about 29 h of 38.4 h, which leaves room for whoever runs the grandparent sessions.
 
 ## Sprint backlog
 
