@@ -120,6 +120,8 @@ Scenario: product team for 10 months instead of 12: 254,709.00 (saves 50,941.80)
 
 ## Decisions for the team (PO to raise at kickoff or Sprint 1 planning)
 
+**Decided 23 Oct 2026 (Yaoyun, for the team):** the pitch asks for **S$500,000**: the 12-month budget of S$491,533.60 plus S$8,466.40 of extra buffer, rounded to a clean number. Team to ratify at kickoff.
+
 - [ ] **The product team is above the seed range.** Options: (a) raise the range in the pitch to about S$305k; (b) fund engineers for 10 months (MVP + pilot) instead of 12, which brings the line to S$254,709.00 and the total to S$435,497.62; (c) hire one engineer at the lower Web/Mobile developer median. The pitch should state one choice.
 - [ ] **WhatsApp price:** someone should check Meta's Singapore utility rate in the official rate card and replace the placeholder. Each extra US$0.01 per message adds S$1,379.71.
 - [ ] **Needs-quote lines (S$58,300.00):** voice actors, transcription, pen test, privacy and legal review, and two non-Samsung phones. Ask 1–2 vendors for indicative quotes, or keep them labelled as placeholders on the poster.
