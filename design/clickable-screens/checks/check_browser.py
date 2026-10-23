@@ -99,7 +99,7 @@ with sync_playwright() as p:
     check("Unknown number rang Mum at 10:42. She can still answer. Please call her before any money moves." in gtxt and "Call Mum" in gtxt, "guardian chat bubble text and Call Mum button")
     page.click("#s-guardian [data-action=call]"); check(page.inner_text("#h-calling") == "Calling Mum…", "Call Mum -> calling Mum")
     page.click("[data-action=end-call]"); check(visible(page) == "s-guardian", "End call -> back to guardian")
-    page.click("#s-guardian [data-go=s-home]"); check(visible(page) == "s-home", "See Mum's screen -> home")
+    check(page.locator("#s-guardian [data-go=s-home]").count() == 0, "Guardian screen has no link to Mum's screen")
     for i, sid in enumerate(["s-home", "s-pv", "s-check", "s-drill", "s-debrief", "s-guardian"], 1):
         page.click(f".picker [data-go={sid}]")
         check(visible(page) == sid and page.get_attribute(f".picker [data-go={sid}]", "aria-current") == "true", f"picker {i} -> {sid}")

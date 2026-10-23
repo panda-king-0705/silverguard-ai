@@ -35,6 +35,8 @@ Copy this row and fill in every column. Leave none blank: write "none" or "not k
 | 13 | 23 Oct 2026 | Seed ask: S$500,000 (12-month budget S$491,534 plus a small buffer, rounded). | 12 months ~S$492k; 10 months ~S$435k; round to S$500k | Keeps engineers through the pilot and gives investors a clean number | Yaoyun (for the team) | Researched and computed the budget lines | docs/business/budget-v2.md; issue #18 | Confirmed by Yaoyun; team to ratify at kickoff |
 | 14 | 23 Oct 2026 | Repo stays public (confirms decision 9; closes issue #27). | Private until after grading; public now | Team chose openness; drafts carry the AI-assistance note | Yaoyun (for the team) | Flagged the risk of other groups reusing drafts | Issue #27 | Confirmed by Yaoyun |
 | 15 | 23 Oct 2026 | Roles not yet assigned; Sprint 1 overflow (about 12 h) moves to Sprint 2: P2 review, P3 review, D2 unseen-message fixes (into D7), D5 non-English fixes. | Rebalance between people; move overflow to Sprint 2 | No names yet to rebalance between; all moved items already have AI drafts and feed Sprint 2 work | Yaoyun (for the team) | Flagged the overload and proposed what could slip | docs/process/sprint-1-plan.md; issues #2, #3, #11, #13 | Confirmed by Yaoyun; roles to be assigned at kickoff |
+| 16 | 23 Oct 2026 | No ethics (IRB) query to the tutor: the project is a mock-up, and any grandparent chats are informal feedback on screens, not research. | Ask the tutor first; proceed without asking | No real product is deployed and nothing is published as research | Yaoyun (for the team) | Flagged that NTU pages don't say coursework feedback is exempt | docs/research/interview-guide.md; issue #15 | Decided by Yaoyun |
+| 17 | 23 Oct 2026 | Removed the 'See Mum's screen' button from the guardian screen (screen 6) of the clickable prototype. | Keep the button; remove it | Guardians don't need to view the senior's phone; avoids any impression of remote monitoring | Yaoyun (for the team) | The Designer agent had added the button as a demo shortcut; the team removed it | design/clickable-screens/index.html; issue #11 | Decided by Yaoyun |
 
 ## Overrides and changes to AI drafts
 
@@ -42,4 +44,4 @@ Add a row whenever the team rejects or changes something the AI proposed. These 
 
 | Date | What the AI proposed | What the team did instead | Why | Who | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| | | | | | |
+| 23 Oct 2026 | A 'See Mum's screen' button on the guardian screen (demo shortcut) | Removed it | Guardians should not view the senior's phone | Yaoyun | Decision 17; design/clickable-screens/index.html |
