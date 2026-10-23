@@ -9,8 +9,9 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const { assess, detectCues, LEVELS, REMINDER } = require('./engine.js');
+const { assess, detectCues, normaliseForMatching, LEVELS, REMINDER } = require('./engine.js');
 const testSet = require('./test-set.json');
+const heldOut = require('./held-out-set.json');
 
 const families = (text) => detectCues(text).map((c) => c.family);
 const phrases = (text, family) => {
@@ -183,6 +184,107 @@ test('assess always gives the verification reminder and plain-word reasons, neve
   assert.ok(result.reasons.includes('They asked you to keep it secret'));
   assert.ok(result.reasons.some((r) => /new number/.test(r)));
   assert.ok(result.reasons.some((r) => /money/.test(r)));
+});
+
+// ---------------------------------------------------------------- DEV1-3: unseen-message fixes
+
+test('normalisation: symbol swaps, repeated letters and shorthand are cleaned before matching', () => {
+  assert.equal(normaliseForMatching('Tr4nsfer n0w'), 'transfer now');
+  assert.equal(normaliseForMatching('Googl3 Pl@y c@rds'), 'google play cards');
+  assert.equal(normaliseForMatching('pleaseee heeelp'), 'please help');
+  assert.equal(normaliseForMatching('pls call u tmr'), 'please call you tomorrow');
+  assert.equal(normaliseForMatching('my acct'), 'my account');
+  // amounts and times are left alone
+  assert.equal(normaliseForMatching('RM5k and 3k, $1,000, 10pm, 2nd'), 'rm5k and 3k, $1,000, 10pm, 2nd');
+});
+
+test('normalisation: swapped symbols still reach the word lists', () => {
+  assert.ok(families('send via p@ynow').includes('money'));
+  assert.ok(families('bro buy 2 itun3s c@rds').includes('money'));
+  assert.ok(families('pay-now me').includes('money'));
+  // "pay-now" is a payment service, not the word "now"
+  assert.ok(!families('pay-now me').includes('urgency'));
+  assert.ok(families('its 4 an emergncy hospital').includes('urgency'));
+});
+
+test('shorthand: "acc" and "acct" become "account" but a bare "account" is not a money request', () => {
+  assert.ok(families('put it in this acc 5551234567').includes('money'));
+  assert.ok(families('safe acct').includes('money'));
+  assert.ok(!families('I opened an account at the library').includes('money'));
+  // casual address is not a cue
+  assert.deepEqual(families('bro lol see u at dinner'), []);
+});
+
+test('negation: cancels a cue only when it directly governs it', () => {
+  assert.ok(!families('I am not asking for any money').includes('money'));
+  assert.ok(!families("I'm never asking you to transfer anything").includes('money'));
+  assert.ok(!families("Don't worry about the cash").includes('money'));
+  assert.ok(!families('There is no need to hurry').includes('urgency'));
+  assert.ok(!families('我不是要钱').includes('money'));
+  assert.ok(!families('Saya bukan minta duit').includes('money'));
+  // the cancelled phrase is reported, not hidden
+  assert.deepEqual(assess('I am not asking for money').ignored, [{ family: 'money', phrase: 'money' }]);
+});
+
+test('negation: does not cancel a request that the negation does not govern', () => {
+  assert.ok(families("I'm not able to talk, transfer $500 now").includes('money'));
+  assert.ok(families('Not asking for myself, just send me 3k').includes('money'));
+  assert.ok(families("Didn't I ask you to transfer it?").includes('money'));
+  assert.ok(families('Never mind, pay the money today').includes('money'));
+  assert.ok(families('不是我自己，你先转两万').includes('money'));
+  assert.equal(assess('Not an emergency but please PayNow me $300 tonight').level, LEVELS.HIGH);
+});
+
+test('negation: secrecy and identity cues are never cancelled', () => {
+  assert.ok(families("Don't tell Mum").includes('secrecy'));
+  assert.ok(families("I can't talk now").includes('identity'));
+});
+
+test('bare amounts: English and Malay money verb plus a bare number', () => {
+  assert.ok(families('please pay my landlord 1200').includes('money'));
+  assert.ok(families('top up 500 for me').includes('money'));
+  assert.ok(families('tolong bayar 800 dulu').includes('money'));
+  assert.ok(!families('pay 2 people for the taxi').includes('money'));
+  assert.ok(!families('send the form by 2000 hrs').includes('money'));
+});
+
+test('bare Chinese numerals: a money verb plus 百/千/万 is an amount, counts and times are not', () => {
+  assert.ok(families('帮我转两万').includes('money'));
+  assert.ok(families('先借我五千').includes('money'));
+  assert.ok(families('我需要三百').includes('money'));
+  assert.ok(families('转3000给他').includes('money'));
+  assert.ok(families('要保释').includes('money'));
+  assert.ok(!families('我们六口人订了十二点的位子').includes('money'));
+  assert.ok(!families('打110报警').includes('money'));
+  assert.ok(!families('他有三千多个粉丝').includes('money'));
+  assert.ok(!families('我家有三百年历史').includes('money'));
+});
+
+test('held-out set: file has 8 scam and 4 genuine messages with the required fields', () => {
+  const required = ['id', 'text', 'language', 'kind', 'expected_level', 'pattern', 'covers'];
+  for (const item of heldOut) {
+    for (const field of required) assert.ok(field in item, `${item.id} is missing ${field}`);
+    assert.ok(Object.values(LEVELS).includes(item.expected_level), `${item.id} expected_level`);
+  }
+  assert.equal(heldOut.filter((i) => i.kind === 'scam').length, 8);
+  assert.equal(heldOut.filter((i) => i.kind === 'genuine').length, 4);
+  assert.equal(new Set(heldOut.map((i) => i.id)).size, heldOut.length, 'ids are unique');
+  const seen = new Set(testSet.map((i) => i.text));
+  for (const item of heldOut) assert.ok(!seen.has(item.text), `${item.id} duplicates a test-set message`);
+});
+
+test('held-out set: every message matches its expected level except H10 (the parking false alarm)', () => {
+  const misses = heldOut.filter((i) => assess(i.text).level !== i.expected_level).map((i) => i.id);
+  // H10 is a team decision (README, "Hospital parking"): the design rule money + urgency = High risk stays.
+  assert.deepEqual(misses, ['H10']);
+  assert.equal(assess(heldOut.find((i) => i.id === 'H10').text).level, LEVELS.HIGH);
+});
+
+test('held-out set: all 8 scams are High risk and 3 of 4 genuine messages are not', () => {
+  const scams = heldOut.filter((i) => i.kind === 'scam');
+  assert.equal(scams.filter((i) => assess(i.text).level === LEVELS.HIGH).length, 8);
+  const genuine = heldOut.filter((i) => i.kind === 'genuine');
+  assert.deepEqual(genuine.filter((i) => assess(i.text).level === LEVELS.HIGH).map((i) => i.id), ['H10']);
 });
 
 // ---------------------------------------------------------------- page

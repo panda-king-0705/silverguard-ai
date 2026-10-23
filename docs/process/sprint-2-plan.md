@@ -109,7 +109,7 @@ Sprint 2 total: 40 h proposed (37 h of items, including V4, plus 3 h of native-s
 - **#21 R1.** Ten minutes with 2–3 on the problem, a speaker for every beat (Speaker A–F) and cue cards, no phones.
 - **#22 R2.** The [Q&A bank](../pitch/qa-bank.md) has 20 questions, each with a 30-second answer and an owner role. Reassign owners at planning.
 - **#16 V3.** V2 sessions run in Sprint 1 (28–31 Oct). Only anonymised, approved quotes may go in the repo (Definition of Done, item 4).
-- **Investor answers fixed by decisions.** Seed ask S$500,000 (decision 13). Accuracy is quoted as "15/15 on a 15-message test set the team wrote itself; real-world accuracy not yet measured" (decision 20). The "isn't the problem shrinking?" answer is "fewer cases, bigger losses" (decision 21). Never say SPF links voice cloning to its figures.
+- **Investor answers fixed by decisions.** Seed ask S$500,000 (decision 13). Accuracy is quoted as "15/15 on a 15-message test set our team wrote with AI assistance; real-world accuracy not yet measured" (decision 20). The "isn't the problem shrinking?" answer is "fewer cases, bigger losses" (decision 21). Never say SPF links voice cloning to its figures.
 
 **Sprint 1 items that must be finished before Sprint 2 starts (due Sun 1 Nov):** [#8](https://github.com/panda-king-0705/silverguard-ai/issues/8) D2, [#10](https://github.com/panda-king-0705/silverguard-ai/issues/10) D4 built, [#11](https://github.com/panda-king-0705/silverguard-ai/issues/11) D5 (so P4 and D6 have screens), [#15](https://github.com/panda-king-0705/silverguard-ai/issues/15) V2 (so V3 has input) and [#18](https://github.com/panda-king-0705/silverguard-ai/issues/18) B1 (so B2 and P4 have the budget). Anything unfinished carries over at planning and is re-estimated.
 

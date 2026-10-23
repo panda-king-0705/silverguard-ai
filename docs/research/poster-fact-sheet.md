@@ -31,7 +31,7 @@ Version 0.1, 23 Oct 2026. One row per number planned for the poster (P4, P5) and
 
 | Wording | Value | Status | Do not say |
 | --- | --- | --- | --- |
-| "Scam Check scored 15/15 on a 15-message test set the team wrote itself; real-world accuracy has not yet been measured." (decision 20) | 15/15 | Team's own result: demo/scam-check-web/README.md. Re-run the test before the poster goes to print. | "100% accurate". "Detects 100% of scams". Leave out the caveat. |
+| "Scam Check scored 15/15 on a 15-message test set our team wrote with AI assistance; real-world accuracy has not yet been measured." (decision 20) | 15/15 | Team's own result: demo/scam-check-web/README.md. Re-run the test before the poster goes to print. | "100% accurate". "Detects 100% of scams". Leave out the caveat. |
 | "Over-60s lost US$7.748 billion in 2025, up 59%." (FBI IC3, A7) | US$7.748B | Opened; the report release date is still unverified, so write "2025 report" only. | "Singapore seniors lost…". Say "United States". |
 | "Seniors aged 65 and above made up 14.4% of victims in the first half of 2026." (B3) | 14.4% | Excerpt of B3. | Don't compare 14.4% (H1 2026) with 14.8% (2025) as a trend. |
 | "In 2024, people aged 65 and above made up 8.4% of scam victims." (B13) | 8.4% | Excerpt of SPF's 2024 brief. Its "highest average loss" statement for 2024 is not yet checked. | Don't use 8.4% for 2025 or write "8.4% in 2025". |

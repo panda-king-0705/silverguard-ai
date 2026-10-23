@@ -1,0 +1,127 @@
+[
+  {
+    "id": "H01",
+    "text": "hi gran its me, my phone got stolen so using fren's. pls tr4nsfer 800 to this ac 0123456789 asap, will pay u bck tmr",
+    "language": "en",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Family impersonation: stolen phone, urgent bank transfer to a given account number",
+    "covers": ["typo and symbol swap (tr4nsfer)", "shorthand (pls, ac, u, tmr)", "bare amount (800)"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H02",
+    "text": "Bro its Jun, new hp. help me pay my fren 1500 via p@y-n0w pls, i pay u back sat",
+    "language": "en-SG",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Fake friend: new phone, small loan paid to a third party through PayNow",
+    "covers": ["symbol swap (p@y-n0w)", "shorthand (bro, hp, pls, u)", "bare amount (1500)"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H03",
+    "text": "妈，我出事了，手机坏了，用朋友的号码联系你。帮我转两万给这个人，现在就要，别告诉爸。",
+    "gloss": "Mum, something has happened, my phone is broken, I am using a friend's number. Transfer 20,000 to this person for me, I need it right now, don't tell Dad.",
+    "language": "zh",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Family emergency: broken phone, borrowed number, urgent transfer, secrecy",
+    "covers": ["Mandarin amount without 块/元 (转两万)"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H04",
+    "text": "阿嬷，我是小明，我被警察抓了，要三千保释，你先打过去，不要告诉别人。",
+    "gloss": "Grandma, it's Xiao Ming, the police have arrested me, I need 3,000 for bail, send it over first, don't tell anyone.",
+    "language": "zh",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Relative arrested, bail money, secrecy",
+    "covers": ["Mandarin amount without 块/元 (打三千 / 要三千)"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H05",
+    "text": "Auntie, this is Officer Tan from the bank fraud team. Your account was flagged. I am not asking you for your password, just move your savings to a safe acct today.",
+    "language": "en",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Bank officer impersonation, move savings to a safe account",
+    "covers": ["shorthand (acct)", "negation that does not govern the money request (not asking for your password)"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H06",
+    "text": "Mak, ni Aiman. Telefon saya rosak, guna nombor kawan. Tolong pindah RM2000 kat akaun ni segera, jangan bagitahu abah.",
+    "gloss": "Mum, this is Aiman. My phone is broken, using a friend's number. Please move RM2,000 to this account quickly, don't tell Dad.",
+    "language": "ms",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Family emergency: broken phone, borrowed number, urgent transfer, secrecy",
+    "covers": ["Malay control case (no deliberate difficulty)"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H07",
+    "text": "Hi Ah Ma, its me. Cant talk now in a meeting. Pls buy 3 Googl3 Pl@y c@rds, $100 each, n send me the c0des. Dun tell Pa.",
+    "language": "en-SG",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Fake relative asks for gift cards and the codes, secrecy",
+    "covers": ["leetspeak and symbol swaps (Googl3 Pl@y c@rds)", "shorthand (pls, n, dun)"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H08",
+    "text": "Hi Dad, new number, pls save. Cant talk, in meeting. Need u to bank in 3k to this acct today. Not asking for myself, its for a client.",
+    "language": "en-SG",
+    "kind": "scam",
+    "expected_level": "High risk",
+    "pattern": "Fake boss or child: new number, urgent payment to a third party",
+    "covers": ["shorthand (pls, u, acct)", "negation that does not govern the money request (not asking for myself)"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H09",
+    "text": "Mum, I'm NOT asking for money ok, just want to say hi. Call me tonight if you are free.",
+    "language": "en",
+    "kind": "genuine",
+    "expected_level": "No warning signs found",
+    "pattern": "Ordinary check-in that mentions money only to deny it",
+    "covers": ["negation that directly governs a money word"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H10",
+    "text": "Ma, Dad is stable now, doctor says he can go home tomorrow. I am at the hospital with him. Can you bring $50 cash for the car park later?",
+    "language": "en",
+    "kind": "genuine",
+    "expected_level": "Check with family",
+    "pattern": "Real hospital update plus a real small money request (parking)",
+    "covers": ["the known false alarm: money + urgency = High risk by design"],
+    "note": "Expected level is 'Check with family' because the message does ask for money, but a human would not call it a likely scam. The design rule (money + urgency = High risk) cannot tell this apart from a scam. Team decision: see README.md.",
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H11",
+    "text": "阿公，下个月我们一家六口去吃饭，订了十二点的位子，你记得带身份证和老人卡。",
+    "gloss": "Grandpa, next month our family of six is going out to eat, I booked a table for twelve o'clock, remember to bring your ID card and senior card.",
+    "language": "zh",
+    "kind": "genuine",
+    "expected_level": "No warning signs found",
+    "pattern": "Family meal plan with bare Chinese numerals that are not money",
+    "covers": ["bare Chinese numerals must not be read as an amount without a money verb"],
+    "source": "Invented for this held-out test; not from a real case"
+  },
+  {
+    "id": "H12",
+    "text": "Ah Ma pls dun worry ah, im ok. Just reached hotel in Penang. Wifi slow so pls dun call, will call u tmr morning.",
+    "language": "en-SG",
+    "kind": "genuine",
+    "expected_level": "No warning signs found",
+    "pattern": "Holiday check-in written in shorthand; asks not to call because of slow wifi",
+    "covers": ["shorthand and typos in a genuine message must not create a false alarm"],
+    "source": "Invented for this held-out test; not from a real case"
+  }
+]

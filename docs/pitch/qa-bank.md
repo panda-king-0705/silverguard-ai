@@ -170,11 +170,11 @@ Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/
 
 **Owner:** Dev 1
 
-**30-second answer:** On a 15-message test set the team wrote itself, the demo rated every message as expected: 15 out of 15. Real-world accuracy is not yet measured. The demo uses simple word rules. The product adds a trained classifier, with thresholds set on a held-out test set of volunteer messages in four languages, and we track catch rate, false alarms and "couldn't check" per language before any pilot goal is set.
+**30-second answer:** On a 15-message test set our team wrote with AI assistance, the demo rated every message as expected: 15 out of 15. Real-world accuracy is not yet measured. The demo uses simple word rules. The product adds a trained classifier, with thresholds set on a held-out test set of volunteer messages in four languages, and we track catch rate, false alarms and "couldn't check" per language before any pilot goal is set.
 
 **Repo source:** Decision 20; [demo/scam-check-web/README.md, Results and Known misses](../../demo/scam-check-web/README.md); [prototype-design.md, Evaluation](../prototype-design.md#scam-check-engine).
 
-**Careful:** Use decision 20's wording exactly: "15/15 on a 15-message test set the team wrote itself; real-world accuracy not yet measured". The README says the AI assistant wrote the messages and the word lists, so the team should check that "the team wrote itself" is true as stated, and say "with AI help" if asked. The README's "Known misses" table shows that on 10 unseen messages the engine missed several, and one scam got "No warning signs found" (the Sprint 2 demo fixes may have changed this; re-check). Do not call 15/15 a catch rate.
+**Careful:** Use decision 20's wording exactly: "15/15 on a 15-message test set our team wrote with AI assistance; real-world accuracy not yet measured". The README says the AI assistant wrote the messages and the word lists, so the team should check that "our team wrote with AI assistance" is true as stated, and say "with AI help" if asked. The README's "Known misses" table shows that on 10 unseen messages the engine missed several, and one scam got "No warning signs found" (the Sprint 2 demo fixes may have changed this; re-check). Do not call 15/15 a catch rate.
 
 ## 15. Why would a telco partner with you?
 

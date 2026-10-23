@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for dir in demo/scam-check-web demo/guardian-alert; do
+          for dir in demo/scam-check-web demo/guardian-alert demo/pitch-demo; do
             if [ -d "$dir" ] && [ -n "$(find "$dir" -name '*.test.js' -not -path '*/node_modules/*' -print -quit)" ]; then
               echo "::group::node --test in $dir"
               (cd "$dir" && node --test)
