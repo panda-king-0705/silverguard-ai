@@ -1,0 +1,1413 @@
+<!doctype html>
+<!-- Draft prepared with AI assistance for Dev 2; to be reviewed and edited by the team. -->
+<!-- SilverGuard AI combined pitch demo (DEV2-3). One offline file: no CDNs, no external fonts, no logos.
+     The three marked blocks below are COPIES of engine.js, alert.js and scamcheck-alert.js.
+     Do not edit them here. After the sources change, run "node build.js" in this folder. -->
+<html lang="en-SG">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SilverGuard AI pitch demo</title>
+<style>
+  :root {
+    --bg: #faf7f2;
+    --surface: #ffffff;
+    --text: #1c1b19;
+    --muted: #45423d;
+    --border: #8a857c;
+    --primary: #1f3a5f;
+    --primary-text: #ffffff;
+    --focus: #b35c00;
+    --high-bg: #fce8e6;  --high-edge: #a51c1c;  --high-text: #6e0f0f;
+    --check-bg: #fff3d1; --check-edge: #8a5a00; --check-text: #4f3300;
+    --none-bg: #e6edf5;  --none-edge: #1f3a5f;  --none-text: #16304f;
+    --ok-bg: #e3f2e7; --ok-text: #14502b;
+    --bad-bg: #fbe6e3; --bad-text: #7a1c13;
+    --danger: #a51c1c; --danger-text: #ffffff;
+    --disabled-bg: #e4e2dd; --disabled-text: #3f3d39;
+    --phone: #16181c; --phone-ink: #f3f4f6; --phone-muted: #c3c8d0;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 22px;
+    line-height: 1.5;
+  }
+  [hidden] { display: none !important; }
+  .settings-wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+  header, main, footer { max-width: 1180px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+  header { padding-top: 20px; }
+  h1 { font-size: 36px; line-height: 1.2; margin: 0 0 4px; }
+  h2 { font-size: 28px; line-height: 1.25; margin: 0 0 8px; }
+  h3 { font-size: 22px; margin: 0 0 6px; }
+  p { margin: 0 0 12px; }
+  .lead { color: var(--muted); }
+
+  .modebar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+    margin-top: 12px; padding: 12px 16px; border-radius: 14px; border: 2px solid var(--border); background: var(--surface);
+  }
+  .pill { display: inline-block; padding: 4px 16px; border-radius: 999px; font-weight: 800; border: 2px solid; }
+  .pill.mock { background: var(--none-bg); color: var(--none-text); border-color: var(--none-edge); }
+  .pill.live { background: var(--check-bg); color: var(--check-text); border-color: var(--check-edge); }
+
+  main { display: grid; grid-template-columns: 1fr; gap: 28px; padding-top: 20px; padding-bottom: 20px; align-items: start; }
+  @media (min-width: 1000px) { main { grid-template-columns: minmax(340px, 420px) 1fr; } }
+  .panel { background: var(--surface); border: 2px solid var(--border); border-radius: 18px; padding: 20px; margin-bottom: 20px; }
+  .step { display: inline-block; min-width: 44px; padding: 0 10px; margin-right: 8px; text-align: center; border-radius: 999px; background: var(--primary); color: var(--primary-text); }
+
+  button {
+    font: inherit;
+    font-weight: 700;
+    min-height: 64px;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 14px;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+  button[disabled] { background: var(--disabled-bg) !important; color: var(--disabled-text) !important; border-color: var(--border) !important; cursor: not-allowed; }
+  :focus-visible { outline: 4px solid var(--focus); outline-offset: 3px; }
+  .primary { background: var(--primary); color: var(--primary-text); }
+  .secondary { background: var(--surface); color: var(--text); border-color: var(--border); }
+  .danger { background: var(--danger); color: var(--danger-text); }
+  .row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+  @media (min-width: 520px) { .row { grid-template-columns: 1fr 1fr; } }
+  .inline { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .inline > input { flex: 1 1 220px; }
+  .inline > button { width: auto; flex: 0 0 auto; }
+
+  .status { min-height: 1.5em; margin-top: 14px; font-weight: 700; }
+  .status.ok { color: var(--ok-text); }
+  .status.bad { color: var(--bad-text); }
+  .note { color: var(--muted); }
+
+  /* Phone card (generic, no app branding) */
+  .phone {
+    background: var(--phone); color: var(--phone-ink); border-radius: 36px; padding: 18px 18px 26px;
+    min-height: 520px; display: flex; flex-direction: column; border: 6px solid #2b2e35; margin-bottom: 16px;
+  }
+  .statusbar { display: flex; justify-content: space-between; font-size: 20px; color: var(--phone-muted); padding: 0 8px 12px; }
+  .screen { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  .idle-msg { margin-top: 140px; color: var(--phone-muted); }
+  #callUi { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; flex: 1; }
+  .call-label { font-size: 20px; color: var(--phone-muted); margin-top: 12px; }
+  .avatar { width: 96px; height: 96px; border-radius: 50%; background: #2d3139; display: grid; place-items: center; margin: 4px 0; }
+  .avatar.ringing { animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,255,255,.25); } 50% { box-shadow: 0 0 0 16px rgba(255,255,255,0); } }
+  @media (prefers-reduced-motion: reduce) { .avatar.ringing { animation: none; } }
+  .caller { font-size: 28px; font-weight: 700; }
+  .number { font-size: 24px; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; background: #2d3139; border-radius: 16px; padding: 8px 14px; font-size: 20px; }
+  .notice { margin-top: 6px; border-radius: 16px; padding: 12px 14px; font-size: 20px; width: 100%; }
+  .notice.ok { background: #1d3b2a; color: #d6f5e0; }
+  .notice.bad { background: #4a1f1b; color: #ffd9d4; }
+  .notice.wait { background: #2d3139; color: var(--phone-ink); }
+  .call-actions { display: flex; justify-content: space-around; width: 100%; margin-top: auto; padding-top: 16px; }
+  .round { width: 72px; height: 72px; min-height: 72px; padding: 0; border-radius: 50%; border: 0; display: grid; place-items: center; }
+  .round.decline { background: #c0392b; } .round.answer { background: #27ae60; }
+  .round-label { font-size: 20px; color: var(--phone-muted); margin-top: 6px; }
+
+  /* Scam Check */
+  label { display: block; font-weight: 700; margin: 18px 0 8px; }
+  textarea, input[type=text], input[type=password] {
+    width: 100%; font: inherit; color: var(--text); background: var(--surface);
+    border: 2px solid var(--border); border-radius: 12px; padding: 12px 14px; min-height: 64px;
+  }
+  textarea { min-height: 170px; resize: vertical; }
+  .card { margin-top: 18px; padding: 20px; border-radius: 16px; border: 2px solid; border-left-width: 12px; }
+  .card[data-level="high"]  { background: var(--high-bg);  border-color: var(--high-edge);  color: var(--high-text); }
+  .card[data-level="check"] { background: var(--check-bg); border-color: var(--check-edge); color: var(--check-text); }
+  .card[data-level="none"]  { background: var(--none-bg);  border-color: var(--none-edge);  color: var(--none-text); }
+  .level { display: flex; align-items: center; gap: 14px; font-size: 32px; font-weight: 800; line-height: 1.2; margin: 0 0 12px; }
+  .level svg { width: 48px; height: 48px; flex: none; }
+  .reasons { margin: 0 0 12px; padding-left: 1.2em; }
+  .reasons li { margin-bottom: 8px; }
+  .seen { display: block; font-weight: 400; }
+  .reminder { font-weight: 700; margin: 12px 0 0; }
+  .guardian { margin-top: 18px; padding: 16px; border-radius: 16px; border: 2px dashed var(--high-edge); background: var(--surface); }
+  .preview { background: #f7f5f1; border: 2px dashed var(--border); border-radius: 12px; padding: 12px 14px; margin-top: 12px; }
+
+  /* What the guardian receives */
+  .inbox { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .inbox li { border: 2px solid var(--border); border-radius: 14px; padding: 12px 14px; background: #f7f5f1; }
+  .tag { display: inline-block; padding: 0 12px; border-radius: 999px; font-weight: 700; border: 2px solid var(--border); background: var(--surface); margin-right: 8px; }
+  .tag.sent { background: var(--ok-bg); color: var(--ok-text); border-color: var(--ok-text); }
+  .tag.fail { background: var(--bad-bg); color: var(--bad-text); border-color: var(--bad-text); }
+
+  details.panel summary { font-size: 28px; font-weight: 700; cursor: pointer; min-height: 64px; display: flex; align-items: center; }
+  .toggle { display: flex; align-items: center; gap: 14px; font-weight: 700; margin: 8px 0; }
+  .toggle input { width: 32px; height: 32px; flex: none; }
+  fieldset { border: 0; padding: 0; margin: 0; }
+  fieldset:disabled { opacity: .55; }
+  .warn { background: var(--check-bg); color: var(--check-text); border-radius: 12px; padding: 12px 14px; margin-top: 12px; }
+  .chats { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+  footer { color: var(--muted); border-top: 2px solid var(--border); padding-top: 16px; padding-bottom: 32px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>SilverGuard AI: pitch demo</h1>
+  <p class="lead">Layer 1, before the call is answered: an unknown number is silenced and a guardian is alerted. Layer 2, during the scam: Scam Check reads a message, and the guardian can be told without ever seeing it.</p>
+  <div class="modebar" role="status" aria-live="polite">
+    <span>Mode:</span>
+    <span class="pill mock" id="modePill">MOCK MODE: nothing is sent</span>
+    <span class="note" id="modeNote">Rehearsal mode. Open Settings at the bottom to go live.</span>
+  </div>
+</header>
+
+<main>
+  <!-- LEFT: Layer 1 -->
+  <section aria-labelledby="h-call">
+    <div class="panel">
+      <h2 id="h-call"><span class="step" aria-hidden="true">1</span>An unknown number calls</h2>
+      <div class="phone" role="group" aria-label="Senior's phone (simulation)">
+        <div class="statusbar"><span id="clock">--:--</span><span>Mum's phone</span></div>
+        <div class="screen" id="screen">
+          <p class="idle-msg" id="idleMsg">No calls. Press the button below.</p>
+          <div id="callUi" hidden>
+            <div class="call-label">Incoming call</div>
+            <div class="avatar" id="avatar" aria-hidden="true">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="#c3c8d0"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-4.4 3.8-7.5 8.5-7.5s8.5 3.1 8.5 7.5z"/></svg>
+            </div>
+            <div class="caller">Unknown number</div>
+            <div class="number" id="callerNumberShown"></div>
+            <div class="badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m23 9-6 6M17 9l6 6"/></svg>
+              Ring silenced. You can still answer.
+            </div>
+            <div class="notice wait" id="phoneNotice">Telling your guardian…</div>
+            <div class="call-actions">
+              <div><button type="button" class="round decline" id="declineBtn" aria-label="Decline (ends the simulation)">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 9c-1.6 0-3.2.3-4.6.8v3.1c0 .4-.2.7-.6.9-1 .5-1.9 1.1-2.6 1.8-.2.2-.4.3-.7.3s-.5-.1-.7-.3L.3 13.1c-.2-.2-.3-.4-.3-.7s.1-.5.3-.7C3.3 8.8 7.4 7 12 7s8.7 1.8 11.7 4.7c.2.2.3.4.3.7s-.1.5-.3.7l-2.5 2.5c-.2.2-.4.3-.7.3s-.5-.1-.7-.3c-.8-.7-1.7-1.3-2.6-1.8-.3-.2-.6-.5-.6-.9V9.8C15.2 9.3 13.6 9 12 9z"/></svg>
+              </button><div class="round-label">Decline</div></div>
+              <div><button type="button" class="round answer" id="answerBtn" aria-label="Answer (ends the simulation)">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
+              </button><div class="round-label">Answer</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="primary" id="simulateBtn">Simulate unknown call</button>
+      <div class="status" id="callStatus" role="status" aria-live="polite"></div>
+    </div>
+
+    <div class="panel">
+      <h2>What Wei Jie receives</h2>
+      <p class="note">The guardian gets events, never the senior's messages or screen.</p>
+      <ul class="inbox" id="inbox" aria-live="polite"><li id="inboxEmpty">Nothing yet.</li></ul>
+    </div>
+  </section>
+
+  <!-- RIGHT: Layer 2 -->
+  <section aria-labelledby="h-check">
+    <div class="panel">
+      <h2 id="h-check"><span class="step" aria-hidden="true">2</span>Scam Check: paste a message</h2>
+      <p class="note">We look for the signs scammers use, such as asking for money, a new number or keeping a secret. Checking happens in this page only.</p>
+
+      <label for="message">Paste the message here</label>
+      <textarea id="message" autocomplete="off" spellcheck="false" placeholder="For example: Hi Ma, this is my new number…"></textarea>
+
+      <button type="button" class="primary" id="check" style="margin-top:16px">Check this message</button>
+      <div class="row">
+        <button type="button" class="secondary" id="exampleScam">Try a scam example</button>
+        <button type="button" class="secondary" id="exampleFamily">Try a family example</button>
+      </div>
+      <div class="row">
+        <button type="button" class="secondary" id="clear">Clear</button>
+      </div>
+      <div class="status" id="checkStatus" role="status" aria-live="polite"></div>
+
+      <section id="result" class="card" hidden aria-labelledby="levelText" tabindex="-1">
+        <h2 class="level"><span id="levelIcon" aria-hidden="true"></span><span id="levelText"></span></h2>
+        <p id="reasonsTitle"></p>
+        <ul id="reasons" class="reasons"></ul>
+        <p id="reminder" class="reminder"></p>
+      </section>
+
+      <div class="guardian" id="guardianBox" hidden>
+        <h3><span class="step" aria-hidden="true">3</span>High risk: tell the guardian</h3>
+        <button type="button" class="danger" id="alertBtn">Alert my guardian</button>
+        <div class="preview" id="alertPreview"></div>
+        <p class="note" style="margin-top:12px">This is a separate message. It never includes the message you pasted.</p>
+        <div class="status" id="alertStatus" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="settings-wrap" aria-label="Settings">
+  <details class="panel" id="settingsBox">
+    <summary>Settings: mock or live mode</summary>
+    <form id="settings" autocomplete="off" onsubmit="return false">
+      <label class="toggle"><input type="checkbox" id="mockMode" checked> Mock mode (no network, about 0.6 s, nothing is sent)</label>
+      <p class="note">Leave Mock mode on to rehearse, and if the venue network fails. Turn it off only when the bot and the guardian's chat are ready.</p>
+
+      <label for="seniorName">Senior's name in the alert</label>
+      <input type="text" id="seniorName" value="Mum" autocomplete="off" spellcheck="false">
+      <label for="guardianName">Guardian's name on the senior's phone</label>
+      <input type="text" id="guardianName" value="Wei Jie" autocomplete="off" spellcheck="false">
+      <label for="callerNumber">Caller's number (made-up demo number)</label>
+      <input type="text" id="callerNumber" value="+65 9123 4567" autocomplete="off" spellcheck="false" inputmode="tel">
+      <label class="toggle"><input type="checkbox" id="maskNumber" checked> Hide the middle digits of the caller's number</label>
+      <label class="toggle"><input type="checkbox" id="includeCues" checked> Name the warning signs in the Scam Check alert (for example "money request")</label>
+
+      <fieldset id="liveFields" disabled>
+        <label for="token">Telegram bot token</label>
+        <div class="inline">
+          <input type="password" id="token" autocomplete="off" spellcheck="false" aria-describedby="tokenHint">
+          <button type="button" class="secondary" id="showToken" aria-pressed="false">Show</button>
+        </div>
+        <p class="note" id="tokenHint" style="margin-top:8px">Kept in this page's memory only: never saved, never logged, cleared on reload.</p>
+        <label for="chatId">Guardian's chat ID</label>
+        <div class="inline">
+          <input type="text" id="chatId" autocomplete="off" spellcheck="false" inputmode="numeric">
+          <button type="button" class="secondary" id="findChat">Find chat ID</button>
+        </div>
+        <p class="note" style="margin-top:8px">The guardian must open the bot and press Start first.</p>
+        <ul class="chats" id="chatList" hidden></ul>
+        <div class="row"><button type="button" class="secondary" id="clearCreds">Clear token and chat ID</button></div>
+        <div class="warn">Live mode sends real messages. Do not show the token on the projector, and never paste it into code, chat or slides.</div>
+      </fieldset>
+    </form>
+  </details>
+</section>
+
+<footer>
+  <p>Prototype for a class pitch. Scam Check here is a simplified rules engine tested on a 15-message set the team wrote itself; real-world accuracy has not been measured. It never says a message is safe. Mock mode only simulates the alert and does not show real delivery times. The product design would send alerts from a backend with WhatsApp; this demo uses a Telegram bot.</p>
+  <p>Draft prepared with AI assistance for Dev 2; to be reviewed and edited by the team.</p>
+</footer>
+
+<script>
+/* ENGINE:START */
+/*
+ * Draft prepared with AI assistance for the Dev 1 role; to be reviewed and edited by the team.
+ *
+ * SilverGuard AI — rules-only Scam Check engine for the browser demo (backlog D2).
+ * Pure functions, no dependencies. Works in the browser (window.SilverGuardEngine)
+ * and in Node (require('./engine.js')).
+ *
+ *   detectCues(text)     -> [{ family, label, weight, reason, matches: [phrases] }]
+ *   assess(text)         -> { level, reasons: [plain sentences], cues, ignored, reminder }
+ *   normaliseForMatching -> the text after leetspeak, repeated-letter and shorthand clean-up
+ *
+ * It looks for the scam SCRIPT (money, secrecy, identity switch, urgency, authority,
+ * emotional pressure) in English, Singlish, Mandarin and Malay. It never says "safe".
+ * The product design adds a trained classifier on the phone; this demo does not.
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) {
+    module.exports = factory();
+  } else {
+    root.SilverGuardEngine = factory();
+  }
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  var LEVELS = {
+    HIGH: 'High risk',
+    CHECK: 'Check with family',
+    NONE: 'No warning signs found'
+  };
+
+  var REMINDER = 'Still verify any request for money by calling family on a number you saved.';
+
+  // Chinese numerals and digits followed by a currency word, e.g. 五千块, 3000元.
+  var ZH_AMOUNT = '[0-9零一二两三四五六七八九十百千万]+\\s*(?:块钱?|元|新币|新元)';
+
+  // A "big" bare Chinese amount with no 块/元: 两万, 三千, 五百, 一万二. It needs a 百/千/万 so that
+  // counts and times (六口, 十二点) are not read as money. Words that make it a count or a time are excluded.
+  var ZH_BIG_NUM = '(?:[零一二两三四五六七八九十]{1,3}[百千万](?:[零一二两三四五六七八九十]{1,3}[百千]?)?)';
+  var ZH_NOT_UNIT = '(?![个只张口位次天年月日点岁人公里条本件])';
+  // Money verbs that make a bare amount a request: 转两万, 借我五千, 给我三千, 要三千.
+  var ZH_MONEY_VERBS = '(?:转|打|汇|借|垫|凑|赔|付|给|要|需要|欠|缺|寄)[我你他她它们给过去到入进]{0,3}';
+  // Digits only after verbs that are clearly about money (not "打110").
+  var ZH_DIGIT_VERBS = '(?:转|汇|借|垫|凑|赔|付|欠)[我你他她它们给过去到入进]{0,3}';
+
+  // English and Malay: a money verb, up to three words, then a bare amount of 3 to 6 digits.
+  var EN_MONEY_VERBS = '(?:pay(?:ing)?|send(?:ing)?|give|giving|lend(?:ing)?|owe|owing|bank in|top up|settle|deposit|hantar|pindah(?:kan)?|bagi|beri|bayar|pinjam(?:kan)?)';
+  var BARE_AMOUNT = '(?:\\d{1,3}(?:,\\d{3})+|\\d{3,6})\\b(?!\\s?\\d)(?!\\s*(?:am|pm|people|persons?|pax|photos?|pics?|pictures?|days?|weeks?|months?|years?|hours?|hrs?|mins?|minutes?|km|kg|percent|%|times?|words?))';
+
+  /*
+   * Each family has:
+   *   patterns: regexes run on lower-cased, NFKC-normalised text
+   *   casePatterns: regexes run on the original text (for acronyms such as MAS, ICA)
+   *   strip: phrases removed before matching this family (to avoid known false matches)
+   *   negatable: a match is ignored when a negation directly governs it ("NOT asking for money").
+   *     Secrecy and identity are never negated because their cues already contain a negation
+   *     ("don't tell", "can't talk"); authority is left alone so "not the police, the bank" still counts.
+   */
+  var CUE_FAMILIES = [
+    {
+      family: 'money',
+      label: 'Money request',
+      weight: 'High',
+      reason: 'They asked for money or talked about sending or paying it',
+      negatable: true,
+      patterns: [
+        /\btransfer(?:s|red|ring)?\b/g,
+        /\bpay[\s-]?now\b/g,
+        /\bbank\s+in\b/g,
+        /\bbank\s+(?:account|acct|a\/c|transfer|details)\b/g,
+        /\baccount\s+(?:number|no\.?)\b/g,
+        // "to this account", "account 0123456789" (shorthand "acc"/"acct" is expanded first)
+        /\b(?:to|into)\s+(?:this|that|his|her|their|my|the)\s+(?:bank\s+)?account\b/g,
+        /\baccount\s*(?:no\.?|number|#)?\s*:?\s*\d[\d\s-]{5,}\d/g,
+        /\bsafe(?:ty)?\s+account\b/g,
+        /\bgift\s?cards?\b/g,
+        /\b(?:itunes|google play|apple|steam)\s+cards?\b/g,
+        /\b(?:crypto(?:currency)?|bitcoin|btc|usdt|ethereum)\b/g,
+        /\b(?:money|cash|funds?)\b/g,
+        /\b(?:borrow|lend me|loan|remit|ransom|bail)\b/g,
+        /\bsend\s+(?:me|us|him|her)\b/g,
+        /(?:s\$|\$|\bsgd\s?|\brm\s?)\s?\d[\d,]*(?:\.\d+)?\s?k?\b/g,
+        /\b\d+(?:\.\d+)?\s?k\b/g,
+        /\b\d[\d,]*\s?(?:dollars|bucks|sgd)\b/g,
+        // A money verb, up to three words, then a bare amount: "pay my friend 1500", "bank in 300"
+        new RegExp('\\b' + EN_MONEY_VERBS + '(?:\\s+[a-z\']+){0,3}\\s+' + BARE_AMOUNT, 'g'),
+        // Malay
+        /\b(?:hantar|pindah(?:kan)?|beri|bagi|pinjam(?:kan)?)\s+(?:duit|wang)\b/g,
+        /\b(?:duit|wang|akaun|pinjam|bayar)\b/g,
+        // Mandarin
+        /转账|转帐|汇款|汇钱|打钱|借钱|付款|银行户口|银行账户|户口|账户|钱|保释|赎金/g,
+        new RegExp(ZH_AMOUNT, 'g'),
+        // Bare Chinese amounts next to a money verb (no 块/元): 转两万, 借我五千, 要三千
+        new RegExp(ZH_MONEY_VERBS + ZH_BIG_NUM + ZH_NOT_UNIT, 'g'),
+        new RegExp(ZH_DIGIT_VERBS + '[0-9][0-9,]{2,}' + ZH_NOT_UNIT, 'g')
+      ]
+    },
+    {
+      family: 'secrecy',
+      label: 'Secrecy',
+      weight: 'High',
+      reason: 'They asked you to keep it secret',
+      patterns: [
+        /\b(?:don'?t|do not|dont|dun|never)\s+(?:tell|inform|discuss|mention|share)\b/g,
+        /\b(?:don'?t|do not|dont|dun|never)\s+let\s+(?:\w+\s+){0,2}know\b/g,
+        /\b(?:don'?t|do not|dont|dun|never)\s+(?:call|contact|report to)\s+(?:the\s+)?police\b/g,
+        /\bkeep\s+(?:this|it|that)\s+(?:between us|(?:a\s+)?secret|confidential|quiet|to yourself)\b/g,
+        /\bbetween\s+(?:you and me|us)\b/g,
+        /\b(?:confidential|secret)\b/g,
+        // Malay
+        /\bjangan\s+(?:beritahu|bagitahu|bagi tahu|beri tahu|kasi tahu|cakap|lapor(?:kan)?)\b/g,
+        /\brahsia\b/g,
+        // Mandarin
+        /别告诉|不要告诉|不要跟.{0,6}说|别跟.{0,6}说|别让.{0,6}知道|不要让.{0,6}知道|保密|千万别说|不要报警|别报警/g
+      ]
+    },
+    {
+      family: 'identity',
+      label: 'Identity switch',
+      weight: 'High',
+      reason: 'They said they have a new number, lost their phone or cannot talk',
+      patterns: [
+        /\bnew\s+(?:phone\s+)?(?:number|no\.?|hp)\b/g,
+        /\bchanged?\s+(?:my\s+)?(?:phone\s+)?(?:number|no\.?)\b/g,
+        /\b(?:my\s+)?number\s+(?:changed|change already)\b/g,
+        /\b(?:lost|lose|spoilt|broke)\s+(?:my\s+)?phone\b/g,
+        /\bphone\s+(?:lost|spoil|spoilt|kena stolen|stolen|broke|broken|cannot use|can'?t use|died)\b/g,
+        /\b(?:can'?t|cannot|cant|can not|unable to)\s+(?:talk|speak|call|pick up|answer)\b/g,
+        /\bvoice\s+(?:note|message|msg)s?\s+only\b/g,
+        /\bonly\s+(?:can\s+)?(?:send\s+)?voice\s+(?:note|message|msg)s?\b/g,
+        /\bsave\s+(?:this|my new|my)\s+(?:number|no\.?|one)\b/g,
+        /\bdelete\s+(?:the|my)\s+old\s+(?:number|one)\b/g,
+        /\bguess\s+who\b/g,
+        // Malay
+        /\bnombor\s+baru\b|\btukar\s+nombor\b|\bsimpan\s+nombor\b|\bteka\s+siapa\b/g,
+        // "telefon hilang", "telefon lama hilang", "telefon saya rosak", "hp saya hilang"
+        /\b(?:telefon|handphone|hp)\s+(?:\w+\s+)?(?:hilang|rosak|dicuri)\b/g,
+        /\btak\s+(?:boleh|dapat)\s+(?:cakap|bercakap|telefon)\b/g,
+        // Mandarin
+        /新号码|新号|换了?号码|换号|手机(?:丢了|不见了|坏了|掉了|被偷)|不能(?:讲|说话|接电话|打电话)|没法(?:说话|接)|猜猜?我是谁|存(?:一下)?这个号码/g
+      ]
+    },
+    {
+      family: 'urgency',
+      label: 'Urgency',
+      weight: 'Medium',
+      reason: 'They are rushing you or describing an emergency',
+      // Singlish "just now" means "a moment ago", not "immediately".
+      // "pay-now" (a hyphenated PayNow) is a payment service, not "now".
+      strip: [/\bjust\s+now\b/g, /\bpay-now\b/g],
+      negatable: true,
+      patterns: [
+        /\bnow\b/g,
+        /\b(?:urgent(?:ly)?|asap|immediately|right away|hurry|quick(?:ly)?|emergency|tonight|today)\b/g,
+        /\bwithin\s+\d+\s*(?:hours?|hrs?|minutes?|mins?)\b/g,
+        /\b(?:hospital|accident|arrested|arrest|police station|lock(?:ed)? up|jail|detained|kidnap(?:ped)?)\b/g,
+        // Malay
+        /\b(?:segera|sekarang|cepat|kecemasan|kemalangan|ditangkap|malam ini)\b/g,
+        // Mandarin
+        /马上|紧急|急需|立刻|立即|现在|今晚|赶快|快点|医院|车祸|出事|被抓|警察局|拘留/g
+      ]
+    },
+    {
+      family: 'authority',
+      label: 'Authority',
+      weight: 'Medium',
+      reason: 'They say they are the police, a bank, a court or the government',
+      patterns: [
+        /\b(?:police|polis|court|judge|magistrate|warrant|bank officer|bank staff|fraud team|officer|inspector|government|govt|ministry|money laundering)\b/g,
+        /\binvestigat(?:e|es|ed|ion|ions|ing)\b/g,
+        // Malay
+        /\b(?:mahkamah|kerajaan|pegawai|siasatan)\b/g,
+        // Mandarin
+        /警察|警方|警局|公安|法庭|法院|政府|银行职员|银行人员|调查|洗钱|官员/g
+      ],
+      casePatterns: [/\b(?:MAS|ICA|SPF|IRAS|MOM|MOH|AGC|IMDA)\b/g]
+    },
+    {
+      family: 'emotion',
+      label: 'Emotional pressure',
+      weight: 'Low',
+      reason: 'They are trying to make you scared or sorry for them',
+      negatable: true,
+      patterns: [
+        /\b(?:crying|cry|cried|scared|afraid|frightened|terrified|please help|help me|beg you|begging)\b/g,
+        // Malay
+        /\b(?:menangis|takut|tolong saya|tolong bantu|bantu saya)\b/g,
+        // Mandarin
+        /哭|害怕|好怕|救我|求求你|帮帮我/g
+      ]
+    }
+  ];
+
+  function normalise(text) {
+    var t = String(text == null ? '' : text);
+    if (typeof t.normalize === 'function') t = t.normalize('NFKC');
+    return t.replace(/[‘’ʼ′]/g, "'").replace(/\s+/g, ' ');
+  }
+
+  // ------------------------------------------------------------ text clean-up
+
+  // Symbol and digit swaps used to dodge word lists: p@ynow, tr4nsfer, c0des, googl3.
+  var LEET = { '@': 'a', '4': 'a', '3': 'e', '0': 'o', '1': 'i', '5': 's', '7': 't' };
+
+  // Common chat shorthand, whole words only. Add new entries here; no sentence is special-cased.
+  var SHORTHAND = {
+    pls: 'please', plz: 'please', plss: 'please', pliz: 'please',
+    u: 'you', ur: 'your', ure: 'you are',
+    acc: 'account', acct: 'account', accnt: 'account', ac: 'account', 'a/c': 'account',
+    tfr: 'transfer', trf: 'transfer', trfr: 'transfer', xfer: 'transfer',
+    tmr: 'tomorrow', tmrw: 'tomorrow', tmw: 'tomorrow', tml: 'tomorrow',
+    bck: 'back', fren: 'friend', frens: 'friends', frend: 'friend', frd: 'friend', frds: 'friends',
+    urgnt: 'urgent', urg: 'urgent', urgt: 'urgent', emerg: 'emergency', hosp: 'hospital',
+    mny: 'money', cuz: 'because'
+  };
+  // Words such as "bro", "sis", "lah" are deliberately NOT cues: casual address is normal in family chats.
+
+  function isLetter(ch) { return ch >= 'a' && ch <= 'z'; }
+
+  // Leave amounts such as "rm5k", "3k", "2nd", "10pm" alone.
+  var NUMBER_LIKE = /^(?:rm|sgd|usd|myr|idr|s)?\d[\d.,]*(?:k|m|sgd|usd|dollars|bucks|x|pax|pm|am|hrs?|st|nd|rd|th)?$/;
+
+  function deleet(tok) {
+    if ((tok.match(/[a-z]/g) || []).length < 2 || NUMBER_LIKE.test(tok)) return tok;
+    var out = '';
+    var lettersBefore = 0;
+    for (var i = 0; i < tok.length; i++) {
+      var c = tok.charAt(i);
+      var prev = out.charAt(out.length - 1);
+      var next = tok.charAt(i + 1);
+      if (LEET[c] && isLetter(prev) &&
+          (isLetter(next) || (i === tok.length - 1 && (c === '3' || c === '4' || c === '@') && lettersBefore >= 3))) {
+        c = LEET[c];
+      }
+      if (isLetter(c)) lettersBefore++;
+      out += c;
+    }
+    return out;
+  }
+
+  /**
+   * Cleans lower-case text before the word lists run:
+   *   1. symbol/digit swaps inside words (p@ynow, tr4nsfer, Googl3 Pl@y c@rds)
+   *   2. three or more repeated letters shrink to one (pleaseee, heeelp)
+   *   3. whole-word shorthand is expanded (pls, acc, u, tmr)
+   */
+  function normaliseForMatching(text) {
+    var t = normalise(text).toLowerCase();
+    return t.replace(/[a-z0-9@\/'-]+/g, function (tok) {
+      var w = deleet(tok).replace(/([a-z])\1{2,}/g, '$1');
+      var base = w, suffix = '';
+      if (/'s$/.test(w)) { base = w.slice(0, -2); suffix = "'s"; }
+      return Object.prototype.hasOwnProperty.call(SHORTHAND, base) ? SHORTHAND[base] + suffix : w;
+    });
+  }
+
+  // ------------------------------------------------------------ negation
+
+  /*
+   * A negation cancels a cue only when it DIRECTLY governs it: the negation word is followed only by
+   * a few light words ("asking", "for", "any", "you", "to"...) and then the cue, with no comma, full stop
+   * or other word in between. So "I'm NOT asking for money" cancels "money", but
+   * "I'm not able to talk, transfer $500 now" and "Not asking for myself, send 3k" do not cancel the request.
+   */
+  var NEG_FILLER = 'asking|ask|asked|for|any|you|your|to|need|needing|want|wanting|expect|expecting|looking|' +
+    'request|requesting|a|an|the|some|anything|more|about|worry|bother|even|really|that|this|my|me|us';
+  var NEG_EN = new RegExp(
+    "(?:\\b(?:not|never|no|nothing|nobody|without|nor|don'?t|dont|dun|doesn'?t|didn'?t|isn'?t|aren'?t|wasn'?t|won'?t)\\b)" +
+    '(?:\\s+(?:' + NEG_FILLER + ')){0,4}\\s*$');
+  var NEG_ZH = /(?:不是|并非|不用|不必|无需|不会|没有|没|不要|别|绝不)[要想是向跟让找叫你您给借再]{0,5}$/;
+  var NEG_MS = new RegExp(
+    '\\b(?:bukan|tidak|tak|tiada|jangan|usah)\\b(?:\\s+(?:minta|nak|mahu|ingin|untuk|pasal|risau|bimbang|kamu|awak|anda|saya|kepada|apa-apa|sebarang|lah|la)){0,4}\\s*$');
+
+  function isNegated(text, index) {
+    var before = text.slice(Math.max(0, index - 80), index);
+    return NEG_EN.test(before) || NEG_ZH.test(before) || NEG_MS.test(before);
+  }
+
+  // ------------------------------------------------------------ detection
+
+  function collect(re, text, out, ignored) {
+    re.lastIndex = 0;
+    var m;
+    while ((m = re.exec(text)) !== null) {
+      var phrase = m[0].trim();
+      if (phrase) {
+        if (ignored && isNegated(text, m.index)) {
+          if (ignored.indexOf(phrase) === -1) ignored.push(phrase);
+        } else if (out.indexOf(phrase) === -1) {
+          out.push(phrase);
+        }
+      }
+      if (m[0].length === 0) re.lastIndex++;
+    }
+  }
+
+  /**
+   * Returns { cues, ignored }: the cue families found (with matched phrases) and the phrases that were
+   * ignored because a negation directly governs them (shown to the person so nothing is hidden).
+   */
+  function analyse(text) {
+    var original = normalise(text);
+    var lower = normaliseForMatching(text);
+    var found = [];
+    var ignoredAll = [];
+    CUE_FAMILIES.forEach(function (fam) {
+      var subject = lower;
+      (fam.strip || []).forEach(function (re) {
+        subject = subject.replace(re, ' ');
+      });
+      var matches = [];
+      var ignored = fam.negatable ? [] : null;
+      fam.patterns.forEach(function (re) { collect(re, subject, matches, ignored); });
+      (fam.casePatterns || []).forEach(function (re) { collect(re, original, matches); });
+      if (ignored) {
+        ignored.forEach(function (p) {
+          if (matches.indexOf(p) === -1) ignoredAll.push({ family: fam.family, phrase: p });
+        });
+      }
+      if (matches.length) {
+        found.push({
+          family: fam.family,
+          label: fam.label,
+          weight: fam.weight,
+          reason: fam.reason,
+          matches: matches
+        });
+      }
+    });
+    return { cues: found, ignored: ignoredAll };
+  }
+
+  /** Returns the cue families found, each with the phrases that matched. */
+  function detectCues(text) {
+    return analyse(text).cues;
+  }
+
+  /**
+   * Combines cues into one of three levels (never "safe"):
+   *   High risk          = money request + any other High or Medium cue
+   *   Check with family  = any High cue without that combination (money alone counts)
+   *   No warning signs   = everything else
+   */
+  function assess(text) {
+    var analysis = analyse(text);
+    var cues = analysis.cues;
+    var has = function (family) {
+      return cues.some(function (c) { return c.family === family; });
+    };
+    var money = has('money');
+    var otherStrong = cues.some(function (c) {
+      return c.family !== 'money' && (c.weight === 'High' || c.weight === 'Medium');
+    });
+    var anyHigh = cues.some(function (c) { return c.weight === 'High'; });
+
+    var level = LEVELS.NONE;
+    if (money && otherStrong) level = LEVELS.HIGH;
+    else if (anyHigh) level = LEVELS.CHECK;
+
+    return {
+      level: level,
+      reasons: cues.map(function (c) { return c.reason; }),
+      cues: cues,
+      ignored: analysis.ignored,
+      reminder: REMINDER
+    };
+  }
+
+  return {
+    LEVELS: LEVELS,
+    REMINDER: REMINDER,
+    CUE_FAMILIES: CUE_FAMILIES,
+    detectCues: detectCues,
+    normaliseForMatching: normaliseForMatching,
+    assess: assess
+  };
+});
+/* ENGINE:END */
+</script>
+<script>
+/* ALERT:START */
+/*
+ * Draft prepared with AI assistance for Dev 2; to be reviewed and edited by the team.
+ *
+ * SilverGuard AI: guardian alert module (backlog item D4).
+ * Works in the browser (<script src="alert.js"> exposes window.SilverGuardAlert)
+ * and in Node (require('./alert.js')). No dependencies, no network calls at load time.
+ *
+ * Security: this file never stores, logs or prints the bot token. Every error
+ * string is passed through redact() so a token can never leak into the UI.
+ */
+(function (root, factory) {
+  'use strict';
+  var api = factory();
+  if (typeof module === 'object' && module.exports) {
+    module.exports = api;
+  } else {
+    root.SilverGuardAlert = api;
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+
+  // Request format: https://api.telegram.org/bot<token>/METHOD_NAME
+  // Source: https://core.telegram.org/bots/api#making-requests
+  var TELEGRAM_API_BASE = 'https://api.telegram.org';
+  // Text limit "1-4096 characters": https://core.telegram.org/bots/tutorial
+  var MAX_TEXT_LENGTH = 4096;
+  var DEFAULT_TIMEOUT_MS = 10000;
+  var DEFAULT_TIME_ZONE = 'Asia/Singapore';
+
+  function now() {
+    if (typeof performance !== 'undefined' && performance && typeof performance.now === 'function') {
+      return performance.now();
+    }
+    return Date.now();
+  }
+
+  function elapsedSince(start) {
+    return Math.max(0, Math.round(now() - start));
+  }
+
+  function result(ok, start, error) {
+    return { ok: ok, ms: start === null ? 0 : elapsedSince(start), error: ok ? null : error };
+  }
+
+  /** Replace every occurrence of the token in a string, so it can never be shown or logged. */
+  function redact(text, token) {
+    var s = String(text == null ? '' : text);
+    if (token && typeof token === 'string' && token.length >= 4) {
+      s = s.split(token).join('<bot token hidden>');
+    }
+    return s;
+  }
+
+  /**
+   * Mask the middle digits of a phone number.
+   * '+6591234567' -> '+65 9XXX XX67' (Singapore numbers: first digit and last 2 shown).
+   * Other international numbers keep '+', the first 2 digits and the last 2 digits.
+   * Local numbers keep the first digit and the last 2. Fewer than 4 digits: fully hidden.
+   */
+  function maskPhoneNumber(raw) {
+    var input = String(raw == null ? '' : raw).trim();
+    var hasPlus = input.charAt(0) === '+';
+    var digits = input.replace(/\D/g, '');
+    if (digits.length === 0) return '';
+
+    if (digits.length < 4) return (hasPlus ? '+' : '') + digits.replace(/\d/g, 'X');
+
+    var shown;
+    if (hasPlus && digits.indexOf('65') === 0 && digits.length === 10) {
+      // Singapore: +65 then 8 digits -> "+65 9XXX XX67"
+      return '+65 ' + groupInFours(maskMiddle(digits.slice(2), 1));
+    }
+    if (hasPlus) {
+      // Other countries: country-code length varies, so show "+" and the first 2 digits only.
+      shown = maskMiddle(digits, 2);
+      return '+' + groupInFours(shown);
+    }
+    // No "+": a local number such as "9123 4567" -> "9XXX XX67"
+    return groupInFours(maskMiddle(digits, 1));
+  }
+
+  /** Keep `keepStart` leading digits and the last 2 digits; replace the rest with X. */
+  function maskMiddle(digits, keepStart) {
+    if (digits.length <= keepStart + 2) return digits.slice(0, -2).replace(/\d/g, 'X') + digits.slice(-2);
+    return digits.slice(0, keepStart) + digits.slice(keepStart, -2).replace(/\d/g, 'X') + digits.slice(-2);
+  }
+
+  function groupInFours(s) {
+    return s.replace(/(.{4})(?=.)/g, '$1 ');
+  }
+
+  function formatTime(time, timeZone) {
+    if (typeof time === 'string' && time.trim() !== '') return time.trim();
+    var date = time instanceof Date ? time : (typeof time === 'number' ? new Date(time) : new Date());
+    if (isNaN(date.getTime())) date = new Date();
+    try {
+      return new Intl.DateTimeFormat('en-GB', {
+        hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: timeZone || DEFAULT_TIME_ZONE
+      }).format(date);
+    } catch (e) {
+      var h = String(date.getHours()); var m = String(date.getMinutes());
+      return (h.length < 2 ? '0' + h : h) + ':' + (m.length < 2 ? '0' + m : m);
+    }
+  }
+
+  var PRONOUNS = {
+    she: ['She', 'her'],
+    he: ['He', 'him'],
+    they: ['They', 'them']
+  };
+
+  /**
+   * Build the guardian's alert text.
+   * buildAlertText({ seniorName: 'Mum', callerNumber: '+6591234567', time: '10:42' })
+   * -> 'Unknown number +65 9XXX XX67 rang Mum at 10:42. She can still answer. Please call her before any money moves.'
+   *
+   * Options: maskNumber (default true; set false only if the senior consented to sharing the
+   * caller's number), pronoun ('she' | 'he' | 'they', default 'she'), timeZone (default Asia/Singapore).
+   */
+  function buildAlertText(options) {
+    var o = options || {};
+    var seniorName = (o.seniorName && String(o.seniorName).trim()) || 'Mum';
+    var maskNumber = o.maskNumber !== false;
+    var p = PRONOUNS[o.pronoun] || PRONOUNS.she;
+    var time = formatTime(o.time, o.timeZone);
+
+    var digits = String(o.callerNumber == null ? '' : o.callerNumber).replace(/\D/g, '');
+    var who;
+    if (!digits) {
+      who = 'An unknown caller (number hidden)';
+    } else if (maskNumber) {
+      who = 'Unknown number ' + maskPhoneNumber(o.callerNumber);
+    } else {
+      who = 'Unknown number ' + String(o.callerNumber).trim();
+    }
+    return who + ' rang ' + seniorName + ' at ' + time + '. ' +
+      p[0] + ' can still answer. Please call ' + p[1] + ' before any money moves.';
+  }
+
+  /** Plain-words explanation of a Telegram error reply. */
+  function explainTelegramError(code, description) {
+    var desc = String(description || '').toLowerCase();
+    var base = 'Telegram refused the message' + (code ? ' (error ' + code + ')' : '') +
+      (description ? ': ' + description : '') + '.';
+    var hint = '';
+    if (code === 401 || desc.indexOf('unauthorized') !== -1) {
+      hint = ' The bot token is wrong or has been revoked. Copy it again from BotFather.';
+    } else if (desc.indexOf('chat not found') !== -1) {
+      hint = ' The chat ID is wrong, or the guardian has not opened the bot and pressed Start yet.';
+    } else if (code === 403) {
+      hint = ' The guardian has blocked the bot or has not started a chat with it.';
+    } else if (code === 429) {
+      hint = ' Too many messages in a short time. Wait a little and try again.';
+    } else if (code === 400) {
+      hint = ' Check the chat ID and the message text.';
+    }
+    return base + hint;
+  }
+
+  /**
+   * Send the alert through the Telegram Bot API method sendMessage.
+   * Returns a Promise of { ok, ms, error } and never throws.
+   *   ok    true when Telegram replied {"ok": true}
+   *   ms    time from the call to Telegram's reply (or to the failure), in milliseconds
+   *   error null on success, otherwise a plain-words explanation (token always hidden)
+   */
+  async function sendGuardianAlert(options) {
+    var o = options || {};
+    var token = typeof o.token === 'string' ? o.token.trim() : '';
+    var chatId = o.chatId == null ? '' : String(o.chatId).trim();
+    var text = o.text == null ? '' : String(o.text);
+    var fetchImpl = o.fetchImpl === undefined ? globalThis.fetch : o.fetchImpl;
+    var timeoutMs = typeof o.timeoutMs === 'number' && o.timeoutMs > 0 ? o.timeoutMs : DEFAULT_TIMEOUT_MS;
+
+    if (!token) return result(false, null, 'The bot token is missing. Paste it in Settings, or switch Mock mode on.');
+    if (!chatId) return result(false, null, 'The chat ID is missing. Paste the guardian\'s chat ID in Settings.');
+    if (!text.trim()) return result(false, null, 'The alert text is empty.');
+    if (text.length > MAX_TEXT_LENGTH) return result(false, null, 'The alert text is longer than ' + MAX_TEXT_LENGTH + ' characters.');
+    if (typeof fetchImpl !== 'function') return result(false, null, 'This browser or Node version has no fetch(). Use a current browser or Node 18 or later.');
+
+    var url = TELEGRAM_API_BASE + '/bot' + token + '/sendMessage';
+    // application/x-www-form-urlencoded is one of the documented ways to pass parameters
+    // (https://core.telegram.org/bots/api#making-requests). It is also a "simple" request
+    // for browsers, so no CORS preflight is needed.
+    var body = new URLSearchParams();
+    body.set('chat_id', chatId);
+    body.set('text', text);
+
+    var controller = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = null;
+    var start = now();
+    var timeout = new Promise(function (resolve) {
+      timer = setTimeout(function () {
+        if (controller) controller.abort();
+        resolve({ timedOut: true });
+      }, timeoutMs);
+    });
+
+    try {
+      var request = Promise.resolve().then(function () {
+        return fetchImpl(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body.toString(),
+          signal: controller ? controller.signal : undefined
+        });
+      }).then(function (response) {
+        return Promise.resolve()
+          .then(function () { return response.json(); })
+          .then(function (json) { return { response: response, json: json }; },
+            function () { return { response: response, json: null }; });
+      });
+
+      var outcome = await Promise.race([request, timeout]);
+      if (outcome.timedOut) {
+        return result(false, start, 'No reply from Telegram within ' + (timeoutMs / 1000) + ' s (timed out). Check the internet connection and try again.');
+      }
+      var json = outcome.json;
+      var status = outcome.response && outcome.response.status;
+      if (json && json.ok === true) return result(true, start, null);
+      if (json && json.ok === false) {
+        return result(false, start, redact(explainTelegramError(json.error_code || status, json.description), token));
+      }
+      return result(false, start, 'Telegram sent a reply we could not read' + (status ? ' (HTTP ' + status + ')' : '') + '.');
+    } catch (err) {
+      var name = err && err.name;
+      if (name === 'AbortError' || name === 'TimeoutError') {
+        return result(false, start, 'No reply from Telegram within ' + (timeoutMs / 1000) + ' s (timed out). Check the internet connection and try again.');
+      }
+      return result(false, start, 'Could not reach Telegram (network error). Check the internet connection. Details: ' +
+        redact(err && err.message ? err.message : String(err), token));
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  /**
+   * Mock mode: no network. Waits about delayMs (default 600 ms) and reports success,
+   * or the given failure, in the same { ok, ms, error } shape plus mock: true.
+   */
+  async function simulateGuardianAlert(options) {
+    var o = options || {};
+    var delayMs = typeof o.delayMs === 'number' && o.delayMs >= 0 ? o.delayMs : 600;
+    var sleep = typeof o.sleep === 'function' ? o.sleep : function (ms) {
+      return new Promise(function (resolve) { setTimeout(resolve, ms); });
+    };
+    var start = now();
+    await sleep(delayMs);
+    var r = o.fail ? result(false, start, String(o.fail)) : result(true, start, null);
+    r.mock = true;
+    return r;
+  }
+
+  /**
+   * Helper for setup: list the chats that have recently messaged the bot, using the
+   * Bot API method getUpdates (https://core.telegram.org/bots/api#getupdates; it does not
+   * work if a webhook is set). Lets the team find the chat ID without typing the token
+   * into the browser address bar (which would save it in browser history).
+   * Field path message.chat.id: needs verification against the Update and Chat reference.
+   * Returns { ok, chats: [{ id, type, name }], error }.
+   */
+  async function findChatIds(options) {
+    var o = options || {};
+    var token = typeof o.token === 'string' ? o.token.trim() : '';
+    var fetchImpl = o.fetchImpl === undefined ? globalThis.fetch : o.fetchImpl;
+    var timeoutMs = typeof o.timeoutMs === 'number' && o.timeoutMs > 0 ? o.timeoutMs : DEFAULT_TIMEOUT_MS;
+    if (!token) return { ok: false, chats: [], error: 'The bot token is missing.' };
+    if (typeof fetchImpl !== 'function') return { ok: false, chats: [], error: 'No fetch() available.' };
+
+    var controller = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = setTimeout(function () { if (controller) controller.abort(); }, timeoutMs);
+    try {
+      var response = await fetchImpl(TELEGRAM_API_BASE + '/bot' + token + '/getUpdates', {
+        method: 'POST', signal: controller ? controller.signal : undefined
+      });
+      var json = await response.json();
+      if (!json || json.ok !== true) {
+        return { ok: false, chats: [], error: redact(explainTelegramError(json && json.error_code, json && json.description), token) };
+      }
+      var seen = {};
+      var chats = [];
+      (json.result || []).forEach(function (update) {
+        var msg = update && (update.message || update.edited_message || update.channel_post);
+        var chat = msg && msg.chat;
+        if (!chat || chat.id == null || seen[chat.id]) return;
+        seen[chat.id] = true;
+        var name = chat.title || [chat.first_name, chat.last_name].filter(Boolean).join(' ') || chat.username || '';
+        chats.push({ id: chat.id, type: chat.type || '', name: name });
+      });
+      if (chats.length === 0) {
+        return { ok: true, chats: [], error: 'No chats found yet. Ask the guardian to open the bot, press Start and send "hi", then try again.' };
+      }
+      return { ok: true, chats: chats, error: null };
+    } catch (err) {
+      var timedOut = err && (err.name === 'AbortError' || err.name === 'TimeoutError');
+      return { ok: false, chats: [], error: timedOut ? 'No reply from Telegram (timed out).' :
+        'Could not reach Telegram (network error). Details: ' + redact(err && err.message ? err.message : String(err), token) };
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  return {
+    TELEGRAM_API_BASE: TELEGRAM_API_BASE,
+    MAX_TEXT_LENGTH: MAX_TEXT_LENGTH,
+    sendGuardianAlert: sendGuardianAlert,
+    simulateGuardianAlert: simulateGuardianAlert,
+    buildAlertText: buildAlertText,
+    maskPhoneNumber: maskPhoneNumber,
+    findChatIds: findChatIds,
+    explainTelegramError: explainTelegramError
+  };
+});
+/* ALERT:END */
+</script>
+<script>
+/* SCAMALERT:START */
+/*
+ * Draft prepared with AI assistance for Dev 2; to be reviewed and edited by the team.
+ *
+ * SilverGuard AI: wording of the guardian message that follows a Scam Check (pitch demo, DEV2-3).
+ * Works in the browser (exposes window.SilverGuardScamAlert) and in Node (require('./scamcheck-alert.js')).
+ * No dependencies and no network calls.
+ *
+ * This is the "buildScamCheckAlertText" proposed in demo/guardian-alert/INTEGRATION.md. It lives in
+ * the pitch-demo folder for now because alert.js belongs to another folder. If the team accepts it,
+ * move it into alert.js in a later sprint and delete this file.
+ *
+ * RULE: the guardian message is built from the LEVEL and generic cue NAMES only. This module has no
+ * parameter that accepts the pasted message, and containsPastedText() lets the page and the tests
+ * prove that no part of the message leaked into the alert.
+ */
+(function (root, factory) {
+  'use strict';
+  var api = factory();
+  if (typeof module === 'object' && module.exports) {
+    module.exports = api;
+  } else {
+    root.SilverGuardScamAlert = api;
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+
+  var DEFAULT_TIME_ZONE = 'Asia/Singapore';
+  var MAX_LABELS = 6;
+  var MAX_LABEL_LENGTH = 30;
+  // Length of the shortest run of the pasted message that counts as "quoted" in the alert.
+  var WINDOW = 16;
+
+  var PRONOUNS = { she: 'her', he: 'him', they: 'them' };
+
+  function formatTime(time, timeZone) {
+    if (typeof time === 'string' && time.trim() !== '') return time.trim();
+    var date = time instanceof Date ? time : (typeof time === 'number' ? new Date(time) : new Date());
+    if (isNaN(date.getTime())) date = new Date();
+    try {
+      return new Intl.DateTimeFormat('en-GB', {
+        hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: timeZone || DEFAULT_TIME_ZONE
+      }).format(date);
+    } catch (e) {
+      var h = String(date.getHours()); var m = String(date.getMinutes());
+      return (h.length < 2 ? '0' + h : h) + ':' + (m.length < 2 ? '0' + m : m);
+    }
+  }
+
+  /** Keep only short, plain cue names such as "Money request"; drop anything else. */
+  function cleanLabels(labels) {
+    var out = [];
+    (Array.isArray(labels) ? labels : []).forEach(function (l) {
+      var s = String(l == null ? '' : l).replace(/\s+/g, ' ').trim();
+      if (!s || s.length > MAX_LABEL_LENGTH || !/^[A-Za-z][A-Za-z ]*$/.test(s)) return;
+      s = s.charAt(0).toLowerCase() + s.slice(1);
+      if (out.indexOf(s) === -1 && out.length < MAX_LABELS) out.push(s);
+    });
+    return out;
+  }
+
+  /**
+   * buildScamCheckAlertText({ seniorName: 'Mum', level: 'High risk', cueLabels: ['Money request', 'Secrecy'], time: '10:44' })
+   * -> 'Mum checked a message in SilverGuard at 10:44: High risk (money request, secrecy). Please call her before any money moves.'
+   *
+   * Options: includeCues (default true; false sends the level only), pronoun ('she' | 'he' | 'they'),
+   * timeZone (default Asia/Singapore). There is deliberately no option for the message text.
+   */
+  function buildScamCheckAlertText(options) {
+    var o = options || {};
+    var seniorName = (o.seniorName && String(o.seniorName).trim()) || 'Mum';
+    var key = PRONOUNS[o.pronoun] ? o.pronoun : 'she';
+    var level = (o.level && String(o.level).trim()) || 'High risk';
+    var labels = o.includeCues === false ? [] : cleanLabels(o.cueLabels);
+    var time = formatTime(o.time, o.timeZone);
+    var what = level + (labels.length ? ' (' + labels.join(', ') + ')' : '');
+    return seniorName + ' checked a message in SilverGuard at ' + time + ': ' + what + '. ' +
+      'Please call ' + PRONOUNS[key] + ' before any money moves.';
+  }
+
+  function squash(s) {
+    var t = String(s == null ? '' : s);
+    if (typeof t.normalize === 'function') t = t.normalize('NFKC');
+    return t.toLowerCase().replace(/\s+/g, ' ').trim();
+  }
+
+  /**
+   * True if the alert text contains the pasted message, or any run of WINDOW (16) characters of it.
+   * Used as a last check before sending, and in the tests. Case and spacing are ignored.
+   */
+  function containsPastedText(alertText, pasted) {
+    var a = squash(alertText);
+    var p = squash(pasted);
+    if (!p) return false;
+    if (p.length < WINDOW) return a.indexOf(p) !== -1 && p.length >= 6;
+    for (var i = 0; i + WINDOW <= p.length; i++) {
+      if (a.indexOf(p.slice(i, i + WINDOW)) !== -1) return true;
+    }
+    return false;
+  }
+
+  return {
+    WINDOW: WINDOW,
+    buildScamCheckAlertText: buildScamCheckAlertText,
+    containsPastedText: containsPastedText,
+    cleanLabels: cleanLabels
+  };
+});
+/* SCAMALERT:END */
+</script>
+<script>
+/* Page logic (not copied from anywhere: edit it here). Credentials live only in the two input boxes. */
+(function () {
+  'use strict';
+  var engine = window.SilverGuardEngine;
+  var A = window.SilverGuardAlert;
+  var S = window.SilverGuardScamAlert;
+  var $ = function (id) { return document.getElementById(id); };
+  var TARGET_MS = 10000;
+
+  var EXAMPLES = {
+    scam: 'Ma, my phone kena stolen, this is my new number. Need to pay the landlord today, can PayNow me $2,000? Don\'t tell Pa first ok.',
+    family: 'Hi Ma, reached the hospital with Pa for his check-up. Doctor says all fine, we will be home by 5. Call you later.'
+  };
+
+  var ICONS = {
+    high: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 2 44h44L24 4z" fill="currentColor"/><rect x="21.5" y="17" width="5" height="15" rx="2" fill="var(--high-bg)"/><circle cx="24" cy="37.5" r="3" fill="var(--high-bg)"/></svg>',
+    check: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="currentColor"/><path d="M17.5 18a6.5 6.5 0 1 1 9.4 5.8c-1.8.9-2.9 2.2-2.9 4.2v1.5" fill="none" stroke="var(--check-bg)" stroke-width="4.5" stroke-linecap="round"/><circle cx="24" cy="36.5" r="3" fill="var(--check-bg)"/></svg>',
+    none: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="currentColor"/><circle cx="24" cy="13.5" r="3.2" fill="var(--none-bg)"/><rect x="21.5" y="20" width="5" height="17" rx="2" fill="var(--none-bg)"/></svg>'
+  };
+  var LEVEL_KEY = {};
+  LEVEL_KEY[engine.LEVELS.HIGH] = 'high';
+  LEVEL_KEY[engine.LEVELS.CHECK] = 'check';
+  LEVEL_KEY[engine.LEVELS.NONE] = 'none';
+  var LEVEL_INTRO = {
+    high: 'This looks like a scam script. Do not send money. Call your family on a number you saved.',
+    check: 'Something here needs checking. Call your family on a number you saved before you reply.',
+    none: 'We did not find the usual scam signs. That does not mean it is safe.'
+  };
+
+  var lastResult = null;   // the engine's result for the message on screen (never the text itself)
+  var alertSent = false;   // true once the guardian has been told about the result on screen
+  var busyCall = false;
+  var busyAlert = false;
+  var inbox = [];
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function seconds(ms) { return (ms / 1000).toFixed(1) + ' s'; }
+  function guardianName() { return $('guardianName').value.trim() || 'Your guardian'; }
+  function isMock() { return $('mockMode').checked; }
+
+  // ---- Credentials: input boxes only. Cleared on every load, including back/forward cache restores. ----
+  function resetCredentials() {
+    $('token').value = '';
+    $('chatId').value = '';
+    $('token').type = 'password';
+    $('showToken').textContent = 'Show';
+    $('showToken').setAttribute('aria-pressed', 'false');
+    $('chatList').hidden = true;
+    $('chatList').innerHTML = '';
+  }
+  function updateMode() {
+    var mock = isMock();
+    $('liveFields').disabled = mock;
+    $('modePill').className = 'pill ' + (mock ? 'mock' : 'live');
+    $('modePill').textContent = mock ? 'MOCK MODE: nothing is sent' : 'LIVE MODE: sends real messages';
+    $('modeNote').textContent = mock ? 'Rehearsal mode. Open Settings at the bottom to go live.'
+      : 'Real messages go to the guardian\'s chat. If the network fails, switch Mock mode on and say so.';
+  }
+  function resetOnLoad() {
+    resetCredentials();
+    $('mockMode').checked = true;
+    updateMode();
+  }
+  window.addEventListener('pageshow', resetOnLoad);
+
+  function sgTime() {
+    try {
+      return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'Asia/Singapore' }).format(new Date());
+    } catch (e) { return ''; }
+  }
+  function tickClock() { $('clock').textContent = sgTime(); }
+
+  // ---- What the guardian receives (log of alert texts) ----
+  function renderInbox() {
+    var list = $('inbox');
+    if (inbox.length === 0) { list.innerHTML = '<li id="inboxEmpty">Nothing yet.</li>'; return; }
+    list.innerHTML = inbox.map(function (m) {
+      var tag = m.mock ? '<span class="tag">Mock: not sent</span>'
+        : (m.ok ? '<span class="tag sent">Sent, ' + escapeHtml(seconds(m.ms)) + '</span>' : '<span class="tag fail">Not delivered</span>');
+      return '<li><h3>' + tag + escapeHtml(m.kind) + ' · ' + escapeHtml(m.time) + '</h3><div>' + escapeHtml(m.text) + '</div></li>';
+    }).join('');
+  }
+
+  // One delivery path for both alerts: mock, or live Telegram. Never throws.
+  async function deliver(text) {
+    var mock = isMock();
+    var started = performance.now();
+    var r;
+    try {
+      r = mock
+        ? await A.simulateGuardianAlert({ delayMs: 600 })
+        : await A.sendGuardianAlert({ token: $('token').value, chatId: $('chatId').value, text: text });
+    } catch (e) {
+      r = { ok: false, ms: Math.round(performance.now() - started), error: 'Something went wrong in the page. Reload and try again.' };
+    }
+    r.mock = mock;
+    return r;
+  }
+
+  // ---- Step 1: Simulate unknown call (Layer 1) ----
+  function callAlertText() {
+    return A.buildAlertText({
+      seniorName: $('seniorName').value,
+      callerNumber: $('callerNumber').value,
+      maskNumber: $('maskNumber').checked,
+      time: new Date()
+    });
+  }
+  function shownNumber() {
+    var raw = $('callerNumber').value;
+    if (!raw.replace(/\D/g, '')) return 'Number hidden';
+    return $('maskNumber').checked ? A.maskPhoneNumber(raw) : raw.trim();
+  }
+  function setStatus(id, kind, text) {
+    var el = $(id);
+    el.className = 'status' + (kind ? ' ' + kind : '');
+    el.textContent = text;
+  }
+  function endCall() {
+    $('avatar').className = 'avatar';
+    $('callUi').hidden = true;
+    $('idleMsg').hidden = false;
+    $('idleMsg').textContent = 'Call ended. Press the button below to run it again.';
+  }
+  async function simulateCall() {
+    if (busyCall) return;
+    busyCall = true;
+    $('simulateBtn').disabled = true;
+    var text = callAlertText();
+    var name = guardianName();
+    $('idleMsg').hidden = true;
+    $('callUi').hidden = false;
+    $('avatar').className = 'avatar ringing';
+    $('callerNumberShown').textContent = shownNumber();
+    $('phoneNotice').className = 'notice wait';
+    $('phoneNotice').textContent = 'Telling ' + name + '…';
+    setStatus('callStatus', '', 'Alerting ' + name + '…');
+
+    var r = await deliver(text);
+    inbox.push({ kind: 'Unknown call alert', time: sgTime(), text: text, mock: r.mock, ok: r.ok, ms: r.ms });
+    renderInbox();
+    if (r.ok) {
+      $('phoneNotice').className = 'notice ok';
+      $('phoneNotice').textContent = name + ' has been told.';
+      setStatus('callStatus', 'ok', r.mock
+        ? 'Simulated alert done in ' + seconds(r.ms) + '. Mock mode: nothing was sent.'
+        : name + ' alerted in ' + seconds(r.ms) + ' (' + (r.ms < TARGET_MS ? 'within' : 'slower than') + ' the 10 s target). Telegram accepted the message; confirm it arrived on the guardian\'s phone.');
+    } else {
+      $('phoneNotice').className = 'notice bad';
+      $('phoneNotice').textContent = name + ' could not be reached. Call them now?';
+      setStatus('callStatus', 'bad', 'Alert not sent. ' + r.error);
+    }
+    busyCall = false;
+    $('simulateBtn').disabled = false;
+  }
+
+  // ---- Step 2: Scam Check (Layer 2) ----
+  function render(result) {
+    var key = LEVEL_KEY[result.level];
+    var card = $('result');
+    card.setAttribute('data-level', key);
+    $('levelIcon').innerHTML = ICONS[key];
+    $('levelText').textContent = result.level;
+    $('reasonsTitle').textContent = LEVEL_INTRO[key];
+    var list = $('reasons');
+    list.innerHTML = '';
+    result.cues.forEach(function (cue) {
+      var li = document.createElement('li');
+      li.textContent = cue.reason;
+      var seen = document.createElement('span');
+      seen.className = 'seen';
+      seen.textContent = 'We noticed: ' + cue.matches.map(function (m) { return '“' + m + '”'; }).join(', ');
+      li.appendChild(seen);
+      list.appendChild(li);
+    });
+    list.hidden = result.cues.length === 0;
+    $('reminder').textContent = result.reminder;
+    card.hidden = false;
+    setStatus('checkStatus', '', 'Result: ' + result.level + '.');
+    if (card.focus) card.focus();
+  }
+
+  function hideResult() {
+    lastResult = null;
+    alertSent = false;
+    $('result').hidden = true;
+    $('guardianBox').hidden = true;
+    setStatus('alertStatus', '', '');
+  }
+
+  function scamAlertText() {
+    var known = engine.CUE_FAMILIES ? engine.CUE_FAMILIES.map(function (f) { return f.label; }) : null;
+    var labels = lastResult.cues.map(function (c) { return c.label; }).filter(function (l) {
+      return !known || known.indexOf(l) !== -1;
+    });
+    return S.buildScamCheckAlertText({
+      seniorName: $('seniorName').value,
+      level: lastResult.level,
+      cueLabels: labels,
+      includeCues: $('includeCues').checked,
+      time: new Date()
+    });
+  }
+  function updateAlertPreview() {
+    if (lastResult) $('alertPreview').textContent = guardianName() + ' will receive: ' + scamAlertText();
+  }
+
+  function check() {
+    var text = $('message').value.trim();
+    if (!text) {
+      hideResult();
+      setStatus('checkStatus', '', 'Please paste a message first.');
+      $('message').focus();
+      return;
+    }
+    setStatus('checkStatus', '', 'Checking. This stays in this page.');
+    lastResult = engine.assess(text);
+    alertSent = false;
+    render(lastResult);
+    // Step 3 only for High risk.
+    var high = lastResult.level === engine.LEVELS.HIGH;
+    $('guardianBox').hidden = !high;
+    $('alertBtn').disabled = false;
+    setStatus('alertStatus', '', '');
+    if (high) updateAlertPreview();
+  }
+
+  // ---- Step 3: Alert my guardian (High risk only; separate message, never the pasted text) ----
+  async function alertGuardian() {
+    if (busyAlert || alertSent || !lastResult || lastResult.level !== engine.LEVELS.HIGH) return;
+    var text = scamAlertText();
+    var name = guardianName();
+    // Last line of defence: refuse to send if any part of the pasted message is in the alert.
+    if (S.containsPastedText(text, $('message').value)) {
+      setStatus('alertStatus', 'bad', 'Nothing was sent: the alert would have included part of the message.');
+      return;
+    }
+    busyAlert = true;
+    $('alertBtn').disabled = true;
+    setStatus('alertStatus', '', 'Telling ' + name + '…');
+    var r = await deliver(text);
+    inbox.push({ kind: 'Scam Check alert', time: sgTime(), text: text, mock: r.mock, ok: r.ok, ms: r.ms });
+    renderInbox();
+    if (r.ok) {
+      alertSent = true;
+      setStatus('alertStatus', 'ok', name + ' has been told (' + seconds(r.ms) + ').' + (r.mock ? ' Mock mode: nothing was sent.' : ' Telegram accepted the message.'));
+    } else {
+      $('alertBtn').disabled = false;
+      setStatus('alertStatus', 'bad', name + ' could not be reached. ' + r.error + ' Call ' + name + ' now on a number you saved.');
+    }
+    busyAlert = false;
+  }
+
+  // ---- Setup helper: find chat ID ----
+  async function findChat() {
+    var list = $('chatList');
+    list.hidden = false;
+    list.innerHTML = '<li>Looking…</li>';
+    var r = await A.findChatIds({ token: $('token').value });
+    if (!r.ok || r.chats.length === 0) {
+      list.innerHTML = '<li>' + escapeHtml(r.error || 'No chats found.') + '</li>';
+      return;
+    }
+    list.innerHTML = '';
+    r.chats.forEach(function (c) {
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'secondary';
+      b.textContent = 'Use ' + c.id + (c.name ? ' (' + c.name + ', ' + c.type + ')' : '');
+      b.addEventListener('click', function () { $('chatId').value = String(c.id); list.hidden = true; });
+      li.appendChild(b);
+      list.appendChild(li);
+    });
+  }
+
+  $('simulateBtn').addEventListener('click', simulateCall);
+  $('declineBtn').addEventListener('click', endCall);
+  $('answerBtn').addEventListener('click', endCall);
+  $('check').addEventListener('click', check);
+  $('alertBtn').addEventListener('click', alertGuardian);
+  $('exampleScam').addEventListener('click', function () { $('message').value = EXAMPLES.scam; check(); });
+  $('exampleFamily').addEventListener('click', function () { $('message').value = EXAMPLES.family; check(); });
+  $('clear').addEventListener('click', function () {
+    $('message').value = '';
+    hideResult();
+    setStatus('checkStatus', '', '');
+    $('message').focus();
+  });
+  // Editing the message makes the result on screen stale, so hide it and the alert button.
+  $('message').addEventListener('input', function () {
+    if (lastResult) { hideResult(); setStatus('checkStatus', '', 'The message changed. Press "Check this message" again.'); }
+  });
+  $('mockMode').addEventListener('change', updateMode);
+  ['seniorName', 'guardianName', 'includeCues'].forEach(function (id) {
+    $(id).addEventListener('input', updateAlertPreview);
+    $(id).addEventListener('change', updateAlertPreview);
+  });
+  $('showToken').addEventListener('click', function () {
+    var t = $('token');
+    var show = t.type === 'password';
+    t.type = show ? 'text' : 'password';
+    this.textContent = show ? 'Hide' : 'Show';
+    this.setAttribute('aria-pressed', String(show));
+  });
+  $('findChat').addEventListener('click', findChat);
+  $('clearCreds').addEventListener('click', resetCredentials);
+
+  tickClock();
+  setInterval(tickClock, 15000);
+  resetOnLoad();
+  renderInbox();
+})();
+</script>
+</body>
+</html>
