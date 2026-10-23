@@ -1,0 +1,9 @@
+# Draft prepared with AI assistance for Dev 2; to be reviewed and edited by the team.
+# Never commit installed packages.
+node_modules/
+# Vendored OCR files (worker, wasm cores, *.traineddata*) are large binaries. Whether to commit them
+# is an open team decision (see SPIKE.md), so they are ignored until the team decides.
+vendor/
+*.traineddata
+*.traineddata.gz
+*.wasm
