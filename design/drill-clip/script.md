@@ -37,18 +37,18 @@ Checked by script on 23 Oct 2026: the caller speaks **120 words**; at 2.4 words 
 Why these lines:
 
 - "I lost my phone, this is my new number", "now" and "don't tell anyone" are the same phrases the debrief quotes, so what the senior hears is what the debrief names.
-- "Papa" is deliberately a person the senior would normally call. The debrief can point out that the caller wanted her **not** to tell family, which is exactly why the app's button calls Wei Jie.
+- "Papa" is deliberately a person the senior would normally call. The debrief can point out that the caller wanted her **not** to tell family, which is exactly why the app's button calls Marcus.
 - No digits, account names or numbers are spoken ("I'll message you the number"). Do not add a real-looking number or a real bank, police or government name.
 
 ## Debrief lines
 
-Screen 5 already has the text below in English, Mandarin, Malay and Tamil: "Well done for pausing", "You pressed 'Is this really them?'" or "You hung up.", "This was a practice call. The red flags were:", the four flags, "3 drills this month", "Wei Jie sees your progress, never the call audio." The lines below add a short spoken or captioned voice-over. Tone rule: praise, never blame, and never the word "safe".
+Screen 5 already has the text below in English, Mandarin, Malay and Tamil: "Well done for pausing", "You pressed 'Is this really them?'" or "You hung up.", "This was a practice call. The red flags were:", the four flags, "3 drills this month", "Marcus sees your progress, never the call audio." The lines below add a short spoken or captioned voice-over. Tone rule: praise, never blame, and never the word "safe".
 
 | Outcome | Voice-over (about 9 to 14 s) |
 | --- | --- |
-| She pressed "Is this really them?" | "That was a practice call. You pressed 'Is this really them?' Well done. Real family do not ask you to keep money a secret. If it happens for real, call Wei Jie on his saved number." |
-| She hung up | "That was a practice call. You hung up, and no money moved. Next time, press 'Is this really them?' to call Wei Jie." |
-| The clip ended with no choice | "The call ended before you chose. In a real call, press 'Is this really them?' or hang up, then call Wei Jie yourself." |
+| She pressed "Is this really them?" | "That was a practice call. You pressed 'Is this really them?' Well done. Real family do not ask you to keep money a secret. If it happens for real, call Marcus on his saved number." |
+| She hung up | "That was a practice call. You hung up, and no money moved. Next time, press 'Is this really them?' to call Marcus." |
+| The clip ended with no choice | "The call ended before you chose. In a real call, press 'Is this really them?' or hang up, then call Marcus yourself." |
 
 Red flags to show, in the order they are heard. The first four are already on screen 5; the last two are optional:
 
@@ -59,7 +59,7 @@ Red flags to show, in the order they are heard. The first four are already on sc
 5. Optional: pressure on your feelings ("I'm scared")
 6. Optional: a threat of police or trouble
 
-Guardian side (unchanged from the design doc): Wei Jie sees that the drill was done and how quickly she chose, never the audio.
+Guardian side (unchanged from the design doc): Marcus sees that the drill was done and how quickly she chose, never the audio.
 
 Spoken languages: the clip is English with Singapore touches ("Ah Ma"). Mandarin, Malay and Tamil versions need native speakers, both to voice them and to check the wording (decision 18). Until then show the English clip with captions.
 
@@ -137,7 +137,7 @@ Fixes the clip makes visible:
 
 - **Heading on screen 5.** It says "Well done for pausing" whatever she pressed, even "You hung up." Use a heading that matches the outcome (for the hang-up and no-choice cases, for example "Practice call finished").
 - **Wording match.** The on-screen script says "Ma, it's me"; the clip says "Ah Ma ... your grandson". Replace the on-screen text with the clip's captions so the screen, the audio and the flags agree. The English line "Keep it secret: don't tell anyone" already matches the clip.
-- **Seconds taken.** The design doc records how fast she pressed the button (`secondsToPause`). With the audio, use its current time, and consider "You paused after 23 seconds" on screen 5 and in what Wei Jie sees.
+- **Seconds taken.** The design doc records how fast she pressed the button (`secondsToPause`). With the audio, use its current time, and consider "You paused after 23 seconds" on screen 5 and in what Marcus sees.
 
 A minimal sketch of the audio hook (not tested, not added to any file):
 

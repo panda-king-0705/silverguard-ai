@@ -94,7 +94,7 @@ The silence decision happens on the phone with no network call, so the call is n
 
 1. The senior taps "Is this really them?" on the home screen or a lock-screen shortcut.
 2. The app asks three questions aloud in the senior's language: Did they ask for money? Did they say it's urgent or secret? Are they calling from a new number?
-3. Any "yes" turns the screen into one big button, "Call Wei Jie now", which dials his saved number, never the caller's.
+3. Any "yes" turns the screen into one big button, "Call Marcus now", which dials his saved number, never the caller's.
 4. The guardian gets "Mum pressed Pause & Verify at 10:44".
 5. If he doesn't pick up within 2 minutes, the app offers the next trusted contact.
 
@@ -103,7 +103,7 @@ The silence decision happens on the phone with no network call, so the call is n
 1. The senior long-presses a voice note, screenshot or message, taps Share, then SilverGuard; or pastes text inside the app.
 2. The app shows "Checking. This stays on your phone."
 3. A result card gives the level in words and colour and up to three reasons, and reads them aloud.
-4. Two buttons follow: "Call Wei Jie" and "Open ScamShield to report" (if installed).
+4. Two buttons follow: "Call Marcus" and "Open ScamShield to report" (if installed).
 5. The input is deleted. A High risk result also alerts the guardian, if the senior allowed it.
 
 ### Family Drill
@@ -173,7 +173,7 @@ The privacy promise is enforced by design: scam content is processed in memory o
 | events | householdId, type, occurredAt, riskLevel, callerNumber, deliveryStatus, expireAt |
 | drills | householdId, scenarioId, scheduledFor, status, paused, secondsToPause |
 
-**Consent and PDPA.** Each permission is its own consent scope: guardian alerts, sharing the caller's number, drill progress, and later bank signals. The senior can withdraw any scope in two taps, and a "What Wei Jie can see" screen explains it in plain words.
+**Consent and PDPA.** Each permission is its own consent scope: guardian alerts, sharing the caller's number, drill progress, and later bank signals. The senior can withdraw any scope in two taps, and a "What Marcus can see" screen explains it in plain words.
 
 Before the pilot, appoint a data protection officer, write a breach-response plan and enforce the retention limits above; PDPA has required breach notification since February 2021. This is a design, not legal advice, so check the PDPC's guides before launch.
 
@@ -211,7 +211,7 @@ The event the phone sends for an unknown call is the only thing that crosses the
 1. The event write triggers a Cloud Function, which puts one job on a Cloud Tasks queue named by the event ID, so duplicates collapse.
 2. The sender posts a WhatsApp utility template message to the guardian; the class demo uses a Telegram bot instead.
 3. On failure it retries after 1, 2 and 4 seconds, then falls back to SMS.
-4. If SMS also fails, the event is marked undelivered and the senior's phone asks: "Wei Jie could not be reached. Call him now?"
+4. If SMS also fails, the event is marked undelivered and the senior's phone asks: "Marcus could not be reached. Call him now?"
 
 | Failure | What happens | Why |
 | --- | --- | --- |
@@ -324,7 +324,7 @@ Put one honest line on the poster: the demo uses a simplified rules engine, and 
 Six questions need answers before the MVP build starts; most can be settled with a phone, a test device and a few grandparents.
 
 - [ ] Which OCR engine reads Tamil screenshots on the phone?
-- [ ] Can the senior see the "Wei Jie has been told" notice while the incoming-call screen is up? Test on 3 phone brands.
+- [ ] Can the senior see the "Marcus has been told" notice while the incoming-call screen is up? Test on 3 phone brands.
 - [ ] Does WhatsApp's share option still export voice notes on Android? Test before building around it.
 - [ ] What catch-rate and false-alarm targets will the pilot gate use?
 - [ ] What does a WhatsApp utility message cost in Singapore today, and does it fit the family-plan price?

@@ -109,7 +109,7 @@ Do this on the actual presentation laptop, with Wi-Fi off, at least once before 
 
 A human records this (the AI cannot). It is for the case where the laptop, the projector or the venue network fails, and it should be playable with no internet. Record it before the code freeze and save it in three places (laptop, USB stick, phone).
 
-**Recording set-up:** 1080p screen recording of the laptop with the page at 125% zoom or more; Wi-Fi off and the airplane icon visible in shot 2; a clear voice-over recorded separately or live; captions burned in (the room may have no sound). No real phone numbers, no real names, no bot token in shot. Use "Mum" or "Ah Ma" as the senior and "Wei Jie" as the guardian, as in the design.
+**Recording set-up:** 1080p screen recording of the laptop with the page at 125% zoom or more; Wi-Fi off and the airplane icon visible in shot 2; a clear voice-over recorded separately or live; captions burned in (the room may have no sound). No real phone numbers, no real names, no bot token in shot. Use "Mum" or "Ah Ma" as the senior and "Marcus" as the guardian, as in the design.
 
 | Shot | Time | On screen | Voice-over | Notes |
 | --- | --- | --- | --- | --- |

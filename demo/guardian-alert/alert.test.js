@@ -145,15 +145,15 @@ test('findChatIds: lists unique chats from getUpdates', async () => {
   const fetchImpl = recordingFetch(jsonResponse(200, {
     ok: true,
     result: [
-      { update_id: 1, message: { chat: { id: 111, type: 'private', first_name: 'Wei', last_name: 'Jie' } } },
-      { update_id: 2, message: { chat: { id: 111, type: 'private', first_name: 'Wei', last_name: 'Jie' } } },
+      { update_id: 1, message: { chat: { id: 111, type: 'private', first_name: 'Marcus', last_name: 'Tan' } } },
+      { update_id: 2, message: { chat: { id: 111, type: 'private', first_name: 'Marcus', last_name: 'Tan' } } },
       { update_id: 3, message: { chat: { id: -222, type: 'group', title: 'Family' } } }
     ]
   }));
   const r = await findChatIds({ token: FAKE_TOKEN, fetchImpl });
   assert.equal(r.ok, true);
   assert.deepEqual(r.chats, [
-    { id: 111, type: 'private', name: 'Wei Jie' },
+    { id: 111, type: 'private', name: 'Marcus Tan' },
     { id: -222, type: 'group', name: 'Family' }
   ]);
   assert.equal(fetchImpl.calls[0].url, `https://api.telegram.org/bot${FAKE_TOKEN}/getUpdates`);

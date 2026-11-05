@@ -1,7 +1,7 @@
 [
   {
     "id": "S01",
-    "text": "Hi Ma, it's Wei Jie. I lost my phone so this is my new number, please save it. Can you help me transfer $2,800 to my friend's bank account today? I'll pay you back next week.",
+    "text": "Hi Ma, it's Marcus. I lost my phone so this is my new number, please save it. Can you help me transfer $2,800 to my friend's bank account today? I'll pay you back next week.",
     "language": "en",
     "kind": "scam",
     "expected_level": "High risk",
@@ -65,7 +65,7 @@
   {
     "id": "S08",
     "text": "妈，我是伟杰，我换了新号码，旧的那个不要再打了。我现在急需用钱，你可以先帮我转账五千块吗？明天就还你。",
-    "gloss": "Mum, it's Wei Jie. I changed to a new number, don't call the old one again. I urgently need money now, can you transfer 5,000 dollars for me first? I'll return it tomorrow.",
+    "gloss": "Mum, it's Marcus. I changed to a new number, don't call the old one again. I urgently need money now, can you transfer 5,000 dollars for me first? I'll return it tomorrow.",
     "language": "zh",
     "kind": "scam",
     "expected_level": "High risk",

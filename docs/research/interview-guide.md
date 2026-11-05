@@ -102,10 +102,10 @@ Ask in this order. The main question is in bold; the probes are optional follow-
 Show the clickable screens (`design/clickable-screens/index.html`). The Designer is building them now; match this list to the final build before the sessions. The planned set from the design doc is:
 
 1. Senior home screen (with the "Is this really them?" Pause & Verify button)
-2. Pause & Verify: the three spoken questions and the "Call Wei Jie now" button
+2. Pause & Verify: the three spoken questions and the "Call Marcus now" button
 3. A Scam Check result card (risk level, reasons, "Call family" button)
 4. A Family Drill screen and its debrief
-5. The guardian's alert message (as Wei Jie would see it)
+5. The guardian's alert message (as Marcus would see it)
 
 For each screen:
 - Hand them the phone and say: **"Take a look. What do you think this screen is for?"** Then stay quiet for a few seconds.

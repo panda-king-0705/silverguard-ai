@@ -8,7 +8,7 @@ One offline file, `index.html`, for the pitch laptop. It tells the Layer 1 and L
 2. **Scam Check.** Paste a message and get a level and plain-language reasons. Uses `engine.js` from `demo/scam-check-web/`.
 3. **Alert my guardian.** Shown only when the result is **High risk**. It sends a *separate* alert message built from the level and the names of the warning signs. It never includes the pasted text.
 
-A panel called "What Wei Jie receives" lists every alert as it is sent, so the audience can see that the Scam Check alert contains no message content.
+A panel called "What Marcus receives" lists every alert as it is sent, so the audience can see that the Scam Check alert contains no message content.
 
 | File | What it is |
 | --- | --- |

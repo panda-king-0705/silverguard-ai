@@ -319,7 +319,7 @@ test('Simulate unknown call in Mock mode: phone card, guardian alert text, no ne
   assert.equal(page.calls.length, 0, 'mock mode must not use the network');
   assert.equal(page.$('callUi').hidden, false);
   assert.equal(page.$('callerNumberShown').textContent, '+65 9XXX XX67');
-  assert.match(page.$('phoneNotice').textContent, /Wei Jie has been told/);
+  assert.match(page.$('phoneNotice').textContent, /Marcus has been told/);
   assert.match(page.$('callStatus').textContent, /Mock mode: nothing was sent/);
   assert.equal(page.$('simulateBtn').disabled, false);
   assert.match(page.$('inbox').innerHTML, /Mock: not sent/);
@@ -338,7 +338,7 @@ test('Scam Check scam example shows High risk, reasons and the Alert my guardian
   assert.ok(page.$('reasons').children.length >= 2);
   assert.equal(page.$('guardianBox').hidden, false);
   assert.equal(page.$('alertBtn').disabled, false);
-  assert.match(page.$('alertPreview').textContent, /^Wei Jie will receive: Mum checked a message in SilverGuard at \d\d:\d\d: High risk \(/);
+  assert.match(page.$('alertPreview').textContent, /^Marcus will receive: Mum checked a message in SilverGuard at \d\d:\d\d: High risk \(/);
 });
 
 test('the Alert my guardian step shows only for High risk', async () => {
@@ -374,7 +374,7 @@ test('Alert my guardian in Mock mode: separate message, never the pasted text, n
   const pasted = page.$('message').value;
   await page.$('alertBtn').click();
   assert.equal(page.calls.length, 0);
-  assert.match(page.$('alertStatus').textContent, /Wei Jie has been told .*Mock mode: nothing was sent/);
+  assert.match(page.$('alertStatus').textContent, /Marcus has been told .*Mock mode: nothing was sent/);
   assert.equal(page.$('alertBtn').disabled, true, 'one alert per result');
   const html2 = page.$('inbox').innerHTML;
   assert.match(html2, /Scam Check alert/);
@@ -413,7 +413,7 @@ test('Live mode: both alerts go to the Telegram sendMessage URL, the second neve
   assert.match(scamParams.get('text'), /^Mum checked a message in SilverGuard at \d\d:\d\d: High risk \(/);
   assert.equal(S.containsPastedText(scamParams.get('text'), pasted), false);
   for (const word of ['PayNow', '$2,000', 'landlord', 'kena', 'stolen']) assert.ok(!scamParams.get('text').includes(word));
-  assert.match(page.$('alertStatus').textContent, /Wei Jie has been told .*Telegram accepted/);
+  assert.match(page.$('alertStatus').textContent, /Marcus has been told .*Telegram accepted/);
 
   assert.ok(!everythingOnScreen(page).includes(FAKE_TOKEN), 'token must never appear on screen');
 });
@@ -426,8 +426,8 @@ test('Live mode failure: plain words, button re-enabled, keeps a person in the l
   page.$('chatId').value = '123456';
   await page.$('exampleScam').click();
   await page.$('alertBtn').click();
-  assert.match(page.$('alertStatus').textContent, /Wei Jie could not be reached/);
-  assert.match(page.$('alertStatus').textContent, /Call Wei Jie now/);
+  assert.match(page.$('alertStatus').textContent, /Marcus could not be reached/);
+  assert.match(page.$('alertStatus').textContent, /Call Marcus now/);
   assert.equal(page.$('alertBtn').disabled, false);
   assert.match(page.$('inbox').innerHTML, /Not delivered/);
   assert.ok(!everythingOnScreen(page).includes(FAKE_TOKEN));

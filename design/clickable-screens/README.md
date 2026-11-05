@@ -8,19 +8,19 @@
 
 | # | Screen | What it shows | Buttons lead to |
 | --- | --- | --- | --- |
-| 1 | Senior home | Two very large buttons, "Is this really them?" (Pause & Verify) and "Check a message" (Scam Check); small line "Guardian: Wei Jie" | 2, 3 |
-| 2 | Pause & Verify | Three questions, one at a time, with big Yes / No buttons and "Read aloud". Any Yes turns into one big "Call Wei Jie now" button showing his saved number, masked (+65 •••• 4821). Three No answers show "No warning signs found", never "safe" | Calling state, home |
-| 3 | Scam Check result | "High risk" in words, with a warning icon and red (never colour alone); three reasons; "Call Wei Jie"; "Report to ScamShield" (text only, no logo); "This stayed on your phone" | Calling state; an explanation sheet for ScamShield |
+| 1 | Senior home | Two very large buttons, "Is this really them?" (Pause & Verify) and "Check a message" (Scam Check); small line "Guardian: Marcus" | 2, 3 |
+| 2 | Pause & Verify | Three questions, one at a time, with big Yes / No buttons and "Read aloud". Any Yes turns into one big "Call Marcus now" button showing his saved number, masked (+65 •••• 4821). Three No answers show "No warning signs found", never "safe" | Calling state, home |
+| 3 | Scam Check result | "High risk" in words, with a warning icon and red (never colour alone); three reasons; "Call Marcus"; "Report to ScamShield" (text only, no logo); "This stayed on your phone" | Calling state; an explanation sheet for ScamShield |
 | 4 | Family Drill | Practice incoming call, labelled "Practice call" and "This is not a real call", with the script the senior hears; "Is this really them?" and "Hang up" | 5 (both buttons) |
 | 5 | Drill debrief | "Well done for pausing", which button they chose, the four red flags, "3 drills this month" | 1 (Done), 4 (Practise again) |
 | 6 | Guardian's phone | Generic notification and chat bubble from SilverGuard: "Unknown number rang Mum at 10:42. She can still answer. Please call her before any money moves." with "Call Mum" | Calling state, 1 |
 
-A shared **calling** state ("Calling Wei Jie…" or "Calling Mum…", with "Prototype: no real call is made.") stands in for the phone dialler, and "End call" returns to where you came from.
+A shared **calling** state ("Calling Marcus…" or "Calling Mum…", with "Prototype: no real call is made.") stands in for the phone dialler, and "End call" returns to where you came from.
 
 ## Flows to demo
 
-1. **Pause & Verify:** 1 → "Is this really them?" → answer No, No, Yes → "Call Wei Jie now" → calling → End call → home.
-2. **Scam Check:** 1 → "Check a message" → High risk + three reasons → "Call Wei Jie" or "Report to ScamShield".
+1. **Pause & Verify:** 1 → "Is this really them?" → answer No, No, Yes → "Call Marcus now" → calling → End call → home.
+2. **Scam Check:** 1 → "Check a message" → High risk + three reasons → "Call Marcus" or "Report to ScamShield".
 3. **Family Drill:** picker 4 → "Is this really them?" or "Hang up" → debrief → Done.
 4. **Guardian Alert:** picker 6 → "Call Mum". This pairs with the live Telegram alert demo (D4): show this screen as what the product sends, then trigger the real alert.
 
@@ -32,14 +32,14 @@ The flows follow `docs/prototype-design.md` (Feature flows). The prototype goes 
 - **Fit phone to window** (on by default) scales the phone so it fits a 1366 × 768 projector. Untick it to show actual size.
 - The language buttons (EN / 中文 / Melayu / தமிழ்) switch screens 1–5. Screen 6 stays in English because it is the guardian's phone.
 - "Read aloud" uses the browser's built-in speech voices. Whether Chinese, Malay or Tamil voices exist depends on the laptop; if none exists, the screen says so. Test on the pitch laptop beforehand. In the real app every prompt is spoken automatically.
-- Suggested script line: "Every screen has one job and at most two big choices. Nothing on these screens leaves Mum's phone except the alert to Wei Jie."
+- Suggested script line: "Every screen has one job and at most two big choices. Nothing on these screens leaves Mum's phone except the alert to Marcus."
 
 ## Accessibility choices
 
 | Requirement | What the prototype does | How it was checked |
 | --- | --- | --- |
 | Body text ≥ 20px | Phone text is 20–34px (base 22px); smallest is 20px | Browser check measures every visible text node in every screen, state and language |
-| Primary buttons ≥ 64px | Every button inside the phone is at least 64px tall; home buttons are at least 220px, Yes/No 110px, "Call Wei Jie now" 140px | Browser check measures every visible button (layout height) |
+| Primary buttons ≥ 64px | Every button inside the phone is at least 64px tall; home buttons are at least 220px, Yes/No 110px, "Call Marcus now" 140px | Browser check measures every visible button (layout height) |
 | Contrast ≥ 4.5:1 | Lowest text pair is 6.54:1 (white on hang-up red) | Token check (table below) and a computed-style check of every visible text node |
 | Not colour alone | Risk level is the words "High risk" plus a warning icon plus red; flags use a flag icon; Yes/No are words | Visual review |
 | Visible keyboard focus | 4px blue ring (#0B4FD6) with 3px offset; yellow (#FFD24A) on the dark practice-call screen; ring contrast at least 5.56:1 against every background | Browser check reads the focus outline |
@@ -81,12 +81,12 @@ Visual direction: warm off-white and sand backgrounds, deep teal and indigo for 
 
 - All strings are in the `I18N` object near the end of `index.html` (58 keys per language). Give the checker that block, or the four-language list shown on screen.
 - Points to check: tone for an older reader (polite but not stiff); whether "Pause & Verify" and "Scam Check" should be translated or kept as English feature names; the Chinese Yes/No ("有 / 是", "没有 / 不是") cover both "did they…" and "are they…" questions, so a native speaker should choose the most natural pair; Tamil and Malay length (both make the Scam Check and debrief screens scroll, and the action bar stays pinned so the buttons are always visible).
-- Names are not translated: "Wei Jie" appears as saved in the senior's contacts.
+- Names are not translated: "Marcus" appears as saved in the senior's contacts.
 - Dialects (Hokkien, Teochew, Cantonese) are not covered; the design doc limits dialect audio to drills.
 
 ## Sample data and limits
 
-- "Wei Jie", "Mum", the masked numbers (+65 •••• 4821, +65 •••• 3307), the 10:42 time and "3 drills this month" are made-up sample data, not real people or results.
+- "Marcus", "Mum", the masked numbers (+65 •••• 4821, +65 •••• 3307), the 10:42 time and "3 drills this month" are made-up sample data, not real people or results.
 - Nothing is analysed. The Scam Check result is a fixed example; the working rules engine is D2 (Dev 1).
 - "Report to ScamShield" shows an explanation instead of linking out. No third-party logos or brand UI are drawn. Screen 6 is a generic messaging app, deliberately not styled like WhatsApp or Telegram.
 
@@ -104,5 +104,5 @@ python3 checks/check_browser.py    # click-through flows, language toggle, sizes
 - [ ] Native-speaker review of the zh, ms and ta strings (who, and by when?).
 - [ ] Keep the feature names "Pause & Verify" and "Scam Check" in English inside other languages, or translate them?
 - [ ] Should "Hang up" in the drill also count as a good outcome? The draft praises both responses.
-- [ ] Use the real teammate's name instead of "Wei Jie" for the live demo?
+- [ ] Use the real teammate's name instead of "Marcus" for the live demo?
 - [ ] Try the screens with 2–3 grandparents (V2) and note where they hesitate.

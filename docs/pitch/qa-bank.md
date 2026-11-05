@@ -134,7 +134,7 @@ Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/
 
 **Repo source:** Decision 4; [prototype-design.md, Guardian Alert and the failure table](../prototype-design.md#apis-events-and-error-handling); [demo/scam-check-web/README.md, Results](../../demo/scam-check-web/README.md).
 
-**Careful:** Two honest gaps. First, one unseen genuine message ("at the hospital now with Dad, can you bring $50 cash for parking?") was rated High risk, a false alarm the rules cannot avoid. Second, it is untested whether the "Wei Jie has been told" notice shows on the incoming-call screen on all phone brands (open question in the design). Say both if asked.
+**Careful:** Two honest gaps. First, one unseen genuine message ("at the hospital now with Dad, can you bring $50 cash for parking?") was rated High risk, a false alarm the rules cannot avoid. Second, it is untested whether the "Marcus has been told" notice shows on the incoming-call screen on all phone brands (open question in the design). Say both if asked.
 
 ## 11. Isn't routing calls to family paternalistic?
 

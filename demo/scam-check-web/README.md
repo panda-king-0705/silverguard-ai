@@ -171,4 +171,4 @@ Suggested owner: Product owner decides A to D with Dev 1; the decision goes in `
 - [ ] Native Mandarin and Malay speakers to check the new amount rules (转两万, 借我五千, 保释) and the negation words.
 - [ ] Native Mandarin and Malay speakers to review the word lists and test messages.
 - [ ] Replace the invented genuine messages with consented, anonymised real ones before any numbers go on the poster.
-- [ ] The page has no "Call Wei Jie" button from the design flow yet. Decide whether it belongs here (Sprint 2) or only in the clickable screens (D5).
+- [ ] The page has no "Call Marcus" button from the design flow yet. Decide whether it belongs here (Sprint 2) or only in the clickable screens (D5).

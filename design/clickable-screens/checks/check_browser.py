@@ -70,8 +70,8 @@ with sync_playwright() as p:
     page.click("#pv-question [data-action=pv-no]"); check(page.inner_text("#pv-q") == "Did they say it's urgent or secret?", "No -> question 2")
     page.click("#pv-question [data-action=pv-no]"); check(page.inner_text("#pv-q") == "Are they calling from a new number?", "No -> question 3")
     page.click("#pv-question [data-action=pv-yes]")
-    check(page.is_visible("#pv-call") and "Call Wei Jie now" in page.inner_text("#pv-call") and "•••• 4821" in page.inner_text("#pv-call"), "Yes -> one big 'Call Wei Jie now' with masked saved number")
-    page.click("#pv-call [data-action=call]"); check(visible(page) == "s-calling" and page.inner_text("#h-calling") == "Calling Wei Jie…", "Call Wei Jie now -> calling state")
+    check(page.is_visible("#pv-call") and "Call Marcus now" in page.inner_text("#pv-call") and "•••• 4821" in page.inner_text("#pv-call"), "Yes -> one big 'Call Marcus now' with masked saved number")
+    page.click("#pv-call [data-action=call]"); check(visible(page) == "s-calling" and page.inner_text("#h-calling") == "Calling Marcus…", "Call Marcus now -> calling state")
     page.click("[data-action=end-call]"); check(visible(page) == "s-home", "End call -> home")
     page.click("#s-home .big.pv")
     for _ in range(3):
@@ -81,12 +81,12 @@ with sync_playwright() as p:
     page.click("#s-pv .back"); check(visible(page) == "s-home", "Home button -> home")
     page.click("#s-home .big.sc"); check(visible(page) == "s-check", "home -> Check a message -> Scam Check result")
     txt = page.inner_text("#s-check")
-    for s in ["High risk", "They asked you to send money", "They asked you to keep it secret", "They said they have a new number", "Call Wei Jie", "Report to ScamShield", "This stayed on your phone"]:
+    for s in ["High risk", "They asked you to send money", "They asked you to keep it secret", "They said they have a new number", "Call Marcus", "Report to ScamShield", "This stayed on your phone"]:
         check(s in txt, f"Scam Check shows {s!r}")
     check(page.locator("#s-check .risk svg").count() == 1, "High risk has an icon as well as colour and words")
     page.click("[data-action=report-open]"); check(page.is_visible("#report-sheet"), "Report to ScamShield -> explanation sheet (no link, no logo)")
     page.click("[data-action=report-close]"); check(not page.is_visible("#report-sheet"), "OK closes the sheet")
-    page.click("#check-actions [data-action=call]"); page.click("[data-action=end-call]"); check(visible(page) == "s-check", "Call Wei Jie -> calling -> back to result")
+    page.click("#check-actions [data-action=call]"); page.click("[data-action=end-call]"); check(visible(page) == "s-check", "Call Marcus -> calling -> back to result")
     page.click(".picker [data-go=s-drill]"); check(visible(page) == "s-drill" and "Practice call" in page.inner_text("#s-drill"), "picker -> Family Drill labelled 'Practice call'")
     page.click("[data-action=drill-hangup]"); check(visible(page) == "s-debrief" and page.inner_text("#debrief-choice") == "You hung up.", "Hang up -> debrief")
     dtxt = page.inner_text("#s-debrief")

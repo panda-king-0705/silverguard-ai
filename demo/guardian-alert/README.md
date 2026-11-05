@@ -40,7 +40,7 @@ By default the middle digits are hidden. The design doc lists sharing the caller
 
 ## Set up the demo bot (one-off, about 10 minutes)
 
-**Decision for the team:** whose Telegram account plays the guardian ("Wei Jie") during the pitch. A team demo account keeps personal chats off the projector.
+**Decision for the team:** whose Telegram account plays the guardian ("Marcus") during the pitch. A team demo account keeps personal chats off the projector.
 
 1. **Create the bot.** In Telegram, open a chat with **@BotFather** (check the username is exactly that) and send `/newbot`. Choose a display name, then a username. Usernames are 5 to 32 characters, may only use Latin letters, numbers and underscores, and must end in "bot". BotFather then gives you the bot's token. Sources: [Telegram Bot Features, "Creating a new bot"](https://core.telegram.org/bots/features); [Bots: An introduction for developers](https://core.telegram.org/bots).
 2. **Store the token safely.** Telegram says to "treat it like a password and don't share it with anyone" ([tutorial](https://core.telegram.org/bots/tutorial)), and that the token "can be used by anyone to control your bot" ([features](https://core.telegram.org/bots/features)). Keep it in one teammate's password manager. Never put it in the repo, a chat, slides or a screenshot.

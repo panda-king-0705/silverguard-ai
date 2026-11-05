@@ -334,7 +334,7 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       <span class="sub" data-i18n="scSub">Scam Check</span>
     </button>
   </div>
-  <p class="guardian-line"><svg class="i" aria-hidden="true"><use href="#i-person"/></svg><span data-i18n="guardianLine">Guardian: Wei Jie</span></p>
+  <p class="guardian-line"><svg class="i" aria-hidden="true"><use href="#i-person"/></svg><span data-i18n="guardianLine">Guardian: Marcus</span></p>
 </section>
 
 <!-- 2 PAUSE & VERIFY -->
@@ -358,12 +358,12 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
 
   <div id="pv-call" class="stack" style="flex:1" hidden>
     <div class="stop-card">
-      <h2 id="h-pv-call" tabindex="-1"><svg class="i" aria-hidden="true"><use href="#i-warn"/></svg><span data-i18n="stopTitle">Stop. Call Wei Jie first.</span></h2>
-      <p data-i18n="stopBody">Do not send money. Wei Jie will help check if it is really them.</p>
+      <h2 id="h-pv-call" tabindex="-1"><svg class="i" aria-hidden="true"><use href="#i-warn"/></svg><span data-i18n="stopTitle">Stop. Call Marcus first.</span></h2>
+      <p data-i18n="stopBody">Do not send money. Marcus will help check if it is really them.</p>
     </div>
     <button type="button" class="btn call callbig push" data-action="call" data-call="weijie" data-return="s-home">
       <svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>
-      <span data-i18n="callNow">Call Wei Jie now</span>
+      <span data-i18n="callNow">Call Marcus now</span>
       <span class="num"><span data-i18n="savedNumber">Saved number</span> <span class="nowrap">+65 •••• 4821</span></span>
     </button>
     <p class="small" data-i18n="savedNote">This calls his saved number, never the caller's.</p>
@@ -375,7 +375,7 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       <p data-i18n="noSignsBody">If they ask for money later, press this button again and call family first.</p>
     </div>
     <div class="stack push">
-      <button type="button" class="btn call" data-action="call" data-call="weijie" data-return="s-home"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="callWJ">Call Wei Jie</span></button>
+      <button type="button" class="btn call" data-action="call" data-call="weijie" data-return="s-home"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="callWJ">Call Marcus</span></button>
       <button type="button" class="btn outline" data-action="pv-restart"><span data-i18n="startAgain">Start again</span></button>
       <button type="button" class="btn outline" data-go="s-home"><span data-i18n="backHome">Back to home</span></button>
     </div>
@@ -402,7 +402,7 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
   </ul>
   <p class="stayed"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg><span data-i18n="stayed">This stayed on your phone</span></p>
   <div class="stack actions-sticky" id="check-actions">
-    <button type="button" class="btn call" data-action="call" data-call="weijie" data-return="s-check"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="callWJ">Call Wei Jie</span></button>
+    <button type="button" class="btn call" data-action="call" data-call="weijie" data-return="s-check"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="callWJ">Call Marcus</span></button>
     <button type="button" class="btn outline" data-action="report-open"><svg class="i" aria-hidden="true"><use href="#i-report"/></svg><span data-i18n="report">Report to ScamShield</span></button>
   </div>
   <div class="sheet actions-sticky" id="report-sheet" hidden>
@@ -441,7 +441,7 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
   <div class="progress-card">
     <p class="count" data-i18n="drillsMonth">3 drills this month</p>
     <div class="pips" aria-hidden="true"><span><svg class="i"><use href="#i-check"/></svg></span><span><svg class="i"><use href="#i-check"/></svg></span><span><svg class="i"><use href="#i-check"/></svg></span></div>
-    <p class="small" data-i18n="seesProgress">Wei Jie sees your progress, never the call audio.</p>
+    <p class="small" data-i18n="seesProgress">Marcus sees your progress, never the call audio.</p>
   </div>
   <div class="stack actions-sticky">
     <button type="button" class="btn primary" data-go="s-home"><span data-i18n="done">Done</span></button>
@@ -491,13 +491,13 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
   "use strict";
 
   // AI-drafted translations. zh, ms and ta MUST be checked by a native speaker before the pitch.
-  // Names (Wei Jie) are shown as saved in the senior's contacts, so they are not translated.
+  // Names (Marcus) are shown as saved in the senior's contacts, so they are not translated.
   var I18N = {
     en: {
       greeting: "Good morning",
       pvMain: "Is this really them?", pvSub: "Pause & Verify",
       scMain: "Check a message", scSub: "Scam Check",
-      guardianLine: "Guardian: Wei Jie", home: "Home",
+      guardianLine: "Guardian: Marcus", home: "Home",
       pvIntro: "Answer three questions. Each one is read aloud.",
       qCount: "Question {n} of 3",
       q1: "Did they ask for money?",
@@ -505,13 +505,13 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       q3: "Are they calling from a new number?",
       readAloud: "Read aloud", noVoice: "No voice for this language on this device.",
       yes: "Yes", no: "No",
-      stopTitle: "Stop. Call Wei Jie first.",
-      stopBody: "Do not send money. Wei Jie will help check if it is really them.",
-      callNow: "Call Wei Jie now", savedNumber: "Saved number",
+      stopTitle: "Stop. Call Marcus first.",
+      stopBody: "Do not send money. Marcus will help check if it is really them.",
+      callNow: "Call Marcus now", savedNumber: "Saved number",
       savedNote: "This calls his saved number, never the caller's.",
       noSigns: "No warning signs found",
       noSignsBody: "If they ask for money later, press this button again and call family first.",
-      callWJ: "Call Wei Jie", startAgain: "Start again", backHome: "Back to home",
+      callWJ: "Call Marcus", startAgain: "Start again", backHome: "Back to home",
       checkedWhat: "Checked: a voice note",
       highRisk: "High risk", highRiskBody: "This looks like a scam. Do not send money.",
       why: "Why:",
@@ -527,15 +527,15 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       choicePaused: "You pressed “Is this really them?”", choiceHung: "You hung up.",
       flagsIntro: "This was a practice call. The red flags were:",
       f1: "A new number", f2: "Asking for money", f3: "Rushing you: “now”", f4: "Keep it secret: “don't tell anyone”",
-      drillsMonth: "3 drills this month", seesProgress: "Wei Jie sees your progress, never the call audio.",
+      drillsMonth: "3 drills this month", seesProgress: "Marcus sees your progress, never the call audio.",
       done: "Done", again: "Practise again",
-      callingWJ: "Calling Wei Jie…", proto: "Prototype: no real call is made.", endCall: "End call"
+      callingWJ: "Calling Marcus…", proto: "Prototype: no real call is made.", endCall: "End call"
     },
     zh: {
       greeting: "早上好",
       pvMain: "真的是本人吗？", pvSub: "暂停核实",
       scMain: "检查信息", scSub: "诈骗检查",
-      guardianLine: "守护人：Wei Jie", home: "主页",
+      guardianLine: "守护人：Marcus", home: "主页",
       pvIntro: "请回答三个问题。每个问题都会读给您听。",
       qCount: "第 {n} 题，共 3 题",
       q1: "对方有没有向您要钱？",
@@ -543,13 +543,13 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       q3: "对方是不是用新号码打来的？",
       readAloud: "朗读", noVoice: "这部手机没有这种语言的语音。",
       yes: "有 / 是", no: "没有 / 不是",
-      stopTitle: "先停一下，打给 Wei Jie。",
-      stopBody: "不要转账。Wei Jie 会帮您确认是不是本人。",
-      callNow: "现在打给 Wei Jie", savedNumber: "已保存的号码",
+      stopTitle: "先停一下，打给 Marcus。",
+      stopBody: "不要转账。Marcus 会帮您确认是不是本人。",
+      callNow: "现在打给 Marcus", savedNumber: "已保存的号码",
       savedNote: "拨打的是他已保存的号码，不会回拨来电号码。",
       noSigns: "未发现警告迹象",
       noSignsBody: "如果对方之后向您要钱，请再按这个按钮，先打给家人。",
-      callWJ: "打给 Wei Jie", startAgain: "重新开始", backHome: "返回主页",
+      callWJ: "打给 Marcus", startAgain: "重新开始", backHome: "返回主页",
       checkedWhat: "已检查：一条语音信息",
       highRisk: "高风险", highRiskBody: "这看起来像诈骗。请不要转账。",
       why: "原因：",
@@ -565,15 +565,15 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       choicePaused: "您按了“真的是本人吗？”", choiceHung: "您挂断了电话。",
       flagsIntro: "这是练习电话。其中的危险信号有：",
       f1: "新号码", f2: "向您要钱", f3: "催促您：“现在”", f4: "要您保密：“不要告诉别人”",
-      drillsMonth: "本月已练习 3 次", seesProgress: "Wei Jie 只看到您的进度，听不到通话录音。",
+      drillsMonth: "本月已练习 3 次", seesProgress: "Marcus 只看到您的进度，听不到通话录音。",
       done: "完成", again: "再练习一次",
-      callingWJ: "正在打给 Wei Jie…", proto: "原型演示：不会真的拨出电话。", endCall: "结束通话"
+      callingWJ: "正在打给 Marcus…", proto: "原型演示：不会真的拨出电话。", endCall: "结束通话"
     },
     ms: {
       greeting: "Selamat pagi",
       pvMain: "Betulkah ini mereka?", pvSub: "Berhenti & Sahkan",
       scMain: "Semak mesej", scSub: "Semakan Penipuan",
-      guardianLine: "Penjaga: Wei Jie", home: "Utama",
+      guardianLine: "Penjaga: Marcus", home: "Utama",
       pvIntro: "Jawab tiga soalan. Setiap soalan akan dibacakan.",
       qCount: "Soalan {n} daripada 3",
       q1: "Adakah mereka meminta wang?",
@@ -581,13 +581,13 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       q3: "Adakah mereka menelefon dari nombor baharu?",
       readAloud: "Bacakan", noVoice: "Tiada suara untuk bahasa ini pada peranti ini.",
       yes: "Ya", no: "Tidak",
-      stopTitle: "Berhenti. Telefon Wei Jie dahulu.",
-      stopBody: "Jangan hantar wang. Wei Jie akan bantu semak sama ada ini benar-benar mereka.",
-      callNow: "Telefon Wei Jie sekarang", savedNumber: "Nombor disimpan",
+      stopTitle: "Berhenti. Telefon Marcus dahulu.",
+      stopBody: "Jangan hantar wang. Marcus akan bantu semak sama ada ini benar-benar mereka.",
+      callNow: "Telefon Marcus sekarang", savedNumber: "Nombor disimpan",
       savedNote: "Ini menelefon nombornya yang disimpan, bukan nombor pemanggil.",
       noSigns: "Tiada tanda amaran ditemui",
       noSignsBody: "Jika mereka meminta wang nanti, tekan butang ini sekali lagi dan telefon keluarga dahulu.",
-      callWJ: "Telefon Wei Jie", startAgain: "Mula semula", backHome: "Kembali ke utama",
+      callWJ: "Telefon Marcus", startAgain: "Mula semula", backHome: "Kembali ke utama",
       checkedWhat: "Disemak: satu nota suara",
       highRisk: "Risiko tinggi", highRiskBody: "Ini kelihatan seperti penipuan. Jangan hantar wang.",
       why: "Sebabnya:",
@@ -603,15 +603,15 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       choicePaused: "Anda tekan “Betulkah ini mereka?”", choiceHung: "Anda meletakkan telefon.",
       flagsIntro: "Ini panggilan latihan. Tanda bahayanya ialah:",
       f1: "Nombor baharu", f2: "Meminta wang", f3: "Mendesak anda: “sekarang”", f4: "Suruh rahsiakan: “jangan beritahu sesiapa”",
-      drillsMonth: "3 latihan bulan ini", seesProgress: "Wei Jie hanya nampak kemajuan anda, bukan rakaman panggilan.",
+      drillsMonth: "3 latihan bulan ini", seesProgress: "Marcus hanya nampak kemajuan anda, bukan rakaman panggilan.",
       done: "Selesai", again: "Berlatih lagi",
-      callingWJ: "Sedang menelefon Wei Jie…", proto: "Prototaip: tiada panggilan sebenar dibuat.", endCall: "Tamatkan panggilan"
+      callingWJ: "Sedang menelefon Marcus…", proto: "Prototaip: tiada panggilan sebenar dibuat.", endCall: "Tamatkan panggilan"
     },
     ta: {
       greeting: "காலை வணக்கம்",
       pvMain: "இது உண்மையில் அவர்களா?", pvSub: "நிறுத்தி சரிபார்",
       scMain: "செய்தியைச் சரிபார்", scSub: "மோசடிச் சோதனை",
-      guardianLine: "பாதுகாவலர்: Wei Jie", home: "முகப்பு",
+      guardianLine: "பாதுகாவலர்: Marcus", home: "முகப்பு",
       pvIntro: "மூன்று கேள்விகளுக்குப் பதில் சொல்லுங்கள். ஒவ்வொன்றும் வாசித்துக் காட்டப்படும்.",
       qCount: "கேள்வி {n} / 3",
       q1: "அவர்கள் பணம் கேட்டார்களா?",
@@ -619,13 +619,13 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       q3: "அவர்கள் புதிய எண்ணிலிருந்து அழைக்கிறார்களா?",
       readAloud: "உரக்கப் படி", noVoice: "இந்தச் சாதனத்தில் இந்த மொழிக்குக் குரல் இல்லை.",
       yes: "ஆம்", no: "இல்லை",
-      stopTitle: "நிறுத்துங்கள். முதலில் Wei Jie-ஐ அழையுங்கள்.",
-      stopBody: "பணம் அனுப்ப வேண்டாம். இது உண்மையில் அவர்களா என்று சரிபார்க்க Wei Jie உதவுவார்.",
-      callNow: "இப்போதே Wei Jie-ஐ அழையுங்கள்", savedNumber: "சேமித்த எண்",
+      stopTitle: "நிறுத்துங்கள். முதலில் Marcus-ஐ அழையுங்கள்.",
+      stopBody: "பணம் அனுப்ப வேண்டாம். இது உண்மையில் அவர்களா என்று சரிபார்க்க Marcus உதவுவார்.",
+      callNow: "இப்போதே Marcus-ஐ அழையுங்கள்", savedNumber: "சேமித்த எண்",
       savedNote: "அழைத்தவரின் எண்ணை அல்ல, அவருடைய சேமித்த எண்ணையே அழைக்கும்.",
       noSigns: "எச்சரிக்கை அறிகுறிகள் எதுவும் இல்லை",
       noSignsBody: "பின்னர் அவர்கள் பணம் கேட்டால், இந்தப் பொத்தானை மீண்டும் அழுத்தி முதலில் குடும்பத்தினரை அழையுங்கள்.",
-      callWJ: "Wei Jie-ஐ அழை", startAgain: "மீண்டும் தொடங்கு", backHome: "முகப்புக்குத் திரும்பு",
+      callWJ: "Marcus-ஐ அழை", startAgain: "மீண்டும் தொடங்கு", backHome: "முகப்புக்குத் திரும்பு",
       checkedWhat: "சரிபார்த்தது: ஒரு குரல் செய்தி",
       highRisk: "அதிக ஆபத்து", highRiskBody: "இது மோசடி போலத் தெரிகிறது. பணம் அனுப்ப வேண்டாம்.",
       why: "காரணங்கள்:",
@@ -641,9 +641,9 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
       choicePaused: "நீங்கள் “இது உண்மையில் அவர்களா?” என்பதை அழுத்தினீர்கள்", choiceHung: "நீங்கள் அழைப்பைத் துண்டித்தீர்கள்.",
       flagsIntro: "இது ஒரு பயிற்சி அழைப்பு. அபாய அறிகுறிகள்:",
       f1: "புதிய எண்", f2: "பணம் கேட்டது", f3: "அவசரப்படுத்தியது: “இப்போதே”", f4: "ரகசியம்: “யாரிடமும் சொல்லாதீர்கள்”",
-      drillsMonth: "இந்த மாதம் 3 பயிற்சிகள்", seesProgress: "Wei Jie உங்கள் முன்னேற்றத்தை மட்டுமே பார்ப்பார், அழைப்பின் ஒலியை அல்ல.",
+      drillsMonth: "இந்த மாதம் 3 பயிற்சிகள்", seesProgress: "Marcus உங்கள் முன்னேற்றத்தை மட்டுமே பார்ப்பார், அழைப்பின் ஒலியை அல்ல.",
       done: "முடிந்தது", again: "மீண்டும் பயிற்சி செய்",
-      callingWJ: "Wei Jie-ஐ அழைக்கிறது…", proto: "முன்மாதிரி: உண்மையான அழைப்பு செய்யப்படாது.", endCall: "அழைப்பை முடி"
+      callingWJ: "Marcus-ஐ அழைக்கிறது…", proto: "முன்மாதிரி: உண்மையான அழைப்பு செய்யப்படாது.", endCall: "அழைப்பை முடி"
     }
   };
   var HTML_LANG = { en: "en", zh: "zh-Hans", ms: "ms", ta: "ta" };
@@ -654,7 +654,7 @@ svg.i { width: 1em; height: 1em; flex: none; fill: none; stroke: currentColor; s
     "s-check": ["3 · Scam Check result", "Level in words, icon and colour, with three reasons."],
     "s-drill": ["4 · Family Drill", "A practice call, clearly labelled, with two ways to respond."],
     "s-debrief": ["5 · Drill debrief", "Praise for pausing, the red flags, and progress."],
-    "s-guardian": ["6 · Guardian's phone", "Generic messaging app: the alert Wei Jie receives."],
+    "s-guardian": ["6 · Guardian's phone", "Generic messaging app: the alert Marcus receives."],
     "s-calling": ["Calling", "Prototype only: no call is made."]
   };
   var SIX = ["s-home", "s-pv", "s-check", "s-drill", "s-debrief", "s-guardian"];

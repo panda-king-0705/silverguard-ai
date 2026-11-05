@@ -38,7 +38,7 @@ SilverGuardAlert.buildScamCheckAlertText({ seniorName = 'Mum', level, cueLabels 
 1. Keep the button where it is, under the result card, and hide it until a result is shown.
 2. On click, build the text from the **result**, not from the pasted message: `level` and the cue labels.
 3. Mock mode (the default): call `simulateGuardianAlert()`. Live mode: call `sendGuardianAlert()` with the token and chat ID from a settings panel like the one in `demo/guardian-alert/index.html`.
-4. While waiting, disable the button and show "Telling Wei Jie…" in the existing `#status` live region. On success, show "Wei Jie has been told" and the time in seconds. On failure, show the plain-words `error` and offer "Call Wei Jie now". This matches the design doc's failure rule: keep a person in the loop.
+4. While waiting, disable the button and show "Telling Marcus…" in the existing `#status` live region. On success, show "Marcus has been told" and the time in seconds. On failure, show the plain-words `error` and offer "Call Marcus now". This matches the design doc's failure rule: keep a person in the loop.
 
 ```js
 // Sketch for Dev 1's page script (Sprint 2). Assumes alert.js is inlined, as below.
@@ -48,8 +48,8 @@ async function alertGuardian(result) {
     ? await SilverGuardAlert.simulateGuardianAlert({ delayMs: 600 })
     : await SilverGuardAlert.sendGuardianAlert({ token: settings.token, chatId: settings.chatId, text: text });
   $('status').textContent = r.ok
-    ? 'Wei Jie has been told (' + (r.ms / 1000).toFixed(1) + ' s).' + (r.mock ? ' Mock mode: nothing was sent.' : '')
-    : 'Wei Jie could not be reached. ' + r.error;
+    ? 'Marcus has been told (' + (r.ms / 1000).toFixed(1) + ' s).' + (r.mock ? ' Mock mode: nothing was sent.' : '')
+    : 'Marcus could not be reached. ' + r.error;
 }
 ```
 
