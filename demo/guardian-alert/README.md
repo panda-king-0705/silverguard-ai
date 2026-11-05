@@ -94,6 +94,10 @@ The course rule is that phones may be used during the pitch only with instructor
 - The demo sends the alert from the browser with a Telegram bot. The product design uses WhatsApp utility messages from the backend, with SMS as the fallback.
 - The real phone-side silencing uses Android's call-screening role, which this web page does not show.
 
+## Automatic alert on a real Android phone (added 6 Nov 2026)
+
+A real call from a non-contact number can trigger the alert with no button press, using the free MacroDroid app as a stand-in for the app's call-screening service. Setup and test steps: [AUTO-ALERT.md](AUTO-ALERT.md) (decision 27).
+
 ## Live test from Node (added 6 Nov 2026)
 
 `send-alert.js` sends the same alert from Node, so the live test doesn't depend on Telegram accepting browser calls from a page opened from disk. It's also the fallback if the browser's live mode fails on the day.
