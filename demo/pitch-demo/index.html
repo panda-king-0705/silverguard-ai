@@ -146,6 +146,30 @@
   fieldset:disabled { opacity: .55; }
   .warn { background: var(--check-bg); color: var(--check-text); border-radius: 12px; padding: 12px 14px; margin-top: 12px; }
   .chats { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+  .call-status { margin: 10px 0 14px; }
+  .call-status:empty { margin: 0 0 14px; min-height: 0; }
+  /* DEV-3: short screens (a 1366x768 projector). Keep the call and its result in the first screen. */
+  @media (max-height: 860px) {
+    header { padding-top: 10px; }
+    h1 { font-size: 32px; }
+    .modebar { margin-top: 8px; padding: 6px 16px; }
+    main { padding-top: 14px; gap: 20px; }
+    #h-call { font-size: 26px; }
+    .panel { padding: 16px 20px; }
+    .phone { min-height: 0; padding: 12px 16px 16px; }
+    .statusbar { padding-bottom: 6px; }
+    .idle-msg { margin: 40px 0; }
+    .avatar { width: 56px; height: 56px; }
+    .avatar svg { width: 36px; height: 36px; }
+    .call-label { display: none; }
+    .caller { font-size: 26px; }
+    #callUi, .screen { gap: 6px; }
+    .call-actions { padding-top: 10px; }
+  }
+  /* Two columns on a short, wide screen: a wider left column keeps the heading and the badge on one line. */
+  @media (max-height: 860px) and (min-width: 1000px) {
+    main { grid-template-columns: minmax(340px, 480px) 1fr; }
+  }
   footer { color: var(--muted); border-top: 2px solid var(--border); padding-top: 16px; padding-bottom: 32px; }
 </style>
 </head>
@@ -165,10 +189,13 @@
   <section aria-labelledby="h-call">
     <div class="panel">
       <h2 id="h-call"><span class="step" aria-hidden="true">1</span>An unknown number calls</h2>
+      <!-- DEV-3: the trigger and its status sit above the phone so both fit a 1366x768 projector without scrolling. -->
+      <button type="button" class="primary" id="simulateBtn">Simulate unknown call</button>
+      <div class="status call-status" id="callStatus" role="status" aria-live="polite"></div>
       <div class="phone" role="group" aria-label="Senior's phone (simulation)">
         <div class="statusbar"><span id="clock">--:--</span><span>Mum's phone</span></div>
         <div class="screen" id="screen">
-          <p class="idle-msg" id="idleMsg">No calls. Press the button below.</p>
+          <p class="idle-msg" id="idleMsg">No calls. Press "Simulate unknown call".</p>
           <div id="callUi" hidden>
             <div class="call-label">Incoming call</div>
             <div class="avatar" id="avatar" aria-hidden="true">
@@ -192,8 +219,6 @@
           </div>
         </div>
       </div>
-      <button type="button" class="primary" id="simulateBtn">Simulate unknown call</button>
-      <div class="status" id="callStatus" role="status" aria-live="polite"></div>
     </div>
 
     <div class="panel">
@@ -1217,7 +1242,7 @@
     $('avatar').className = 'avatar';
     $('callUi').hidden = true;
     $('idleMsg').hidden = false;
-    $('idleMsg').textContent = 'Call ended. Press the button below to run it again.';
+    $('idleMsg').textContent = 'Call ended. Press "Simulate unknown call" to run it again.';
   }
   async function simulateCall() {
     if (busyCall) return;
