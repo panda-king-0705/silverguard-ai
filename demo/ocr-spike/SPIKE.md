@@ -9,7 +9,7 @@
 Do not build screenshot OCR into the pitch demo. Reasons, strongest first:
 
 1. **It will not work from a double-clicked file.** Our demo pages are opened from disk. tesseract.js needs a Web Worker script, a WebAssembly core and a language data file, all fetched at run time. Browsers commonly block that from `file://` pages (needs verification in the browser used on the day). The fixes are a small local web server (one more thing to fail on stage) or packing everything into one very large HTML file. Either costs hours and changes how the team runs every demo.
-2. **It adds a second accuracy unknown.** The team quotes "15/15 on a 15-message test set the team wrote itself; real-world accuracy not yet measured". Chat screenshots add OCR errors on top. A misread keyword makes the engine score a scam lower, which is the dangerous direction, and we have no numbers to show how often that happens.
+2. **It adds a second accuracy unknown.** The team quotes "15/15 on a 15-message test set our team wrote with AI assistance; real-world accuracy not yet measured". Chat screenshots add OCR errors on top. A misread keyword makes the engine score a scam lower, which is the dangerous direction, and we have no numbers to show how often that happens.
 3. **It is not evidence for the product.** The design doc chooses Google ML Kit's on-device text recognition on Android (`docs/prototype-design.md`, "Turn it into text, on the phone"). A tesseract.js demo would be a stand-in, and the Tamil engine is still an open question there.
 4. **Realistic effort is 12 to 15 hours, not the 4 hours in the sprint plan** (see below). `docs/process/sprint-2-plan.md` already says the team is over capacity and "drop D3 first", with a go or no-go by end of Tue 3 Nov.
 
