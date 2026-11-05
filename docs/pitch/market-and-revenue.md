@@ -2,16 +2,27 @@
 
 > Draft prepared with AI assistance for the Product Owner; to be reviewed and edited by the team.
 
-23 Oct 2026 · Feeds pitch beats 11 to 13 in [`pitch-script.md`](pitch-script.md) and poster zone 7 (business case). All money is in Singapore dollars unless marked US$. **Anything marked "team to set" is a number the AI has deliberately not decided.**
+23 Oct 2026; updated 6 Nov 2026 (Sprint 3, milestone PO-3) · Feeds pitch beats 11 to 13 in [`pitch-script.md`](pitch-script.md), the deck brief ([`deck-brief.md`](deck-brief.md)) and poster zone 7 (business case). All money is in Singapore dollars unless marked US$. **Anything marked "team to set" is a number the AI has deliberately not decided.**
+
+## Still open (as of 6 Nov 2026)
+
+These are genuine team decisions. The pitch must not state a number for any of them.
+
+1. **What is free and what is paid.** Whether Scam Check and Pause & Verify stay free for the senior while the family plan pays for guardian features. Owner: PO and team.
+2. **Partner fees** (bank cooling-off signal, telco transfer or bundle). No partner conversation is in the repo. Owner: PO.
+3. **Pilot gate thresholds** (catch rate, false alarms, "couldn't check" rate). The budget names the three measures but sets no thresholds. Owner: PO and Researcher.
+4. **Seed terms** (equity share, valuation, instrument). Deliberately left open by decision 25: the ask is "S$500,000 for 12 months" plus use of funds. Owner: team, with the lead investor.
+
+**Decided on 6 Nov 2026:** the family-plan price is **S$8 a month per parent** (decision 24). The pilot uses vouchers, so it does not test this price.
 
 ## What this page decides and what it leaves to the team
 
 | Item | In this draft | Who decides |
 | --- | --- | --- |
 | Revenue model to pitch | Family plan first (recommended); bank and telco partner fees as the second line | PO and team |
-| Family-plan price | **Team to set** | PO and team |
+| Family-plan price | **S$8 a month per parent** (decision 24, 6 Nov 2026) | Decided |
 | What is free and what is paid | **Team to set** (see option 1) | PO and team |
-| Terms of the S$500,000 (equity, note, other) | **Team to set** | Team |
+| Terms of the S$500,000 (equity, note, other) | **Open by decision** (decision 25): ask states S$500,000 for 12 months and the use of funds; no equity share, valuation or instrument | Decided to leave open; team agrees terms with the lead investor later |
 | Partner fees (bank, telco) | **Team to set**; the repo shows no partner conversation yet | PO |
 | Pilot success thresholds (the "gate") | **Team to set**; the budget names the three measures but no thresholds | PO and Researcher |
 | Use of funds | From [`docs/business/budget-v2.md`](../business/budget-v2.md), the 12-month version chosen in decision-log row 13 | Already decided; team to ratify at kickoff |
@@ -32,13 +43,13 @@ Sources: 20.7% (June 2025) from Population in Brief 2025 (B4); S$913.1M and S$37
 
 A longer version, if the slide has room: "13.1% in 2015, 20.7% in 2025" (B4) and "89% of residents aged 60 and above owned a smartphone in 2022" (IMDA, see the table at the end).
 
-**What this line is, and is not.** It sizes the problem and the user group. It is not a revenue forecast. The repo has no count of paying households, no estimate of how many seniors use Android 10 or later, and no willingness-to-pay evidence, so the AI has not produced a TAM, SAM or SOM figure. To build one the team would need: (a) the number of citizens aged 65 and above, from Population in Brief 2025 (B4; the AI used only the 20.7% share and has not read the headcount, needs a figure); (b) the share on Android 10 or later (not found); (c) a price (team to set); (d) a take-up rate (no evidence). If the team adds one, label every assumption.
+**What this line is, and is not.** It sizes the problem and the user group. It is not a revenue forecast. The repo has no count of paying households, no estimate of how many seniors use Android 10 or later, and no willingness-to-pay evidence, so the AI has not produced a TAM, SAM or SOM figure. To build one the team would need: (a) the number of citizens aged 65 and above, from Population in Brief 2025 (B4; the AI used only the 20.7% share and has not read the headcount, needs a figure); (b) the share on Android 10 or later (not found); (c) a price (now S$8 a month per parent, decision 24, untested); (d) a take-up rate (no evidence). If the team adds one, label every assumption.
 
 ## 3. Revenue options
 
 | # | Option | Who pays | How it earns | Price | Strengths | Risks and what is missing |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | **Family plan** (recommended for the pitch) | The adult child, per parent | Monthly subscription for guardian alerts, Family Drill scheduling and the guardian dashboard. Whether Scam Check and Pause & Verify stay free for the senior is a team decision. | **Team to set** | Needs no partner to sign first. The buyer is the person who feels the worry. Matches decision 1 (investors want who uses, who pays, who partners) and the problem statement's "family plan" language. | No evidence yet that adult children will pay. The 200-household pilot uses vouchers, so it does not test price. The guardian channel may feel like losing independence (Ang & Malhotra 2022, source library B7), which could hurt take-up. |
+| 1 | **Family plan** (recommended for the pitch) | The adult child, per parent | Monthly subscription for guardian alerts, Family Drill scheduling and the guardian dashboard. Whether Scam Check and Pause & Verify stay free for the senior is a team decision. | **S$8 a month per parent** (decision 24) | Needs no partner to sign first. The buyer is the person who feels the worry. Matches decision 1 (investors want who uses, who pays, who partners) and the problem statement's "family plan" language. | No evidence yet that adult children will pay. The 200-household pilot uses vouchers, so it does not test price. The guardian channel may feel like losing independence (Ang & Malhotra 2022, source library B7), which could hurt take-up. |
 | 2 | **Bank partnership**: fee for the cooling-off signal (Tier 3) | A partner bank | Per linked customer or per signal, or a licence. The bank owns the extra check; SilverGuard sends only "recent scam risk", valid for 24 hours, with no content. | **Team to set** | Banks have a business case (Deloitte, B1). The CBC case shows bank staff stopping a transfer (A9). | No bank conversation in the repo. Needs the bank to build its side and pass its own approval. Later than the MVP. |
 | 3 | **Telco partnership**: guardian transfer or a bundle (Tier 2) | A telco, or the telco's subscribers | Revenue share on a bundled add-on, or a fee per enrolled subscriber. The telco runs the transfer. | **Team to set** | Only a telco's network can redirect a call. Opens distribution to seniors who would never find the app. | No telco conversation in the repo. WhatsApp and Telegram calls never touch the telco's call network, and a spoofed caller ID can look like a saved contact (design doc). |
 | 4 | **Community or institutional licence** (senior activity centres, public programmes) | A centre or agency | Licence or grant for group use. | **Team to set** | The pilot already works through community centres. | **Needs verification**: the repo has no source on who funds such programmes or how. Not recommended for the pitch until someone finds one. |
@@ -50,13 +61,13 @@ A longer version, if the slide has room: "13.1% in 2015, 20.7% in 2025" (B4) and
 ### What is not proven (say it before an investor asks)
 
 - **Willingness to pay** is untested. The grandparent sessions (V2) and synthesis (V3) should ask the adult children, not only the seniors.
-- **Scale arithmetic.** The average monthly spend is S$40,961.13 (budget-v2). The table shows how many paying households would cover that spend at three **placeholder** prices. It ignores payment fees, partner shares and cancellations, and the prices are **team to set**:
+- **Scale arithmetic.** The average monthly spend is S$40,961.13 (budget-v2). The table shows how many paying households would cover that spend at three prices; **S$8 is the chosen price** (decision 24), and S$5 and S$10 are kept for comparison. It ignores payment fees, partner shares and cancellations. Households are rounded up (S$40,961.13 ÷ price). [BUD; computed by the AI]
 
-| Placeholder monthly price per household | Households needed to cover S$40,961.13 a month |
-| --- | --- |
-| S$5 (team to set) | 8,193 |
-| S$8 (team to set) | 5,121 |
-| S$10 (team to set) | 4,097 |
+| Monthly price per household | Households needed to cover S$40,961.13 a month | Status |
+| --- | --- | --- |
+| S$5 | 8,193 | Comparison only |
+| **S$8** | **5,121** | **Chosen price (decision 24)**; the pitch says "about 5,100" |
+| S$10 | 4,097 | Comparison only |
 
   The pilot has 200 households, so family-plan revenue alone cannot carry the company at pilot scale. That is why partners matter, and the pitch should say so (beat 12 does).
 - **The seed budget has no revenue line.** budget-v2 lists costs only; it does not assume income during the 12 months.
@@ -102,20 +113,21 @@ Month counts follow the budget summary: MVP in 16 weeks (about 3.7 months), then
 **Market slide headline:** "Who uses it, who pays, who partners"
 
 - Uses: seniors. 20.7% of citizens are 65 and above.
-- Pays: their adult children, through a family plan at [price: team to set] a month.
+- Pays: their adult children, through a family plan at S$8 a month per parent.
 - Partners: banks (slow a payment) and telcos (transfer a call).
 - Market line: scams cost Singapore S$913.1 million in 2025; seniors lose the most per victim (S$37,053).
 
 **Revenue slide headline:** "Start with the family, scale with partners"
 
-- Now: family plan, [price: team to set].
+- Now: family plan, S$8 a month per parent. About 5,100 paying households cover the average monthly spend.
 - Next: bank fee for the cooling-off signal; telco bundle (fees: team to set).
-- Honest line: no partner has signed; willingness to pay is not yet tested.
+- Honest line: no partner has signed; willingness to pay is not yet tested (the pilot uses vouchers).
 
-**Ask slide headline:** "S$500,000 for 12 months [terms: team to set]"
+**Ask slide headline:** "S$500,000 for 12 months"
 
 - Team 61%, design 9%, language and voice 6%, pilot 6%, security 5%, contingency 9%, infrastructure and buffer 3%.
 - Milestones: pilot-ready app (month 4), 200-household pilot (months 4 to 10), gate results (month 12).
+- No equity share, valuation or instrument on the slide (decision 25). If asked, see [`qa-bank.md`](qa-bank.md) Q23.
 
 ## 7. Numbers and sources
 
@@ -133,13 +145,15 @@ Tags refer to [`docs/research/source-library-v2.md`](../research/source-library-
 | Help from children and older women's quality of life in Singapore | Ang & Malhotra (2022) (B7) | https://doi.org/10.1016/j.socscimed.2022.114996 | Opened via RePEc (source library) |
 | Total S$491,533.60; average monthly burn S$40,961.13; 72.4% sourced, 15.7% estimates, 11.9% needs quote (S$58,300); 10-month alternative S$435,497.62 | Budget v2 | [`docs/business/budget-v2.md`](../business/budget-v2.md) | Computed by script in budget-v2 |
 | S$500,000 ask; 16 weeks to MVP; 6-month pilot; 200 households | Decision-log row 13; budget-v2 summary; design doc build plan | [`docs/process/decision-log.md`](../process/decision-log.md) | Team decision, to be ratified at kickoff |
-| Break-even households (8,193; 5,121; 4,097) and the use-of-funds percentages | Computed by the AI from budget-v2 | n/a | Computed; prices are placeholders (team to set) |
+| Break-even households (8,193; 5,121; 4,097) and the use-of-funds percentages | Computed by the AI from budget-v2 | [`docs/business/budget-v2.md`](../business/budget-v2.md) | Computed; S$8 is the chosen price (decision 24), S$5 and S$10 are comparisons |
+| S$8 a month per parent; seed terms open | Decision-log rows 24 and 25 | [`docs/process/decision-log.md`](../process/decision-log.md) | Team decisions, 6 Nov 2026; price not tested (pilot uses vouchers) |
 | Partner designs: telco transfer (Tier 2), bank cooling-off signal valid 24 hours (Tier 3) | Design doc, Partner integrations | [`docs/prototype-design.md`](../prototype-design.md) | Design, not agreements |
 
 ## 8. For the humans
 
-- [ ] Set the family-plan price and decide what stays free for the senior.
-- [ ] Decide the terms for the S$500,000 and say them in beat 13.
+- [x] Set the family-plan price: S$8 a month per parent (decision 24, 6 Nov 2026).
+- [ ] Decide what stays free for the senior.
+- [x] Terms for the S$500,000: left open by decision 25. Beat 13 says what the money buys; the PO approves the draft Q&A answer (qa-bank Q23).
 - [ ] Decide whether to promise a "first partner pilot" in milestone 3.
 - [ ] Ask the Researcher to (a) add the IMDA source to the library and check for the 2025 figure, (b) read the headcount of citizens aged 65 and above from Population in Brief 2025, and (c) look for a source on who funds community programmes (option 4).
 - [ ] Add a willingness-to-pay question for adult children to the interview guide before V2.

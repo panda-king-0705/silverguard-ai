@@ -2,14 +2,14 @@
 
 # Q&A bank and risks slide (R2 and B3)
 
-Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/22) (Q&A bank) and B3 [#20](https://github.com/panda-king-0705/silverguard-ai/issues/20) (risks slide). Drafted early, on 23 Oct 2026, for the Sprint 2 review by the team. The audience is simulated investors, so the questions are what an investor or the professor would ask.
+Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/22) (Q&A bank) and B3 [#20](https://github.com/panda-king-0705/silverguard-ai/issues/20) (risks slide). Drafted early, on 23 Oct 2026, for the Sprint 2 review by the team. **Updated 6 Nov 2026 (Sprint 3, PO-3, AI for the PO):** Q9 and Q16 brought in line with decisions 24 and 25; Q21 to Q24 added on price, households, terms and willingness to pay. The audience is simulated investors, so the questions are what an investor or the professor would ask.
 
 ## How to use this
 
 - Each answer is a **30-second answer of about 70 words**. The owner role rewrites it in their own voice and rehearses it. Owners are roles, not names; the team assigns Speakers A–F at planning.
 - The first 15 questions are the ones the SM's brief asked for. The professor's actual list is not in the repo, so **the team should check these against the questions the professor really asked** and add any that are missing. Questions 16–20 are extras the AI thought likely.
 - Every number comes from a file in this repo, which in turn cites its source. A "Careful" line says what not to overclaim. Anything unverified is marked "needs verification".
-- Decisions already made are applied, not reopened: decision 3 (script cues, not voice), 4 (silence, never block), 6 (on-phone AI), 8 (stock voices in drills), 13 (S$500,000), 17 (no screen viewing), 20 (accuracy wording), 21 (fewer cases, bigger losses). See [decision-log.md](../process/decision-log.md).
+- Decisions already made are applied, not reopened: decision 3 (script cues, not voice), 4 (silence, never block), 6 (on-phone AI), 8 (stock voices in drills), 13 (S$500,000), 17 (no screen viewing), 20 (accuracy wording), 21 (fewer cases, bigger losses), 24 (S$8 a month per parent; the pilot uses vouchers, so it does not test price), 25 (seed terms open: no equity share, valuation or instrument), 26 (live alert not set up yet; Mock mode and backup video). The guardian persona is **Marcus**. See [decision-log.md](../process/decision-log.md).
 
 | # | Question | Owner role |
 | --- | --- | --- |
@@ -33,6 +33,10 @@ Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/
 | 18 | What about iPhone users? | Dev 2 |
 | 19 | What about dialects and Tamil? | Designer |
 | 20 | What if the scammer's number looks like a saved contact? | Dev 2 |
+| 21 | What does it cost? | PO |
+| 22 | How many paying households do you need? | PO |
+| 23 | What do we get for S$500,000? / What's your valuation? | PO |
+| 24 | Will adult children really pay? | Researcher (PO backs up) |
 
 ---
 
@@ -120,11 +124,11 @@ Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/
 
 **Owner:** PO
 
-**30-second answer:** The buyer is the senior's adult child, who also acts as guardian. The senior is the user. The working idea is a family plan. We have not set a price and have no willingness-to-pay data yet, so we will test it in the 200-household pilot. Partners such as a bank or telco are a possible second source, for the pieces only they can run, but that is untested. The S$500,000 seed pays for building and the pilot.
+**30-second answer:** The buyer is the senior's adult child, who also acts as guardian. The senior is the user. We start with a family plan at S$8 a month per parent. We have no willingness-to-pay data yet, and the 200-household pilot uses vouchers, so it will not test the price. Banks and telcos are a possible second source, but that is untested. The S$500,000 seed pays for building and the pilot.
 
-**Repo source:** [problem-statement-options.md, "What these options must fix", point 3](../business/problem-statement-options.md); [budget-v2.md](../business/budget-v2.md); decision 13; B2 market slide (#19).
+**Repo source:** [problem-statement-options.md, "What these options must fix", point 3](../business/problem-statement-options.md); [budget-v2.md](../business/budget-v2.md); decisions 13 and 24; [market-and-revenue.md](market-and-revenue.md) (B2 market slide, #19).
 
-**Careful:** There is no price or revenue figure in the repo. Do not invent one. The source library flags the BIZ lens as thin (section D), so a willingness-to-pay source is **needed**. At the placeholder rate (US$0.02, converted to S$0.0256 per message) three alerts a day costs about S$2.30 per household per month. That figure is derived from an unverified placeholder: **needs verification**.
+**Careful:** S$8 a month per parent (decision 24) is the only price. Do not quote any other price or a revenue forecast. The source library flags the BIZ lens as thin (section D), so a willingness-to-pay source is **needed**. At the placeholder rate (US$0.02, converted to S$0.0256 per message) three alerts a day costs about S$2.30 per household per month. That figure is derived from an unverified placeholder: **needs verification**.
 
 ## 10. What if it blocks a real emergency call?
 
@@ -194,7 +198,7 @@ Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/
 
 **Repo source:** Decision 13; [budget-v2.md](../business/budget-v2.md), Summary and "Decisions for the team".
 
-**Careful:** The product team line (S$305,650.80) is above the original seed range. A 10-month option (S$435,497.62) exists, and the team has not decided which figure goes on the poster. The WhatsApp price is a placeholder that needs verification.
+**Careful:** The product team line (S$305,650.80) is above the original seed range. Decision 13 chose the 12-month version; a 10-month option (S$435,497.62) exists if someone asks. The WhatsApp price is a placeholder that needs verification. Do not add terms (equity share, valuation, instrument): decision 25 leaves them open; see Q23.
 
 ## 17. Do seniors actually want this?
 
@@ -235,6 +239,46 @@ Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/
 **Repo source:** [prototype-design.md, Pause & Verify and Telco guardian transfer limits](../prototype-design.md#pause--verify).
 
 **Careful:** Do not suggest any layer stops every scam. The pitch says each layer slows the money down and brings in family.
+
+## 21. What does it cost?
+
+**Owner:** PO
+
+**30-second answer:** For families, S$8 a month per parent. The adult child pays, and it covers the guardian side: alerts to the family, scheduled Family Drills and the guardian dashboard. Whether Scam Check and Pause & Verify stay free for the senior is still a team decision. S$8 is our launch price, not a tested one: the 200-household pilot gives households vouchers, so we will not learn whether families pay from the pilot alone.
+
+**Repo source:** Decision 24; [market-and-revenue.md](market-and-revenue.md), sections 3 and "Still open"; [budget-v2.md](../business/budget-v2.md).
+
+**Careful:** Do not say what is free as if it were decided (it is open). Do not claim a margin: the only per-household running cost in the repo is the alert messaging line, about S$2.30 a month at a placeholder WhatsApp rate (Q9's Careful line), which **needs verification**. Partner fees are not set.
+
+## 22. How many paying households do you need?
+
+**Owner:** PO
+
+**30-second answer:** Our average spend is about S$41,000 a month. At S$8, about 5,100 paying households would cover it. That is before payment fees, partner shares and cancellations, so the real number is higher. Our pilot has 200 households, so family revenue alone cannot carry the company at pilot scale. That is why bank and telco partners matter, and why the next funding round depends on the pilot results.
+
+**Repo source:** Decision 24 (5,121 households); [budget-v2.md](../business/budget-v2.md), Summary (average monthly burn S$40,961.13); [market-and-revenue.md](market-and-revenue.md), scale table (S$40,961.13 ÷ 8 = 5,120.1, rounded up to 5,121).
+
+**Careful:** 5,121 is a cost-coverage figure, not a forecast, a target or a customer count; there is no take-up evidence. The table counts one S$8 subscription per household; a family covering two parents would pay S$16, so "households" and "subscriptions" are not the same thing. **PO to confirm** which word the pitch uses. Say "about 5,100", or "5,121" if asked for the exact figure.
+
+## 23. What do we get for S$500,000? / What's your valuation?
+
+**Owner:** PO
+
+**30-second answer:** S$500,000 buys twelve months and three milestones you can check: a pilot-ready Android app by about month four, a six-month pilot with 200 households through community centres, and results against our pilot gate by month twelve. About 61% pays the product team. We have not set a valuation or an equity share. We would agree the terms with our lead investor once they have reviewed the pilot plan.
+
+**Repo source:** Decision 25 (terms open); decision 13 (S$500,000); [market-and-revenue.md](market-and-revenue.md), sections 4 and 5; [budget-v2.md](../business/budget-v2.md).
+
+**Careful:** **Draft wording; the PO must approve it before rehearsal** (decision 25). Do not name an equity percentage, a valuation, a SAFE, a convertible note or any other instrument, even as an example. The gate thresholds are not set yet (market-and-revenue.md, "Still open"), so do not quote a pass mark. If pressed on why no valuation: "We have no revenue and no pilot data yet, so any number we gave you today would be a guess."
+
+## 24. Will adult children really pay?
+
+**Owner:** Researcher (PO backs up)
+
+**30-second answer:** We don't know yet, and we won't pretend to. We have no willingness-to-pay evidence. S$8 is a price we chose, not one we tested, and our pilot gives households vouchers, so it does not test price either. What we do know is that seniors lose the most per victim, about S$37,000 in 2025, so the worry is real. Testing whether that worry turns into payment is a job for the pilot phase.
+
+**Repo source:** Decision 24; [market-and-revenue.md](market-and-revenue.md), "What is not proven"; [source-library-v2.md](../research/source-library-v2.md) B2 (S$37,053 per senior victim, SPF annual brief 2025, https://www.police.gov.sg/-/media/SPF/Advisories/Scams/Annual-Scam-and-Cybercrime-Brief-2025.pdf).
+
+**Careful:** Do not quote any grandparent or family member: no session quotes are in the repo yet ([quote needed]). Do not cite a payment survey; none is in the source library. How to test willingness to pay (for example, asking adult children in the sessions, or offering the paid plan to pilot families after the voucher period) is **an AI suggestion for the team to decide**, not a plan; do not promise it. Independence concerns (B7, Q11) could also lower take-up.
 
 ---
 
