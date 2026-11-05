@@ -61,9 +61,9 @@ A longer version, if the slide has room: "13.1% in 2015, 20.7% in 2025" (B4) and
 ### What is not proven (say it before an investor asks)
 
 - **Willingness to pay** is untested. The grandparent sessions (V2) and synthesis (V3) should ask the adult children, not only the seniors.
-- **Scale arithmetic.** The average monthly spend is S$40,961.13 (budget-v2). The table shows how many paying households would cover that spend at three prices; **S$8 is the chosen price** (decision 24), and S$5 and S$10 are kept for comparison. It ignores payment fees, partner shares and cancellations. Households are rounded up (S$40,961.13 ÷ price). [BUD; computed by the AI]
+- **Scale arithmetic.** The average monthly spend is S$40,961.13 (budget-v2). The table shows how many paid subscriptions would cover that spend at three prices; **S$8 is the chosen price** (decision 24), and S$5 and S$10 are kept for comparison. It ignores payment fees, partner shares and cancellations. Households are rounded up (S$40,961.13 ÷ price). [BUD; computed by the AI]
 
-| Monthly price per household | Households needed to cover S$40,961.13 a month | Status |
+| Monthly price per subscription (one parent) | Paid subscriptions needed to cover S$40,961.13 a month | Status |
 | --- | --- | --- |
 | S$5 | 8,193 | Comparison only |
 | **S$8** | **5,121** | **Chosen price (decision 24)**; the pitch says "about 5,100" |
@@ -119,7 +119,7 @@ Month counts follow the budget summary: MVP in 16 weeks (about 3.7 months), then
 
 **Revenue slide headline:** "Start with the family, scale with partners"
 
-- Now: family plan, S$8 a month per parent. About 5,100 paying households cover the average monthly spend.
+- Now: family plan, S$8 a month per parent. About 5,100 paid subscriptions cover the average monthly spend.
 - Next: bank fee for the cooling-off signal; telco bundle (fees: team to set).
 - Honest line: no partner has signed; willingness to pay is not yet tested (the pilot uses vouchers).
 

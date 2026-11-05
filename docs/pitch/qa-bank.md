@@ -34,7 +34,7 @@ Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/
 | 19 | What about dialects and Tamil? | Designer |
 | 20 | What if the scammer's number looks like a saved contact? | Dev 2 |
 | 21 | What does it cost? | PO |
-| 22 | How many paying households do you need? | PO |
+| 22 | How many paid subscriptions do you need? | PO |
 | 23 | What do we get for S$500,000? / What's your valuation? | PO |
 | 24 | Will adult children really pay? | Researcher (PO backs up) |
 
@@ -250,15 +250,15 @@ Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/
 
 **Careful:** Do not say what is free as if it were decided (it is open). Do not claim a margin: the only per-household running cost in the repo is the alert messaging line, about S$2.30 a month at a placeholder WhatsApp rate (Q9's Careful line), which **needs verification**. Partner fees are not set.
 
-## 22. How many paying households do you need?
+## 22. How many paid subscriptions do you need?
 
 **Owner:** PO
 
-**30-second answer:** Our average spend is about S$41,000 a month. At S$8, about 5,100 paying households would cover it. That is before payment fees, partner shares and cancellations, so the real number is higher. Our pilot has 200 households, so family revenue alone cannot carry the company at pilot scale. That is why bank and telco partners matter, and why the next funding round depends on the pilot results.
+**30-second answer:** Our average spend is about S$41,000 a month. At S$8, about 5,100 paid subscriptions would cover it. That is before payment fees, partner shares and cancellations, so the real number is higher. Our pilot has 200 households, so family revenue alone cannot carry the company at pilot scale. That is why bank and telco partners matter, and why the next funding round depends on the pilot results.
 
-**Repo source:** Decision 24 (5,121 households); [budget-v2.md](../business/budget-v2.md), Summary (average monthly burn S$40,961.13); [market-and-revenue.md](market-and-revenue.md), scale table (S$40,961.13 ÷ 8 = 5,120.1, rounded up to 5,121).
+**Repo source:** Decision 24 (5,121 paid subscriptions); [budget-v2.md](../business/budget-v2.md), Summary (average monthly burn S$40,961.13); [market-and-revenue.md](market-and-revenue.md), scale table (S$40,961.13 ÷ 8 = 5,120.1, rounded up to 5,121).
 
-**Careful:** 5,121 is a cost-coverage figure, not a forecast, a target or a customer count; there is no take-up evidence. The table counts one S$8 subscription per household; a family covering two parents would pay S$16, so "households" and "subscriptions" are not the same thing. **PO to confirm** which word the pitch uses. Say "about 5,100", or "5,121" if asked for the exact figure.
+**Careful:** 5,121 is a cost-coverage figure, not a forecast, a target or a customer count; there is no take-up evidence. The table counts one S$8 subscription per parent; a family covering two parents would pay S$16, so the pitch says "paid subscriptions", not "households" (PO confirmed 6 Nov 2026). Say "about 5,100", or "5,121" if asked for the exact figure.
 
 ## 23. What do we get for S$500,000? / What's your valuation?
 
@@ -268,7 +268,7 @@ Backlog items R2 [#22](https://github.com/panda-king-0705/silverguard-ai/issues/
 
 **Repo source:** Decision 25 (terms open); decision 13 (S$500,000); [market-and-revenue.md](market-and-revenue.md), sections 4 and 5; [budget-v2.md](../business/budget-v2.md).
 
-**Careful:** **Draft wording; the PO must approve it before rehearsal** (decision 25). Do not name an equity percentage, a valuation, a SAFE, a convertible note or any other instrument, even as an example. The gate thresholds are not set yet (market-and-revenue.md, "Still open"), so do not quote a pass mark. If pressed on why no valuation: "We have no revenue and no pilot data yet, so any number we gave you today would be a guess."
+**Careful:** **Approved by the PO on 6 Nov 2026** (decision 25). Do not name an equity percentage, a valuation, a SAFE, a convertible note or any other instrument, even as an example. The gate thresholds are not set yet (market-and-revenue.md, "Still open"), so do not quote a pass mark. If pressed on why no valuation: "We have no revenue and no pilot data yet, so any number we gave you today would be a guess."
 
 ## 24. Will adult children really pay?
 

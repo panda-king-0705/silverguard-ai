@@ -62,7 +62,7 @@ Print one copy per run. "Target end" is the cumulative clock time from the scrip
 | "under 10 seconds" said as a **design target** | 6 | | | |
 | "15 out of 15 on a 15-message test set our team wrote with AI assistance; real-world accuracy is not yet measured" | 7 | | | |
 | 20.7% (65+); 13.1%; 89% (60+); 2.9; US$12.3 billion to US$40 billion | 11 | | | |
-| **S$8 a month per parent**; about 5,100 households; "pilot uses vouchers" | 12 | | | |
+| **S$8 a month per parent**; about 5,100 paid subscriptions; "pilot uses vouchers" | 12 | | | |
 | **"S$500,000 for twelve months"**; S$491,534; 61/9/6/6/5/9/3%; 200 households; no equity, valuation or instrument | 13 | | | |
 | S$500,000; 200 households | 14 | | | |
 

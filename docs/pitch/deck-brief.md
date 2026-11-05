@@ -115,10 +115,10 @@
 
 - **Beat / speaker / time:** beat 12, Speaker F, 7:39 to 8:14.
 - **Headline:** "Start with the family, scale with partners"
-- **On screen:** a big "S$8 a month per parent" in a single box labelled "Family plan (now)". To its right, a smaller grey box: "Bank and telco partner fees (later; none signed)". Under the boxes: "About 5,100 paying households cover our average monthly spend". Bottom line in small type: "Willingness to pay not yet tested; the pilot uses vouchers."
+- **On screen:** a big "S$8 a month per parent" in a single box labelled "Family plan (now)". To its right, a smaller grey box: "Bank and telco partner fees (later; none signed)". Under the boxes: "About 5,100 paid subscriptions cover our average monthly spend". Bottom line in small type: "Willingness to pay not yet tested; the pilot uses vouchers."
 - **Figures:**
   - S$8 a month per parent [MR, decision 24] https://github.com/panda-king-0705/silverguard-ai (docs/pitch/market-and-revenue.md, section 3)
-  - About 5,100 households (5,121 = S$40,961.13 ÷ S$8, rounded up; before payment fees, partner shares and cancellations) [MR scale table, from budget-v2] same URL
+  - About 5,100 paid subscriptions (one per parent) (5,121 = S$40,961.13 ÷ S$8, rounded up; before payment fees, partner shares and cancellations) [MR scale table, from budget-v2] same URL
 - **Not on this slide:** the S$5 and S$10 comparison prices; partner fee amounts (not set); what is free versus paid (not decided); "5,100 customers" or any forecast; a revenue chart.
 
 ## Slide 13: The ask
