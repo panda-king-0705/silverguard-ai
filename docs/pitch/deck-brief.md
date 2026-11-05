@@ -62,7 +62,7 @@
 - **Beat / speaker / time:** beat 6, Speaker D (laptop) and Speaker F (reads the alert), 2:51 to 3:38, including about 12 s waiting for the alert.
 - **Headline:** "Layer 1: Guardian Alert"
 - **On screen (slide, shown for 2 to 3 seconds before the switch and again after):** a simple diagram: unknown number → phone silenced, "never blocked" → message to Marcus. One caption: "Design target: guardian alerted in under 10 seconds (not yet measured)".
-- **Switch to browser:** Guardian Alert page `demo/guardian-alert/index.html`. **Mock mode is the default** (decision 26: the bot is not set up yet). Live alert and real phone only if a human has passed the 5/5 test (and, for a real phone, the instructor approved). Fallbacks in order: Mock mode, clickable screen 6, the backup video ("this is the recorded run").
+- **Switch to browser:** combined demo page `demo/pitch-demo/index.html` (decision 28). If the automatic real-call alert passed its test (decision 27), a teammate rings the senior phone instead. **Mock mode is the default** (decision 26: the bot is not set up yet). Live alert and real phone only if a human has passed the 5/5 test (and, for a real phone, the instructor approved). Fallbacks in order: Mock mode, clickable screen 6, the backup video ("this is the recorded run").
 - **Figures:** under 10 seconds is a design target [MR section 5, from DES] https://github.com/panda-king-0705/silverguard-ai (docs/pitch/market-and-revenue.md). Android can silence but not forward calls [B11] https://developer.android.com/develop/connectivity/telecom/dialer-app/screen-calls
 - **Not on this slide:** a screenshot of a messaging app's chat UI or its logo (use the generic demo page); the bot token or chat ID, ever; a real phone number (use a masked one such as "+65 •••• 4321"); "blocks scam calls".
 
@@ -71,7 +71,7 @@
 - **Beat / speaker / time:** beat 7, Speaker E, 3:38 to 4:35, including about 10 s to paste and read.
 - **Headline:** "Layer 2: Scam Check"
 - **On screen (before the switch):** the three result levels as three large coloured labels, left to right: **High risk**, **Check with family**, **No warning signs found**. No fourth level. **After the demo (return slide):** the same three labels plus one honest line: "Demo: simplified word rules. Product: a trained model on the phone."
-- **Switch to browser:** Scam Check page `demo/scam-check-web/index.html` opened from disk (works offline). Paste message S04 ("Ah Ma, my phone spoil..."), expected **High risk**. Fallbacks: clickable screen 3, then the backup video.
+- **Switch to browser:** the same combined demo page, Scam Check panel (works offline). Paste message S04 ("Ah Ma, my phone spoil..."), expected **High risk**. Fallbacks: clickable screen 3, then the backup video.
 - **Figures:** none on the slide. The accuracy line (15 out of 15 on a 15-message test set our team wrote with AI assistance; real-world accuracy not yet measured, decision 20) is spoken, not shown, because its source is the demo README rather than MR or the source library.
 - **Not on this slide:** "safe", "accurate", "catch rate" or any percentage; a screenshot of a real chat app (the demo page is generic and fine); the word "detects cloned voices".
 
@@ -151,7 +151,7 @@
 ### Backup B: Recorded run
 
 - **Use with:** beats 6 to 8 if the laptop, the page or the projector fails (decision 26).
-- **On screen:** the backup video (90 seconds, see `demo/scam-check-web/PITCH-DEMO.md`, section 3) embedded or linked to a local file, not a streaming link. Title card text: "This is the recorded run."
+- **On screen:** the backup video (83 seconds, `demo/pitch-demo/backup-video.mp4`) embedded or linked to a local file, not a streaming link. Title card text: "This is the recorded run."
 
 ---
 

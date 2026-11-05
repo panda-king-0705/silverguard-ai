@@ -81,8 +81,8 @@ Owner: the SM reads it out; the named role ticks. Do the same list before each r
 
 - [ ] Deck open in presenter mode; the PDF export on the desktop as a fallback.
 - [ ] Clickable screens (`design/clickable-screens/index.html`), English, "Fit phone to window", on screen 1.
-- [ ] Guardian Alert page (`demo/guardian-alert/index.html`) in its own window. **Mock mode on** (blue banner "MOCK MODE: nothing is sent") unless the live go decision was made on Sun 8 Nov.
-- [ ] Scam Check page (`demo/scam-check-web/index.html`) from disk, empty, zoom 125% or more. Message S04 in a plain text file on the desktop and on the clipboard.
+- [ ] Combined demo page (`demo/pitch-demo/index.html`, decision 28) in its own window. **Mock mode on** (blue banner "MOCK MODE: nothing is sent") unless the live go decision was made on Sun 8 Nov.
+- [ ] Scam Check panel on the same combined page, empty, zoom 125% or more. If the automatic real-call alert passed (decision 27), senior phone and scammer phone ready, MacroDroid macros on. Message S04 in a plain text file on the desktop and on the clipboard.
 - [ ] Backup video on the laptop desktop, on the USB stick, and on a phone. The person who plays it knows where it is.
 - [ ] USB stick with copies of all three demo folders and the deck PDF.
 
