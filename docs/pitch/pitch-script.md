@@ -142,7 +142,7 @@ Beats 6, 8, 12 · about 206 words · about 1:28 of speaking.
 
 - **Beat 6 (your part, about 10 words):** hold the guardian phone up where the room can see it. When it buzzes, read the message aloud: an unknown number rang Mum; she can still answer; call her before any money moves.
 - **Beat 8, clickable screens (0:46 + 8 s):** key 2: answer No, No, Yes, then "Call Marcus now" (his saved number, never the caller's). Keys 4 then 5: practice call ("this is not a real call"), debrief praises the pause. Marcus sees alerts and drill progress, never Ah Ma's screen. Four languages. One job per screen, at most two big choices.
-- Hand to C: "Why does it work?"
+- Hand to D for beat 9 (layer 3).
 - **Beat 12, revenue (0:36):** family plan: adult child pays **S$8 a month per parent** (alerts, drills, dashboard). Why first: the family feels the pain today; no partner has to sign first. Honest: willingness to pay is not yet tested; the pilot uses vouchers. At S$8, about 5,100 paying households cover the average monthly spend (S$40,961.13), so scale matters. Partner fees later; none signed.
 - Hand to E: "We are asking for S$500,000."
 - Do not promise a partner, a launch date or any price other than S$8. Say "about 5,100", never "we will have 5,100 customers".

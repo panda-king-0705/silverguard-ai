@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SilverGuard AI cue cards</title>
+<!-- Draft prepared with AI assistance for the scrum master; to be reviewed and edited by the team.
+     Generated from docs/pitch/pitch-script.md as updated on 6 Nov 2026 (1288 words, 9:42 with demos).
+     Print: A6 landscape (148 x 105 mm), scale 100%, no headers or footers. If the script changes, reprint. -->
+<style>
+  @page { size: 148mm 105mm; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #fff; color: #111; }
+  body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif; }
+  .card { width: 148mm; height: 105mm; padding: 5mm 6mm 4mm; display: flex; flex-direction: column;
+          page-break-after: always; break-after: page; overflow: hidden; position: relative; border: 0.3mm solid #bbb; }
+  @media screen { body { background: #ddd; } .card { background: #fff; margin: 6mm auto; } }
+  header { display: flex; align-items: center; gap: 3mm; border-bottom: 0.6mm solid #111; padding-bottom: 2mm; }
+  .beatno { flex: 0 0 auto; min-width: 15mm; height: 15mm; border-radius: 2mm; background: #111; color: #fff;
+            font-size: 26pt; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 0 2mm; }
+  .head { flex: 1 1 auto; }
+  .title { font-size: 15pt; font-weight: 700; line-height: 1.1; }
+  .part { font-weight: 400; font-size: 12pt; }
+  .meta { font-size: 12pt; margin-top: 0.8mm; }
+  .win { font-weight: 700; background: #ffe36e; padding: 0 1mm; }
+  .spk { flex: 0 0 auto; font-size: 24pt; font-weight: 700; border: 0.6mm solid #111; border-radius: 50%;
+         width: 13mm; height: 13mm; display: flex; align-items: center; justify-content: center; }
+  .screen { font-size: 9.5pt; color: #444; margin: 1.5mm 0 1mm; font-style: italic; }
+  .body { flex: 1 1 auto; display: flex; gap: 3mm; min-height: 0; }
+  .keys { flex: 1 1 58%; margin: 0; padding-left: 4.5mm; font-size: 12.5pt; line-height: 1.22; }
+  .keys li { margin-bottom: 0.9mm; }
+  .exact { flex: 0 0 40%; border: 0.6mm solid #111; border-radius: 1.5mm; padding: 1.5mm 2mm; background: #f2f2f2; align-self: flex-start; }
+  .exact .lbl { font-size: 8.5pt; font-weight: 700; letter-spacing: 0.4mm; margin-bottom: 1mm; }
+  .exact .num { font-size: 13pt; font-weight: 700; line-height: 1.2; margin-bottom: 1.2mm; }
+  footer { display: flex; justify-content: space-between; align-items: flex-end; gap: 3mm; border-top: 0.3mm solid #999; padding-top: 1.2mm; font-size: 10pt; }
+  .warn { color: #a00000; font-weight: 700; }
+  .next { font-weight: 700; text-align: right; white-space: nowrap; }
+  .overview .order { width: 100%; border-collapse: collapse; font-size: 11pt; margin-top: 2mm; }
+  .overview .order th { text-align: left; font-size: 9pt; border-bottom: 0.3mm solid #111; }
+  .overview .order td { padding: 0.8mm 1mm 0.8mm 0; vertical-align: top; border-bottom: 0.2mm solid #ccc; }
+  .overview .order td.b { font-weight: 700; font-size: 14pt; }
+  .overview .rules { margin-top: auto; font-size: 10pt; line-height: 1.25; }
+  .ladder { font-size: 13pt; line-height: 1.3; margin: 2mm 0; padding-left: 6mm; }
+  .beatno.big { font-size: 30pt; }
+  .draft { font-size: 7pt; color: #666; position: absolute; bottom: 0.6mm; left: 6mm; right: 6mm; }
+</style>
+</head>
+<body>
+
+<section class="card overview">
+  <header>
+    <div class="beatno big">A</div>
+    <div class="head">
+      <div class="title">Speaker A: Opener and closer</div>
+      <div class="meta">Beats 1, 2, 14 · about 1:18 of speaking</div>
+    </div>
+  </header>
+  <table class="order">
+    <tr><th>Beat</th><th>Clock</th><th>What</th><th>Then</th></tr>
+    <tr><td class="b">1</td><td>0:00 – 0:32</td><td>Hook: the 10:42 call</td><td>Keep going → beat 2</td></tr><tr><td class="b">2</td><td>0:32 – 0:51</td><td>The scale</td><td>Hand to B</td></tr><tr><td class="b">14</td><td>9:14 – 9:42</td><td>Close</td><td>Hand to Q&A</td></tr>
+  </table>
+  <div class="rules">Cues, not prose: use your own words, but say every number and level name exactly. Levels: <b>High risk · Check with family · No warning signs found</b>. Never “safe”. Price and terms questions → PO.</div>
+  <div class="draft">Draft prepared with AI assistance for the scrum master; to be reviewed and edited by the team. From pitch-script.md, 6 Nov 2026.</div>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">1</div>
+    <div class="head">
+      <div class="title">Hook: the 10:42 call</div>
+      <div class="meta">Speaker A · <span class="win">0:00 – 0:32</span> · 0:32</div>
+    </div>
+    <div class="spk">A</div>
+  </header>
+  <div class="screen">Poster zone 1. Laptop on Scam Check tab, not shown yet.</div>
+  <div class="body">
+    <ul class="keys"><li>10:42, weekday morning</li><li>Ah Ma’s phone → unknown number</li><li>Grandson’s voice, frightened</li><li>Urgent · money · “don’t tell his parents”</li><li>Say: <b>“This is an illustration”</b></li><li>Real case: grandmother in Canada → bank staff stopped it, not her</li><li>Land: “We are SilverGuard AI … protect seniors at exactly this moment.”</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">10:42</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Keep going → beat 2 →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">2</div>
+    <div class="head">
+      <div class="title">The scale</div>
+      <div class="meta">Speaker A · <span class="win">0:32 – 0:51</span> · 0:19</div>
+    </div>
+    <div class="spk">A</div>
+  </header>
+  <div class="screen">Poster zone 2 (three numbers).</div>
+  <div class="body">
+    <ul class="keys"><li>Who loses the most per person?</li><li>Not the young. <b>Seniors.</b></li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">S$913.1 million in 2025</div><div class="num">37,308 cases</div><div class="num">about S$2.5 million every day</div></div>
+  </div>
+  <footer>
+    <span class="warn">Never: “the police say voice cloning is rising”</span>
+    <span class="next">Hand to B →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">14</div>
+    <div class="head">
+      <div class="title">Close</div>
+      <div class="meta">Speaker A · <span class="win">9:14 – 9:42</span> · 0:28</div>
+    </div>
+    <div class="spk">A</div>
+  </header>
+  <div class="screen">Poster zone 1 (title) and zone 11 (demo QR).</div>
+  <div class="body">
+    <ul class="keys"><li>Seniors lose most per person; average loss keeps rising</li><li>A better ear will not fix that</li><li>A pause + a family + a phone that keeps its secrets can</li><li>Put that pause in Ah Ma’s hand</li><li>“We are SilverGuard AI. Thank you.”</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">S$500,000</div><div class="num">pilot with 200 households</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Hand to Q&A →</span>
+  </footer>
+</section>
+<section class="card overview" data-for="A">
+  <header>
+    <div class="beatno">!</div>
+    <div class="head">
+      <div class="title">Fallback ladder (beat 6 and any demo)</div>
+      <div class="meta">Max 20 seconds per step · always say which one you use</div>
+    </div>
+  </header>
+  <ol class="ladder">
+    <li><b>Live alert</b> not there after 12 s → “It is on its way.”</li>
+    <li><b>Telegram Web</b> window (if set up): look for 5 s.</li>
+    <li><b>Mock mode</b> on, press again: “the alert is simulated, not sent.”</li>
+    <li>Page dead → <b>clickable screen 6</b>: “this is what the product sends.”</li>
+    <li>Laptop dead → <b>backup video</b>: “this is the recorded run.”</li>
+  </ol>
+  <div class="rules">Projector fails: keep talking from the cards, point at the poster, turn the laptop to the investors. Laptop fails: spare laptop + USB stick, or video on a phone.</div>
+</section>
+<section class="card overview">
+  <header>
+    <div class="beatno big">B</div>
+    <div class="head">
+      <div class="title">Speaker B: Seniors, then the market</div>
+      <div class="meta">Beats 3, 11 · about 1:34 of speaking</div>
+    </div>
+  </header>
+  <table class="order">
+    <tr><th>Beat</th><th>Clock</th><th>What</th><th>Then</th></tr>
+    <tr><td class="b">3</td><td>0:51 – 1:38</td><td>Seniors: fewer cases, bigger losses</td><td>Hand to C: “So why not just detect the voice?”</td></tr><tr><td class="b">11<small> 1 of 2</small></td><td>6:52 – 7:39</td><td>Who uses, who pays</td><td>Turn card → partners</td></tr><tr><td class="b">11<small> 2 of 2</small></td><td>6:52 – 7:39</td><td>Who partners</td><td>Hand to F: “How do we earn?”</td></tr>
+  </table>
+  <div class="rules">Cues, not prose: use your own words, but say every number and level name exactly. Levels: <b>High risk · Check with family · No warning signs found</b>. Never “safe”. Price and terms questions → PO.</div>
+  <div class="draft">Draft prepared with AI assistance for the scrum master; to be reviewed and edited by the team. From pitch-script.md, 6 Nov 2026.</div>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">3</div>
+    <div class="head">
+      <div class="title">Seniors: fewer cases, bigger losses</div>
+      <div class="meta">Speaker B · <span class="win">0:51 – 1:38</span> · 0:47</div>
+    </div>
+    <div class="spk">B</div>
+  </header>
+  <div class="screen">Poster zone 2. Point at each number.</div>
+  <div class="body">
+    <ul class="keys"><li>65 and above: lost the most each</li><li>Pre-empt: “Isn’t it shrinking?”</li><li>Fake-friend call scams fell …</li><li>… but seniors = only age group whose victims <b>rose</b> 2024→2025</li><li>Land: <b>Fewer cases, bigger losses</b></li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">14.8% of victims (2025)</div><div class="num">S$37,053 average</div><div class="num">S$42,347 (first half of 2026)</div><div class="num">4,179 (2024) → 1,551 (2025)</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Hand to C: “So why not just detect the voice?” →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">11</div>
+    <div class="head">
+      <div class="title">Who uses, who pays <span class="part">(1 of 2)</span></div>
+      <div class="meta">Speaker B · <span class="win">6:52 – 7:39</span> · 0:47 (both cards)</div>
+    </div>
+    <div class="spk">B</div>
+  </header>
+  <div class="screen">Poster zone 7 (business case).</div>
+  <div class="body">
+    <ul class="keys"><li>Who uses it? <b>Seniors</b></li><li>Who pays? Their <b>adult children</b></li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">20.7% of citizens 65 or older (June 2025)</div><div class="num">up from 13.1% in 2015</div><div class="num">89% of residents 60 and above owned a smartphone (2022)</div><div class="num">2.9 working-age citizens per senior</div></div>
+  </div>
+  <footer>
+    <span class="warn">65+ for 20.7%; 60+ for 89%.</span>
+    <span class="next">Turn card → partners →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">11</div>
+    <div class="head">
+      <div class="title">Who partners <span class="part">(2 of 2)</span></div>
+      <div class="meta">Speaker B · <span class="win">6:52 – 7:39</span> · 0:47 (both cards)</div>
+    </div>
+    <div class="spk">B</div>
+  </header>
+  <div class="screen">Poster zone 7 (business case).</div>
+  <div class="body">
+    <ul class="keys"><li>Telcos can <b>transfer a call</b></li><li>Banks can <b>slow a payment</b></li><li>Deloitte (a US figure): generative AI pushes fraud losses up</li><li>→ a business case for banks</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">US$12.3 billion in 2023</div><div class="num">US$40 billion by 2027</div></div>
+  </div>
+  <footer>
+    <span class="warn">Over time? Cut the Deloitte line.</span>
+    <span class="next">Hand to F: “How do we earn?” →</span>
+  </footer>
+</section>
+<section class="card overview" data-for="B">
+  <header>
+    <div class="beatno">!</div>
+    <div class="head">
+      <div class="title">Fallback ladder (beat 6 and any demo)</div>
+      <div class="meta">Max 20 seconds per step · always say which one you use</div>
+    </div>
+  </header>
+  <ol class="ladder">
+    <li><b>Live alert</b> not there after 12 s → “It is on its way.”</li>
+    <li><b>Telegram Web</b> window (if set up): look for 5 s.</li>
+    <li><b>Mock mode</b> on, press again: “the alert is simulated, not sent.”</li>
+    <li>Page dead → <b>clickable screen 6</b>: “this is what the product sends.”</li>
+    <li>Laptop dead → <b>backup video</b>: “this is the recorded run.”</li>
+  </ol>
+  <div class="rules">Projector fails: keep talking from the cards, point at the poster, turn the laptop to the investors. Laptop fails: spare laptop + USB stick, or video on a phone.</div>
+</section>
+<section class="card overview">
+  <header>
+    <div class="beatno big">C</div>
+    <div class="head">
+      <div class="title">Speaker C: Evidence: why detection fails, why this works</div>
+      <div class="meta">Beats 4, 10 · about 1:42 of speaking</div>
+    </div>
+  </header>
+  <table class="order">
+    <tr><th>Beat</th><th>Clock</th><th>What</th><th>Then</th></tr>
+    <tr><td class="b">4<small> 1 of 2</small></td><td>1:38 – 2:23</td><td>Why not just detect the voice?</td><td>Turn card</td></tr><tr><td class="b">4<small> 2 of 2</small></td><td>1:38 – 2:23</td><td>We read the script</td><td>Hand to D</td></tr><tr><td class="b">10<small> 1 of 2</small></td><td>5:54 – 6:52</td><td>Why it works</td><td>Turn card</td></tr><tr><td class="b">10<small> 2 of 2</small></td><td>5:54 – 6:52</td><td>Family is the check</td><td>Hand to B: “Who uses it, who pays, who partners?”</td></tr>
+  </table>
+  <div class="rules">Cues, not prose: use your own words, but say every number and level name exactly. Levels: <b>High risk · Check with family · No warning signs found</b>. Never “safe”. Price and terms questions → PO.</div>
+  <div class="draft">Draft prepared with AI assistance for the scrum master; to be reviewed and edited by the team. From pitch-script.md, 6 Nov 2026.</div>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">4</div>
+    <div class="head">
+      <div class="title">Why not just detect the voice? <span class="part">(1 of 2)</span></div>
+      <div class="meta">Speaker C · <span class="win">1:38 – 2:23</span> · 0:45 (both cards)</div>
+    </div>
+    <div class="spk">C</div>
+  </header>
+  <div class="screen">Poster zone 3.</div>
+  <div class="body">
+    <ul class="keys"><li>GovTech: a short social-media clip can clone a voice</li><li>Why not a deepfake detector? <b>Three reasons:</b></li><li>1 People can’t tell by ear: listeners <b>often</b> judged the clone real</li><li>2 Detectors struggle outside the lab</li><li>3 Google Play bars call-audio capture</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">“up to one thousand percent” (on real-world audio)</div></div>
+  </div>
+  <footer>
+    <span class="warn">Say “often”: no % for the clone study.</span>
+    <span class="next">Turn card →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">4</div>
+    <div class="head">
+      <div class="title">We read the script <span class="part">(2 of 2)</span></div>
+      <div class="meta">Speaker C · <span class="win">1:38 – 2:23</span> · 0:45 (both cards)</div>
+    </div>
+    <div class="spk">C</div>
+  </header>
+  <div class="screen">Poster zone 3.</div>
+  <div class="body">
+    <ul class="keys"><li>Scams work through pressure: time pressure, the wish to help family</li><li>Land: “We do not hunt the voice. We read the script:”</li><li><b>money · secrecy · a new number · urgency</b></li></ul>
+    
+  </div>
+  <footer>
+    <span class="warn">Never call our product a voice-clone detector.</span>
+    <span class="next">Hand to D →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">10</div>
+    <div class="head">
+      <div class="title">Why it works <span class="part">(1 of 2)</span></div>
+      <div class="meta">Speaker C · <span class="win">5:54 – 6:52</span> · 0:58 (both cards)</div>
+    </div>
+    <div class="spk">C</div>
+  </header>
+  <div class="screen">Poster zones 5 (cue chips) and 6 (privacy line).</div>
+  <div class="body">
+    <ul class="keys"><li>Matches how scams and families work</li><li>Script reading keeps working as clones improve: detection is an arms race</li><li>On the phone: works offline, nothing private uploaded</li><li>Google Pixel: on-device, no audio stored or sent, <b>but Pixel only</b></li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">Android 10 and above</div></div>
+  </div>
+  <footer>
+    <span class="warn">Over time? Cut the Pixel line (4th cut).</span>
+    <span class="next">Turn card →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">10</div>
+    <div class="head">
+      <div class="title">Family is the check <span class="part">(2 of 2)</span></div>
+      <div class="meta">Speaker C · <span class="win">5:54 – 6:52</span> · 0:58 (both cards)</div>
+    </div>
+    <div class="spk">C</div>
+  </header>
+  <div class="screen">Poster zone 6 (privacy line).</div>
+  <div class="body">
+    <ul class="keys"><li>ScamShield can’t block WhatsApp or Telegram calls → the family has to be the check</li><li>We ask little: <b>one button, one person</b></li><li>Independence: Singapore study, more support from children can lower older women’s quality of life</li><li>→ Ah Ma chooses her guardian, can remove him any time</li></ul>
+    
+  </div>
+  <footer>
+    <span class="warn">Over time? Cut the independence line first.</span>
+    <span class="next">Hand to B: “Who uses it, who pays, who partners?” →</span>
+  </footer>
+</section>
+<section class="card overview" data-for="C">
+  <header>
+    <div class="beatno">!</div>
+    <div class="head">
+      <div class="title">Fallback ladder (beat 6 and any demo)</div>
+      <div class="meta">Max 20 seconds per step · always say which one you use</div>
+    </div>
+  </header>
+  <ol class="ladder">
+    <li><b>Live alert</b> not there after 12 s → “It is on its way.”</li>
+    <li><b>Telegram Web</b> window (if set up): look for 5 s.</li>
+    <li><b>Mock mode</b> on, press again: “the alert is simulated, not sent.”</li>
+    <li>Page dead → <b>clickable screen 6</b>: “this is what the product sends.”</li>
+    <li>Laptop dead → <b>backup video</b>: “this is the recorded run.”</li>
+  </ol>
+  <div class="rules">Projector fails: keep talking from the cards, point at the poster, turn the laptop to the investors. Laptop fails: spare laptop + USB stick, or video on a phone.</div>
+</section>
+<section class="card overview">
+  <header>
+    <div class="beatno big">D</div>
+    <div class="head">
+      <div class="title">Speaker D: Three layers and the alert demo</div>
+      <div class="meta">Beats 5, 6, 9 · about 1:21 of speaking</div>
+    </div>
+  </header>
+  <table class="order">
+    <tr><th>Beat</th><th>Clock</th><th>What</th><th>Then</th></tr>
+    <tr><td class="b">5</td><td>2:23 – 2:51</td><td>Three layers, AI on the phone</td><td>Keep going → beat 6</td></tr><tr><td class="b">6<small> 1 of 2</small></td><td>2:51 – 3:38</td><td>Layer 1 demo: Guardian Alert</td><td>F reads; then turn card</td></tr><tr><td class="b">6<small> 2 of 2</small></td><td>2:51 – 3:38</td><td>After the alert</td><td>Hand to E: “Layer two, on the same laptop.”</td></tr><tr><td class="b">9</td><td>5:28 – 5:54</td><td>Layer 3: before money moves</td><td>Hand to C: “Why does this work?”</td></tr>
+  </table>
+  <div class="rules">Cues, not prose: use your own words, but say every number and level name exactly. Levels: <b>High risk · Check with family · No warning signs found</b>. Never “safe”. Price and terms questions → PO.</div>
+  <div class="draft">Draft prepared with AI assistance for the scrum master; to be reviewed and edited by the team. From pitch-script.md, 6 Nov 2026.</div>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">5</div>
+    <div class="head">
+      <div class="title">Three layers, AI on the phone</div>
+      <div class="meta">Speaker D · <span class="win">2:23 – 2:51</span> · 0:28</div>
+    </div>
+    <div class="spk">D</div>
+  </header>
+  <div class="screen">Clickable screens, screen 1 (senior home).</div>
+  <div class="body">
+    <ul class="keys"><li>Ah Ma = senior · <b>Marcus</b> = guardian</li><li>Android app, three layers:</li><li>Before she answers: Guardian Alert</li><li>During: Pause and Verify, Scam Check, Family Drill</li><li>Before money moves: cooling-off check with a partner bank</li><li>All AI on her phone; audio, screenshots, chat text never leave it</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">three layers</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Keep going → beat 6 →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">6</div>
+    <div class="head">
+      <div class="title">Layer 1 demo: Guardian Alert <span class="part">(1 of 2)</span></div>
+      <div class="meta">Speaker D · <span class="win">2:51 – 3:38</span> · 0:35 + 12 s wait</div>
+    </div>
+    <div class="spk">D</div>
+  </header>
+  <div class="screen">Guardian Alert page. MOCK mode unless the live go was given.</div>
+  <div class="body">
+    <ul class="keys"><li>Not in her contacts → we <b>silence</b> the ring, never block</li><li>She can always answer; we alert her guardian, <b>Marcus</b></li><li>Live: “Watch this phone” · Mock: “Watch the screen”</li><li>Press <b>Simulate unknown call</b> → STOP talking</li></ul>
+    
+  </div>
+  <footer>
+    <span class="warn">No alert after 12 s → fallback card.</span>
+    <span class="next">F reads; then turn card →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">6</div>
+    <div class="head">
+      <div class="title">After the alert <span class="part">(2 of 2)</span></div>
+      <div class="meta">Speaker D · <span class="win">2:51 – 3:38</span> · 0:35 + 12 s wait</div>
+    </div>
+    <div class="spk">D</div>
+  </header>
+  <div class="screen">Alert shown on the phone, Telegram Web or the mock panel.</div>
+  <div class="body">
+    <ul class="keys"><li>Mock: say once “the alert is simulated, not sent”</li><li>Android lets an app silence a call, not forward it</li><li>→ a true transfer needs a <b>telco partner</b></li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">under 10 seconds = our <b>design target</b></div></div>
+  </div>
+  <footer>
+    <span class="warn">Used a fallback? Say which one.</span>
+    <span class="next">Hand to E: “Layer two, on the same laptop.” →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">9</div>
+    <div class="head">
+      <div class="title">Layer 3: before money moves</div>
+      <div class="meta">Speaker D · <span class="win">5:28 – 5:54</span> · 0:26</div>
+    </div>
+    <div class="spk">D</div>
+  </header>
+  <div class="screen">Poster zone 4 or architecture diagram. No demo.</div>
+  <div class="body">
+    <ul class="keys"><li>Senior links SilverGuard inside the bank’s own app</li><li>After a High risk check → signal to the bank, no message content</li><li>The bank decides (e.g. hold a first transfer to a new payee)</li><li>Comes later; today we have designed the interface</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">signal lasts 24 hours</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Hand to C: “Why does this work?” →</span>
+  </footer>
+</section>
+<section class="card overview" data-for="D">
+  <header>
+    <div class="beatno">!</div>
+    <div class="head">
+      <div class="title">Fallback ladder (beat 6 and any demo)</div>
+      <div class="meta">Max 20 seconds per step · always say which one you use</div>
+    </div>
+  </header>
+  <ol class="ladder">
+    <li><b>Live alert</b> not there after 12 s → “It is on its way.”</li>
+    <li><b>Telegram Web</b> window (if set up): look for 5 s.</li>
+    <li><b>Mock mode</b> on, press again: “the alert is simulated, not sent.”</li>
+    <li>Page dead → <b>clickable screen 6</b>: “this is what the product sends.”</li>
+    <li>Laptop dead → <b>backup video</b>: “this is the recorded run.”</li>
+  </ol>
+  <div class="rules">Projector fails: keep talking from the cards, point at the poster, turn the laptop to the investors. Laptop fails: spare laptop + USB stick, or video on a phone.</div>
+</section>
+<section class="card overview">
+  <header>
+    <div class="beatno big">E</div>
+    <div class="head">
+      <div class="title">Speaker E: Scam Check demo and the ask</div>
+      <div class="meta">Beats 7, 13 · about 1:48 of speaking</div>
+    </div>
+  </header>
+  <table class="order">
+    <tr><th>Beat</th><th>Clock</th><th>What</th><th>Then</th></tr>
+    <tr><td class="b">7</td><td>3:38 – 4:35</td><td>Layer 2 demo: Scam Check</td><td>Hand to F</td></tr><tr><td class="b">13<small> 1 of 3</small></td><td>8:14 – 9:14</td><td>The ask</td><td>Turn card → use of funds</td></tr><tr><td class="b">13<small> 2 of 3</small></td><td>8:14 – 9:14</td><td>Use of funds</td><td>Turn card → milestones</td></tr><tr><td class="b">13<small> 3 of 3</small></td><td>8:14 – 9:14</td><td>Three milestones</td><td>Hand to A</td></tr>
+  </table>
+  <div class="rules">Cues, not prose: use your own words, but say every number and level name exactly. Levels: <b>High risk · Check with family · No warning signs found</b>. Never “safe”. Price and terms questions → PO.</div>
+  <div class="draft">Draft prepared with AI assistance for the scrum master; to be reviewed and edited by the team. From pitch-script.md, 6 Nov 2026.</div>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">7</div>
+    <div class="head">
+      <div class="title">Layer 2 demo: Scam Check</div>
+      <div class="meta">Speaker E · <span class="win">3:38 – 4:35</span> · 0:48 + 10 s</div>
+    </div>
+    <div class="spk">E</div>
+  </header>
+  <div class="screen">Scam Check page. Paste message S04.</div>
+  <div class="body">
+    <ul class="keys"><li>Ah Ma not sure → shares it; “here I paste it”</li><li>Read: <b>High risk</b></li><li>Reasons: money · “don’t tell anyone” · new number · urgent</li><li>Never “safe”</li><li>Demo = simplified word rules; product = trained model on the phone, message never leaves it</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">High risk · Check with family · No warning signs found</div><div class="num">“15 out of 15 on a 15-message test set our team wrote with AI assistance; real-world accuracy is not yet measured.”</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Hand to F →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">13</div>
+    <div class="head">
+      <div class="title">The ask <span class="part">(1 of 3)</span></div>
+      <div class="meta">Speaker E · <span class="win">8:14 – 9:14</span> · 1:00 (all 3 cards)</div>
+    </div>
+    <div class="spk">E</div>
+  </header>
+  <div class="screen">Poster zone 7 + timeline strip.</div>
+  <div class="body">
+    <ul class="keys"><li>Open: “We are asking for S$500,000 for twelve months, and here is what it buys.”</li><li>It covers our budget plus a small buffer</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">S$500,000 for twelve months</div><div class="num">S$491,534 of budget</div></div>
+  </div>
+  <footer>
+    <span class="warn">No equity %, no valuation, no instrument. If asked → PO.</span>
+    <span class="next">Turn card → use of funds →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">13</div>
+    <div class="head">
+      <div class="title">Use of funds <span class="part">(2 of 3)</span></div>
+      <div class="meta">Speaker E · <span class="win">8:14 – 9:14</span> · 1:00 (all 3 cards)</div>
+    </div>
+    <div class="spk">E</div>
+  </header>
+  <div class="screen">Poster zone 7.</div>
+  <div class="body">
+    <ul class="keys"><li>About <b>61%</b> pays our team: two Android engineers + one machine-learning engineer</li><li><b>9%</b> design and co-design with seniors</li><li><b>6%</b> language and voice data · <b>6%</b> the pilot</li><li><b>5%</b> security and privacy review</li><li><b>9%</b> contingency · <b>3%</b> infrastructure and buffer</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">61 · 9 · 6 · 6 · 5 · 9 · 3 (%)</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Turn card → milestones →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">13</div>
+    <div class="head">
+      <div class="title">Three milestones <span class="part">(3 of 3)</span></div>
+      <div class="meta">Speaker E · <span class="win">8:14 – 9:14</span> · 1:00 (all 3 cards)</div>
+    </div>
+    <div class="spk">E</div>
+  </header>
+  <div class="screen">Timeline strip.</div>
+  <div class="body">
+    <ul class="keys"><li>About month 4: pilot-ready Android app</li><li>Months 4 to 10: pilot through community centres</li><li>Month 12: results against our gate: catch rate, false alarms, “couldn’t check” rate</li><li>Vendor-quote line (cut first if over time)</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">200 households</div><div class="num">about 12% of the budget still rests on vendor quotes</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Hand to A →</span>
+  </footer>
+</section>
+<section class="card overview" data-for="E">
+  <header>
+    <div class="beatno">!</div>
+    <div class="head">
+      <div class="title">Fallback ladder (beat 6 and any demo)</div>
+      <div class="meta">Max 20 seconds per step · always say which one you use</div>
+    </div>
+  </header>
+  <ol class="ladder">
+    <li><b>Live alert</b> not there after 12 s → “It is on its way.”</li>
+    <li><b>Telegram Web</b> window (if set up): look for 5 s.</li>
+    <li><b>Mock mode</b> on, press again: “the alert is simulated, not sent.”</li>
+    <li>Page dead → <b>clickable screen 6</b>: “this is what the product sends.”</li>
+    <li>Laptop dead → <b>backup video</b>: “this is the recorded run.”</li>
+  </ol>
+  <div class="rules">Projector fails: keep talking from the cards, point at the poster, turn the laptop to the investors. Laptop fails: spare laptop + USB stick, or video on a phone.</div>
+</section>
+<section class="card overview">
+  <header>
+    <div class="beatno big">F</div>
+    <div class="head">
+      <div class="title">Speaker F: Phone, Pause & Verify, drills, revenue</div>
+      <div class="meta">Beats 6 (one line), 8, 12 · about 1:28 of speaking</div>
+    </div>
+  </header>
+  <table class="order">
+    <tr><th>Beat</th><th>Clock</th><th>What</th><th>Then</th></tr>
+    <tr><td class="b">6</td><td>about 3:15 in beat 6</td><td>Your line in the alert demo</td><td>Back to D</td></tr><tr><td class="b">8<small> 1 of 2</small></td><td>4:35 – 5:28</td><td>Pause & Verify</td><td>Turn card</td></tr><tr><td class="b">8<small> 2 of 2</small></td><td>4:35 – 5:28</td><td>Family Drill</td><td>Hand to D (beat 9)</td></tr><tr><td class="b">12</td><td>7:39 – 8:14</td><td>How we earn</td><td>Hand to E: “We are asking for S$500,000.”</td></tr>
+  </table>
+  <div class="rules">Cues, not prose: use your own words, but say every number and level name exactly. Levels: <b>High risk · Check with family · No warning signs found</b>. Never “safe”. Price and terms questions → PO.</div>
+  <div class="draft">Draft prepared with AI assistance for the scrum master; to be reviewed and edited by the team. From pitch-script.md, 6 Nov 2026.</div>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">6</div>
+    <div class="head">
+      <div class="title">Your line in the alert demo</div>
+      <div class="meta">Speaker F · <span class="win">about 3:15 in beat 6</span> · about 10 s</div>
+    </div>
+    <div class="spk">F</div>
+  </header>
+  <div class="screen">Live: hold the guardian phone up. Mock: read from the laptop page.</div>
+  <div class="body">
+    <ul class="keys"><li>Wait for D to press the button and stop</li><li>Read aloud:</li><li>“An unknown number rang Mum. She can still answer, and Marcus should call her before any money moves.”</li><li>Mock mode: read from “What Marcus receives”</li></ul>
+    
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Back to D →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">8</div>
+    <div class="head">
+      <div class="title">Pause & Verify <span class="part">(1 of 2)</span></div>
+      <div class="meta">Speaker F · <span class="win">4:35 – 5:28</span> · 0:45 + 8 s (both cards)</div>
+    </div>
+    <div class="spk">F</div>
+  </header>
+  <div class="screen">Clickable screens: press key 2.</div>
+  <div class="body">
+    <ul class="keys"><li>One button: “Is this really them?”</li><li>Asks 3 questions aloud: money? urgent or secret? new number?</li><li>Answer No, No, Yes</li><li>Any yes → one big button: <b>Call Marcus now</b></li><li>Dials his saved number, <b>never the caller’s</b></li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">3 questions</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Turn card →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">8</div>
+    <div class="head">
+      <div class="title">Family Drill <span class="part">(2 of 2)</span></div>
+      <div class="meta">Speaker F · <span class="win">4:35 – 5:28</span> · 0:45 + 8 s (both cards)</div>
+    </div>
+    <div class="spk">F</div>
+  </header>
+  <div class="screen">Clickable screens: press keys 4, then 5.</div>
+  <div class="body">
+    <ul class="keys"><li>Practice scam calls, clearly marked not real</li><li>Debrief praises the pause</li><li>Marcus sees alerts + drill progress, <b>never Ah Ma’s screen</b></li><li>One job per screen, at most two big choices</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">4 languages: English, Mandarin, Malay, Tamil</div></div>
+  </div>
+  <footer>
+    <span></span>
+    <span class="next">Hand to D (beat 9) →</span>
+  </footer>
+</section>
+<section class="card">
+  <header>
+    <div class="beatno">12</div>
+    <div class="head">
+      <div class="title">How we earn</div>
+      <div class="meta">Speaker F · <span class="win">7:39 – 8:14</span> · 0:35</div>
+    </div>
+    <div class="spk">F</div>
+  </header>
+  <div class="screen">Poster zone 7 (revenue line).</div>
+  <div class="body">
+    <ul class="keys"><li>Family plan: adult child pays; alerts, drills, dashboard</li><li>Family feels the pain today; no partner has to sign first</li><li>Not yet tested if families pay: <b>pilot uses vouchers</b></li><li>Covers our average monthly spend → scale matters</li><li>Bank and telco fees later; none signed</li></ul>
+    <div class="exact"><div class="lbl">SAY EXACTLY</div><div class="num">S$8 a month per parent</div><div class="num">about 5,100 paying households</div></div>
+  </div>
+  <footer>
+    <span class="warn">No other price. Never “we will have 5,100 customers”.</span>
+    <span class="next">Hand to E: “We are asking for S$500,000.” →</span>
+  </footer>
+</section>
+<section class="card overview" data-for="F">
+  <header>
+    <div class="beatno">!</div>
+    <div class="head">
+      <div class="title">Fallback ladder (beat 6 and any demo)</div>
+      <div class="meta">Max 20 seconds per step · always say which one you use</div>
+    </div>
+  </header>
+  <ol class="ladder">
+    <li><b>Live alert</b> not there after 12 s → “It is on its way.”</li>
+    <li><b>Telegram Web</b> window (if set up): look for 5 s.</li>
+    <li><b>Mock mode</b> on, press again: “the alert is simulated, not sent.”</li>
+    <li>Page dead → <b>clickable screen 6</b>: “this is what the product sends.”</li>
+    <li>Laptop dead → <b>backup video</b>: “this is the recorded run.”</li>
+  </ol>
+  <div class="rules">Projector fails: keep talking from the cards, point at the poster, turn the laptop to the investors. Laptop fails: spare laptop + USB stick, or video on a phone.</div>
+</section>
+</body>
+</html>
