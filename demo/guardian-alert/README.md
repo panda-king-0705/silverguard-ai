@@ -93,3 +93,18 @@ The course rule is that phones may be used during the pitch only with instructor
 - Mock mode simulates the delay. It does not measure real delivery.
 - The demo sends the alert from the browser with a Telegram bot. The product design uses WhatsApp utility messages from the backend, with SMS as the fallback.
 - The real phone-side silencing uses Android's call-screening role, which this web page does not show.
+
+## Live test from Node (added 6 Nov 2026)
+
+`send-alert.js` sends the same alert from Node, so the live test doesn't depend on Telegram accepting browser calls from a page opened from disk. It's also the fallback if the browser's live mode fails on the day.
+
+1. In Telegram, message **@BotFather**, send `/newbot`, and pick a name and a username ending in `bot`. Copy the token it gives you. Never paste it into a file in this repo.
+2. From the guardian's Telegram account (the team demo account), open your bot and send it any message, for example "hi".
+3. In a terminal, from `demo/guardian-alert`:
+   - macOS/Linux: `export TELEGRAM_BOT_TOKEN='<token>'`
+   - Windows PowerShell: `$env:TELEGRAM_BOT_TOKEN='<token>'`
+4. Run `node send-alert.js --find-chat` and copy the chat ID it prints.
+5. Set `TELEGRAM_CHAT_ID` the same way, then run `node send-alert.js --times 5`.
+6. It passes when it prints `5/5 under 10 s. PASS` **and** all five messages appeared on the phone. Record the times in the table above.
+
+On pitch day, `node send-alert.js` sends one alert. Run it if the browser's live button fails.
