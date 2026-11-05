@@ -5,7 +5,7 @@
 | | |
 | --- | --- |
 | Sprint | Sprint 3 (Release + Pitch) |
-| Dates | Fri 6 Nov 2026 to the team's Week 13 pitch (exact slot **to confirm**; this plan assumes Mon 9 Nov, the earliest possible day) |
+| Dates | Fri 6 Nov 2026 to the team's Week 13 pitch (pitch on **Thu 12 Nov**, decision 30) |
 | Release | Poster PDF due Sun 8 Nov (owned by a teammate, decision 22); pitch in the Week 13 tutorial |
 | Sprint goal | **A 10-minute investor pitch that cannot fail: tight script, failure-proof demo with a backup video, rehearsed Q&A.** |
 | Board | GitHub issues, milestones "Sprint 2", "Release" and "Week 13 and after" ([all open issues](https://github.com/panda-king-0705/silverguard-ai/issues)) |
@@ -127,15 +127,15 @@ The AI cannot and must not do these:
 
 | Risk | Likelihood | Impact | Mitigation | Owner |
 | --- | --- | --- | --- | --- |
-| Live alert never set up, or fails 5/5 | High (decision 26: no bot yet) | Medium now (mock exists) | Go or no-go at Sun 8 Nov, 6 pm; mock mode rehearsed as the default; fallback ladder in the rehearsal kit; say "this is the recorded run" if the video is used | Dev 2 |
-| Backup video not recorded by Sun 8 Nov | Medium | High (the last rung of the ladder) | Record on Sat 7 after rehearsal 1; shot list already in `PITCH-DEMO.md` section 3; PO signs off on Sun | Dev 1, PO |
+| Live alert never set up, or fails 5/5 | High (decision 26: no bot yet) | Medium now (mock exists) | Go or no-go at Wed 11 Nov, 6 pm; mock mode rehearsed as the default; fallback ladder in the rehearsal kit; say "this is the recorded run" if the video is used | Dev 2 |
+| Backup video not checked on the pitch laptop | Medium | High (the last rung of the ladder) | Already recorded: `demo/pitch-demo/backup-video.mp4` (83 s); team watches it on the pitch laptop and signs off by Wed 11 Nov | Dev 1, PO |
 | Script, deck and poster disagree on a number (price, S$500,000, the four headline figures) | Medium | High (investors notice) | One source: the script's "Numbers and sources" table; cue cards print the exact numbers; AI deck review checks them; the poster owner flags any change | PO |
 | Seed-terms or price questions answered off the cuff (equity %, valuation, "will people pay S$8?") | High | Medium | Q&A drill fires these at the PO first; answer stays on decisions 24 and 25: terms agreed with the lead investor after the pilot plan is reviewed; the pilot uses vouchers so it does not test price | PO |
 | Pitch runs over 10 minutes | Medium | High | Stopwatch sheet per beat; agreed cut order; run 2 must finish by 9:45 | SM |
 | Bot token shown on the projector or committed | Low | High | Type the token before the audience arrives; never on a slide or in a video; `check-secrets.js` before every commit; revoke at once if seen | Dev 2 |
 | Weekend availability lower than planned | Medium | Medium | Confirm hours at planning; rehearsal times fixed on Fri; cut C1 first | SM |
 | AI drafts presented without real ownership (Q&A answers read out as written) | Medium | High (graded process) | Owners rewrite answers; V4 rows for every Sprint 3 AI draft; overrides logged | SM |
-| Pitch slot is later than Mon 9 Nov, and the team loses momentum | Low | Low | One short re-run the day before the real slot | SM |
+| Six days between rehearsal 1 and the pitch: the team loses momentum | Medium | Low | Rehearsals spread over Sat–Wed; dress rehearsal the day before | SM |
 
 ## Definition of Done
 
@@ -157,9 +157,11 @@ Same as Sprint 2, with three pitch items added. An item is done when:
 | Date | Event |
 | --- | --- |
 | Fri 6 Nov | Sprint 2 review and retro, then Sprint 3 planning (30 min): names for Speaker 1, Speaker 2 and Helpers L, P, S on the cards (decision 29), poster and deck owners, weekend hours, board tidy-up. Dev 2 starts the bot set-up. Q&A owners start rewriting |
-| Sat 7 Nov | **Rehearsals.** Morning: rehearsal 1 (full timed run, scripts allowed). Noon: deck uploaded for AI review. Afternoon: rehearsal 2 (full timed run with deck and demo, no scripts, one planned fallback) and the Q&A drill (round 1). Record the backup video after rehearsal 2 |
-| Sun 8 Nov | **Poster PDF due** (poster owner submits; SM confirms the upload). Rehearsal 3: full timed run plus mock-investor Q&A (drill round 2). **6 pm: live-alert go or no-go.** Backup video signed off and copied to three places |
-| Pitch day (Mon 9 Nov at the earliest; slot to confirm) | Pre-flight checklist 30 min before; pitch; post-pitch retro the same day (questions in the rehearsal kit) |
+| Sat 7 Nov | **Rehearsal 1** (full timed run, scripts allowed). Deck uploaded for AI review by the evening. Bot set-up and the 5/5 test (button and, on the Android senior phone, the automatic alert from decision 27) |
+| Sun 8 Nov | **Poster PDF due** (poster owner submits; SM confirms the upload). Rehearsal 2: full timed run with deck and demo, no scripts, one planned fallback; Q&A drill round 1 |
+| Mon 9 – Tue 10 Nov | Deck fixes from the AI review. Rehearsal 3: full run plus mock-investor Q&A (drill round 2). Test the automatic alert again on the network you will use on the day |
+| Wed 11 Nov | **Dress rehearsal** on the pitch laptop and, if possible, the room's projector. **6 pm: live-alert go or no-go** (automatic real call, button, or mock + backup video). Backup video copied to three places |
+| **Thu 12 Nov** | **Pitch** (Week 13 tutorial, decision 30). Pre-flight checklist 30 min before; pitch; post-pitch retro the same day (questions in the rehearsal kit) |
 | After the pitch | C2 peer evaluation and C3 individual reflection (each human writes their own); close the remaining issues; final V4 rows |
 
 The rehearsal kit (stopwatch sheet, pre-flight checklist, fallback decision tree, Q&A drill, retro questions) is in [rehearsal-kit.md](rehearsal-kit.md), and printable cue cards are in [cue-cards/](cue-cards/). Stand-up and retro formats are in [standup-and-retro.md](standup-and-retro.md).

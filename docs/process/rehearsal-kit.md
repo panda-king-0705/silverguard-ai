@@ -2,7 +2,7 @@
 
 # Rehearsal kit (R3, issue #23)
 
-For Sprint 3 rehearsals on Sat 7 and Sun 8 Nov and for pitch day (Mon 9 Nov at the earliest; slot to confirm). It goes with the [Sprint 3 plan](sprint-3-plan.md). The beat timings come from the [pitch script](../pitch/pitch-script.md) as updated on 6 Nov (1288 words, 9:12 spoken, 9:42 with demo actions). **If the script changes again, update the targets here and reprint the cue cards.**
+For Sprint 3 rehearsals (Sat 7 to Wed 11 Nov) and for pitch day, Thu 12 Nov (decision 30). It goes with the [Sprint 3 plan](sprint-3-plan.md). The beat timings come from the [pitch script](../pitch/pitch-script.md) as updated on 6 Nov (1288 words, 9:12 spoken, 9:42 with demo actions). **If the script changes again, update the targets here and reprint the cue cards.**
 
 Contents: [stopwatch sheet](#1-stopwatch-sheet) · [pre-flight checklist](#2-pre-flight-checklist-30-minutes-before) · [fallback decision tree](#3-fallback-decision-tree) · [Q&A drill](#4-qa-drill) · [retro after the pitch](#5-retro-after-the-pitch) · [printable cue cards](cue-cards/cue-cards.pdf)
 
@@ -86,7 +86,7 @@ Owner: the SM reads it out; the named role ticks. Do the same list before each r
 
 - [ ] Deck open in presenter mode; the PDF export on the desktop as a fallback.
 - [ ] Clickable screens (`design/clickable-screens/index.html`), English, "Fit phone to window", on screen 1.
-- [ ] Combined demo page (`demo/pitch-demo/index.html`, decision 28) in its own window. **Mock mode on** (blue banner "MOCK MODE: nothing is sent") unless the live go decision was made on Sun 8 Nov.
+- [ ] Combined demo page (`demo/pitch-demo/index.html`, decision 28) in its own window. **Mock mode on** (blue banner "MOCK MODE: nothing is sent") unless the live go decision was made on Wed 11 Nov.
 - [ ] Scam Check panel on the same combined page, empty, zoom 125% or more. If the automatic real-call alert passed (decision 27), **Helper S**: senior phone and scammer phone ready, MacroDroid macros on, scammer number not saved in the senior phone, Helper S knows the cue ("Our teammate is calling her now"). Message S04 in a plain text file on the desktop and on the clipboard.
 - [ ] Backup video on the laptop desktop, on the USB stick, and on a phone. Helper L plays it and knows where it is.
 - [ ] Helper L has the helper card and knows the cue words: "We press Simulate unknown call" (beat 6), "here we paste it" (beat 7), and Speaker 2's questions in beat 8.
