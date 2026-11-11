@@ -11,4 +11,4 @@ Both were decoded back with OpenCV to confirm the link.
 
 **One-time setup (repo owner):** GitHub → repository Settings → Pages → Source "Deploy from a branch", branch `main`, folder `/ (root)` → Save. The page is live a minute or two later. The empty `.nojekyll` file makes GitHub serve the files as they are.
 
-**After changing the prototype:** edit `design/clickable-screens/index.html`, run `python3 design/clickable-screens/build_app.py design/clickable-screens/index.html design/clickable-screens/app.html`, copy `app.html` to `app/index.html`, commit and push.
+**After changing the prototype:** edit `design/clickable-screens/index.html`, run `python3 design/clickable-screens/build_app.py design/clickable-screens/index.html design/clickable-screens/app.html`, copy `app.html` to `app/index.html` and to `index.html` at the repo root, commit and push.
