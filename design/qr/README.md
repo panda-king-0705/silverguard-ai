@@ -2,7 +2,7 @@
 
 > Prepared with AI assistance; to be reviewed by the team. 6 Nov 2026 (decision 31).
 
-`prototype-qr.png` (1184 × 1184 px, error correction M, quiet zone included) opens the clickable SilverGuard prototype:
+`try-silverguard-qr.png` is a ready-to-show card (title, "Scan with your phone camera", the code). `prototype-qr.png` (1036 × 1036 px, error correction M, quiet zone included) opens the phone version of the clickable SilverGuard prototype (`design/clickable-screens/app.html`), full-screen on each visitor's own phone:
 https://claude.ai/artifact/BKNfcqt1DHoLSzumZkx6YP
 
 It was decoded back with OpenCV to confirm the link.
