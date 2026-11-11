@@ -106,3 +106,7 @@ python3 checks/check_browser.py    # click-through flows, language toggle, sizes
 - [ ] Should "Hang up" in the drill also count as a good outcome? The draft praises both responses.
 - [ ] Use the real teammate's name instead of "Marcus" for the live demo?
 - [ ] Try the screens with 2–3 grandparents (V2) and note where they hesitate.
+
+## Phone version for the audience (added 11 Nov 2026)
+
+`app.html` is the same prototype as `index.html`, shown full-screen on a visitor's own phone: no presenter panel, a bottom bar to switch between **Mum's phone** and **Marcus's phone**, a language button (EN, 中文, BM, தமிழ்), a third home button for the practice call (Family Drill), and a short "Try SilverGuard" intro card. It is generated from `index.html` with `python3 build_app.py index.html app.html`; edit `index.html`, then rebuild. The QR code (`design/qr/`) opens the published copy of `app.html`. Checked on iPhone 13, iPhone SE and Pixel 7 sizes: no sideways scrolling, no console errors. The Chinese, Malay and Tamil strings are still AI drafts until a native speaker checks them.
